@@ -1,0 +1,4 @@
+# Pin nixpkgs so Coolify/Nixpacks uses Node 22.13+ (required by eslint-visitor-keys@5).
+# Without this, Nixpacks defaults to Node 22.11.x and the install fails.
+[phases.setup]
+nixpkgsArchive = "51ad838b03a05b1de6f9f2a0fffecee64a9788ee"
