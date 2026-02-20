@@ -1,14 +1,10 @@
 import path from "path";
 import type { NextConfig } from "next";
 
-// Turbopack needs absolute project root (where package.json and Next.js are resolved).
-const projectRoot = path.resolve(process.cwd());
-
 const nextConfig: NextConfig = {
   /* config options here */
-  // Turbopack configuration
   turbopack: {
-    root: projectRoot,
+    root: path.resolve(process.cwd()),
     rules: {
       "*.svg": {
         loaders: ["@svgr/webpack"],
