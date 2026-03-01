@@ -1,0 +1,8 @@
+# Pin nixpkgs so Coolify/Nixpacks uses Node 22.13+ (required by eslint-visitor-keys@5).
+# Without this, Nixpacks defaults to Node 22.11.x and the install fails.
+#
+# If you see: "cannot open SQLite database .../fetcher-cache-v3.sqlite: unable to open database file"
+# then Coolify's Nixpacks build environment cannot write to Nix's cache. Use the Dockerfile build pack
+# instead: in Coolify, set Build Pack to "Dockerfile" (this repo includes a Dockerfile).
+[phases.setup]
+nixpkgsArchive = "51ad838b03a05b1de6f9f2a0fffecee64a9788ee"
