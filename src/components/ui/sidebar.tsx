@@ -513,12 +513,15 @@ function SidebarMenuButton({
   const [mounted, setMounted] = React.useState(false)
   React.useEffect(() => setMounted(true), [])
 
+  const tooltipContentProps =
+    typeof tooltip === "string" ? { children: tooltip } : tooltip ?? {}
+
   const button = (
     <Comp
       data-slot="sidebar-menu-button"
       data-sidebar="menu-button"
       data-size={size}
-      data-active={isActive}
+      data-active={String(isActive)}
       className={cn(sidebarMenuButtonVariants({ variant, size }), className)}
       {...props}
     />
@@ -528,24 +531,14 @@ function SidebarMenuButton({
     return button
   }
 
-  if (!mounted) {
-    return button
-  }
-
-  if (typeof tooltip === "string") {
-    tooltip = {
-      children: tooltip,
-    }
-  }
-
   return (
     <Tooltip>
       <TooltipTrigger asChild>{button}</TooltipTrigger>
       <TooltipContent
         side="right"
         align="center"
-        hidden={state !== "collapsed" || isMobile}
-        {...tooltip}
+        hidden={!mounted || state !== "collapsed" || isMobile}
+        {...tooltipContentProps}
       />
     </Tooltip>
   )
