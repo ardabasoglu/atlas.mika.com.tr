@@ -44,9 +44,6 @@ function buildCrmBreadcrumbItems(pathname: string): CrmBreadcrumbItem[] {
           case "customers":
             label = "Müşteriler";
             break;
-          case "companies":
-            label = "Firmalar";
-            break;
           case "contacts":
             label = "Kişiler";
             break;

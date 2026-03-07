@@ -5,14 +5,12 @@ export type Lead = {
   email: string;
   phone?: string;
   position?: string;
-  companyName?: string;
   website?: string;
   industry?: string;
   source?: string;
   propertyInterest?: string;
   status: "new" | "qualified" | "converted" | "disqualified";
   convertedAt?: string;
-  convertedCompanyId?: string;
   convertedContactId?: string;
   createdAt: string;
   updatedAt: string;
@@ -23,24 +21,11 @@ export type Customer = {
   name: string;
   email: string;
   phone?: string;
-  company: string;
   status: "active" | "inactive" | "prospect";
   createdAt: string;
   updatedAt: string;
   address?: string;
   website?: string;
-};
-
-export type Company = {
-  id: string;
-  name: string;
-  industry?: string;
-  size?: string; // e.g., '1-10', '11-50', '51-200'
-  website?: string;
-  address?: string;
-  phone?: string;
-  createdAt: string;
-  updatedAt: string;
 };
 
 export type Contact = {
@@ -51,7 +36,6 @@ export type Contact = {
   phone?: string;
   position?: string;
   customerId: string;
-  companyId: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -71,7 +55,6 @@ export type Deal = {
   probability: number; // 0-100 percentage
   customerId: string;
   contactId: string;
-  companyId: string;
   closeDate?: string;
   createdAt: string;
   updatedAt: string;

@@ -6,7 +6,7 @@
  * - Unset or empty: all sidebar items and groups are shown.
  * - Set: comma-separated list of enabled feature keys. Only those are shown.
  *
- * Main nav keys: crm, leads, customers, companies, contacts, deals, activities,
+ * Main nav keys: crm, leads, customers, contacts, deals, activities,
  *   lifecycle, analytics, projects, team
  * Group: documents (Belgeler)
  */

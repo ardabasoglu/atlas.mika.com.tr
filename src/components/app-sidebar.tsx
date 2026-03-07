@@ -5,7 +5,6 @@ import Link from "next/link";
 import {
   IconActivity,
   IconAddressBook,
-  IconBuilding,
   IconBriefcase,
   IconCamera,
   IconChartBar,
@@ -64,12 +63,6 @@ const data = {
       url: "/crm/customers",
       icon: IconUserCircle,
       featureKey: "customers",
-    },
-    {
-      title: "Firmalar",
-      url: "/crm/companies",
-      icon: IconBuilding,
-      featureKey: "companies",
     },
     {
       title: "Kişiler",

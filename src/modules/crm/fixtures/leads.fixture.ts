@@ -1,11 +1,11 @@
 import { Lead } from "../types";
 
 const baseLeads = [
-  { firstName: "Ayşe", lastName: "Yılmaz", source: "website" as const, propertyInterest: "3+1 Daire", status: "new" as const, companyName: "Şirket A", website: "https://sirket-a.com", industry: "Teknoloji", position: "Yatırım Müdürü" },
+  { firstName: "Ayşe", lastName: "Yılmaz", source: "website" as const, propertyInterest: "3+1 Daire", status: "new" as const, website: "https://example.com", industry: "Teknoloji", position: "Yatırım Müdürü" },
   { firstName: "Mehmet", lastName: "Kaya", source: "referral" as const, propertyInterest: "Ofis katı", status: "qualified" as const },
   { firstName: "Zeynep", lastName: "Demir", source: "event" as const, propertyInterest: "Çoklu daire", status: "converted" as const },
   { firstName: "Can", lastName: "Öztürk", source: "social" as const, propertyInterest: "Villa", status: "disqualified" as const },
-  { firstName: "Elif", lastName: "Arslan", source: "campaign" as const, propertyInterest: "İş yeri", status: "new" as const, companyName: "Şirket B", website: "https://sirket-b.com", industry: "Finans" },
+  { firstName: "Elif", lastName: "Arslan", source: "campaign" as const, propertyInterest: "İş yeri", status: "new" as const, website: "https://example.com", industry: "Finans" },
   { firstName: "Burak", lastName: "Yıldız", source: "website" as const, propertyInterest: "Arsa", status: "qualified" as const },
   { firstName: "Selin", lastName: "Korkmaz", source: "referral" as const, propertyInterest: "3+1 Daire", status: "new" as const },
   { firstName: "Emre", lastName: "Çelik", source: "event" as const, propertyInterest: "Ofis katı", status: "qualified" as const, position: "Yatırım Müdürü" },
@@ -23,7 +23,6 @@ function buildLeads(): Lead[] {
     source: lead.source,
     propertyInterest: lead.propertyInterest,
     status: lead.status,
-    ...(lead.companyName && { companyName: lead.companyName }),
     ...(lead.website && { website: lead.website }),
     ...(lead.industry && { industry: lead.industry }),
     ...(lead.position && { position: lead.position }),

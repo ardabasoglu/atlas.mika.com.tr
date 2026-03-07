@@ -14,7 +14,6 @@ function buildCustomers(): Customer[] {
     name: customer.name,
     email: customer.email,
     phone: customer.phone,
-    company: customer.name,
     status: customer.status,
     address: customer.address,
     website: customer.website,

@@ -18,7 +18,7 @@ export function CustomerCard({ customer }: CustomerCardProps) {
     <Card>
       <CardHeader>
         <CardTitle>{customer.name}</CardTitle>
-        <CardDescription>{customer.company}</CardDescription>
+        <CardDescription>{customer.email}</CardDescription>
       </CardHeader>
       <CardContent>
         <div className="space-y-4">

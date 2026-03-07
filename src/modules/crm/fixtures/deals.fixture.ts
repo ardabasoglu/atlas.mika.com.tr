@@ -21,7 +21,6 @@ function buildDeals(): Deal[] {
     probability: deal.probability,
     customerId: String((index % 5) + 1),
     contactId: String((index % 5) + 1),
-    companyId: String((index % 5) + 1),
     closeDate: "2026-03-31",
     createdAt: "2026-01-20",
     updatedAt: "2026-02-10",

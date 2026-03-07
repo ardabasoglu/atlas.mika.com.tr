@@ -57,11 +57,6 @@ const columns: ColumnDef<Lead>[] = [
     header: "E-posta",
   },
   {
-    accessorKey: "companyName",
-    header: "Firma",
-    cell: ({ row }) => row.original.companyName ?? "-",
-  },
-  {
     accessorKey: "source",
     header: "Kaynak",
     cell: ({ row }) => row.original.source ?? "-",

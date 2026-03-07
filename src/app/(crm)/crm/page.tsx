@@ -8,7 +8,6 @@ import { OverviewChart } from "@/modules/crm/components/overview-chart";
 
 export default async function CRMDashboardPage() {
   const customers = await crmServices.getCustomers();
-  const companies = await crmServices.getCompanies();
   const deals = await crmServices.getDeals();
   const activities = await crmServices.getActivities();
 

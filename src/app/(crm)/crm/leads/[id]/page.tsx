@@ -99,18 +99,12 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
           </CardContent>
         </Card>
 
-        {lead.companyName && (
+        {(lead.website || lead.industry) && (
           <Card className="lg:col-span-2">
             <CardHeader>
-              <CardTitle>Firma bilgileri</CardTitle>
+              <CardTitle>Ek bilgiler</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div>
-                <h4 className="text-sm font-medium text-muted-foreground">
-                  Firma adı
-                </h4>
-                <p>{lead.companyName}</p>
-              </div>
               {lead.website && (
                 <div>
                   <h4 className="text-sm font-medium text-muted-foreground">

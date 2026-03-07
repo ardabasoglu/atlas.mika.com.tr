@@ -55,10 +55,6 @@ const columns: ColumnDef<Customer>[] = [
     header: "E-posta",
   },
   {
-    accessorKey: "company",
-    header: "Firma",
-  },
-  {
     accessorKey: "status",
     header: "Durum",
     cell: ({ row }) => (

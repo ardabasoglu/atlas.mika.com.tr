@@ -61,10 +61,6 @@ const columns: ColumnDef<Contact>[] = [
     cell: ({ row }) => row.original.position ?? "-",
   },
   {
-    accessorKey: "companyId",
-    header: "Firma",
-  },
-  {
     accessorKey: "phone",
     header: "Telefon",
     cell: ({ row }) => row.original.phone ?? "-",

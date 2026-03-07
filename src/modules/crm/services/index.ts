@@ -1,6 +1,5 @@
 import {
   Customer,
-  Company,
   Contact,
   Deal,
   Activity,
@@ -10,7 +9,6 @@ import {
 } from "../types";
 import {
   customers as customerFixtures,
-  companies as companyFixtures,
   contacts as contactFixtures,
   deals as dealFixtures,
   activities as activityFixtures,
@@ -39,22 +37,6 @@ export const crmServices = {
       setTimeout(() => {
         const customer = customerFixtures.find((c) => c.id === id);
         resolve(customer);
-      }, 200);
-    });
-  },
-
-  // Company services
-  getCompanies: (): Promise<Company[]> => {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(companyFixtures), 200);
-    });
-  },
-
-  getCompanyById: (id: string): Promise<Company | undefined> => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const company = companyFixtures.find((c) => c.id === id);
-        resolve(company);
       }, 200);
     });
   },
@@ -164,7 +146,6 @@ export const crmServices = {
     options?: { createDeal?: boolean }
   ): Promise<{
     contactId: string;
-    companyId: string;
     customerId: string;
     dealId?: string;
   }> => {
@@ -185,58 +166,18 @@ export const crmServices = {
         }
 
         const now = new Date().toISOString().slice(0, 10);
-
-        const companyId = lead.companyName
-          ? (() => {
-              const existing = companyFixtures.find(
-                (company) =>
-                  company.name.trim().toLowerCase() ===
-                  lead.companyName!.trim().toLowerCase()
-              );
-              if (existing) return existing.id;
-              const newId = nextId(companyFixtures);
-              const newCompany: Company = {
-                id: newId,
-                name: lead.companyName,
-                website: lead.website,
-                industry: lead.industry,
-                createdAt: now,
-                updatedAt: now,
-              };
-              companyFixtures.push(newCompany);
-              return newId;
-            })()
-          : (() => {
-              const newId = nextId(companyFixtures);
-              const placeholderName = `Bireysel - ${lead.firstName} ${lead.lastName}`;
-              companyFixtures.push({
-                id: newId,
-                name: placeholderName,
-                createdAt: now,
-                updatedAt: now,
-              });
-              return newId;
-            })();
-
-        const customerId = (() => {
-          const existing = customerFixtures.find(
-            (customer) => customer.id === companyId
-          );
-          if (existing) return existing.id;
-          const company = companyFixtures.find((company) => company.id === companyId)!;
-          const newCustomer: Customer = {
-            id: companyId,
-            name: company.name,
-            email: lead.email,
-            phone: lead.phone,
-            company: company.name,
-            status: "prospect",
-            createdAt: now,
-            updatedAt: now,
-          };
-          customerFixtures.push(newCustomer);
-          return companyId;
-        })();
+        const customerId = nextId(customerFixtures);
+        const customerName = `${lead.firstName} ${lead.lastName}`.trim();
+        const newCustomer: Customer = {
+          id: customerId,
+          name: customerName,
+          email: lead.email,
+          phone: lead.phone,
+          status: "prospect",
+          createdAt: now,
+          updatedAt: now,
+        };
+        customerFixtures.push(newCustomer);
 
         const contactId = nextId(contactFixtures);
         const newContact: Contact = {
@@ -247,7 +188,6 @@ export const crmServices = {
           phone: lead.phone,
           position: lead.position,
           customerId,
-          companyId,
           createdAt: now,
           updatedAt: now,
         };
@@ -267,7 +207,6 @@ export const crmServices = {
             probability: 10,
             customerId,
             contactId,
-            companyId,
             createdAt: now,
             updatedAt: now,
           });
@@ -275,13 +214,11 @@ export const crmServices = {
 
         lead.status = "converted";
         lead.convertedAt = now;
-        lead.convertedCompanyId = companyId;
         lead.convertedContactId = contactId;
         lead.updatedAt = now;
 
         resolve({
           contactId,
-          companyId,
           customerId,
           ...(dealId && { dealId }),
         });

@@ -62,8 +62,8 @@ export function ConvertLeadButton({ lead }: ConvertLeadButtonProps) {
         <SheetHeader>
           <SheetTitle>Adayı dönüştür</SheetTitle>
           <SheetDescription>
-            Bu aday için kişi (Contact) ve gerekiyorsa firma (Account)
-            oluşturulacak. İsterseniz bir fırsat (gayrimenkul) da ekleyebilirsiniz.
+            Bu aday için müşteri (Customer) ve kişi (Contact) oluşturulacak.
+            İsterseniz bir fırsat (gayrimenkul) da ekleyebilirsiniz.
           </SheetDescription>
         </SheetHeader>
         <div className="py-4 space-y-4">

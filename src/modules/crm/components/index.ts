@@ -10,7 +10,6 @@ export { TablePagination, TABLE_PAGE_SIZE } from "./table-pagination";
 // Entity tables
 export { LeadTable } from "./lead-table";
 export { CustomerTable } from "./customer-table";
-export { CompanyTable } from "./company-table";
 export { ContactTable } from "./contact-table";
 export { DealTable } from "./deal-table";
 export { ActivityTable } from "./activity-table";
