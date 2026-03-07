@@ -1,11 +1,11 @@
 # Use Node 22 LTS (matches engines ">=22.13.0")
 FROM node:22-alpine AS base
 
-# Install dependencies
+# Install dependencies (use Yarn 4 to match repo's yarn.lock Berry format)
 FROM base AS deps
 WORKDIR /app
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-RUN corepack enable && yarn install --frozen-lockfile
+COPY package.json yarn.lock* .yarnrc.yml* ./
+RUN corepack enable && corepack prepare yarn@4.13.0 --activate && yarn install --immutable
 
 # Build the application
 FROM base AS builder
