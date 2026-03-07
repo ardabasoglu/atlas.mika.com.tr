@@ -1,32 +1,25 @@
 import { Company } from "../types";
 
-const names = [
-  "Acme Şirketi",
-  "Globex Endüstrileri",
-  "Wayne İşletmeleri",
-  "Stark Endüstrileri",
-  "Ollivanders",
+const baseCompanies = [
+  { name: "Acme Şirketi", industry: "Teknoloji", size: "1-10", website: "https://acme.com", address: "100 İş Caddesi", phone: "+1-202-555-1000" },
+  { name: "Globex Endüstrileri", industry: "Üretim", size: "11-50", website: "https://globex.com", address: "101 İş Caddesi", phone: "+1-202-555-1001" },
+  { name: "Wayne İşletmeleri", industry: "Savunma", size: "51-200", website: "https://wayne.com", address: "102 İş Caddesi", phone: "+1-202-555-1002" },
+  { name: "Stark Endüstrileri", industry: "Perakende", size: "201-500", website: "https://stark.com", address: "103 İş Caddesi", phone: "+1-202-555-1003" },
+  { name: "Ollivanders", industry: "Finans", size: "501-1000", website: "https://ollivanders.com", address: "104 İş Caddesi", phone: "+1-202-555-1004" },
 ];
-const industries = ["Teknoloji", "Üretim", "Savunma", "Perakende", "Finans"];
-const sizes = ["1-10", "11-50", "51-200", "201-500", "501-1000", "1000+"];
 
 function buildCompanies(): Company[] {
-  const items: Company[] = [];
-  for (let index = 1; index <= 50; index++) {
-    const base = (index - 1) % names.length;
-    items.push({
-      id: String(index),
-      name: index <= names.length ? names[base] : `${names[base]} ${index}`,
-      industry: industries[(index - 1) % industries.length],
-      size: sizes[(index - 1) % sizes.length],
-      website: `https://company${index}.com`,
-      address: `${100 + index} İş Caddesi`,
-      phone: `+1-202-555-${String(1000 + index).slice(-4)}`,
-      createdAt: "2026-01-15",
-      updatedAt: "2026-02-10",
-    });
-  }
-  return items;
+  return baseCompanies.map((company, index) => ({
+    id: String(index + 1),
+    name: company.name,
+    industry: company.industry,
+    size: company.size,
+    website: company.website,
+    address: company.address,
+    phone: company.phone,
+    createdAt: "2026-01-15",
+    updatedAt: "2026-02-10",
+  }));
 }
 
 export const companies: Company[] = buildCompanies();

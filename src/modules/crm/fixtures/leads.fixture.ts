@@ -1,34 +1,35 @@
 import { Lead } from "../types";
 
-const firstNames = ["Ayşe", "Mehmet", "Zeynep", "Can", "Elif", "Burak", "Selin", "Emre", "Deniz", "Ceren"];
-const lastNames = ["Yılmaz", "Kaya", "Demir", "Öztürk", "Arslan", "Yıldız", "Korkmaz", "Çelik", "Aydın", "Şahin"];
-const sources = ["website", "referral", "event", "social", "campaign"];
-const interests = ["3+1 Daire", "Ofis katı", "Çoklu daire", "Villa", "İş yeri", "Arsa"];
-const statuses: Lead["status"][] = ["new", "qualified", "converted", "disqualified"];
+const baseLeads = [
+  { firstName: "Ayşe", lastName: "Yılmaz", source: "website" as const, propertyInterest: "3+1 Daire", status: "new" as const, companyName: "Şirket A", website: "https://sirket-a.com", industry: "Teknoloji", position: "Yatırım Müdürü" },
+  { firstName: "Mehmet", lastName: "Kaya", source: "referral" as const, propertyInterest: "Ofis katı", status: "qualified" as const },
+  { firstName: "Zeynep", lastName: "Demir", source: "event" as const, propertyInterest: "Çoklu daire", status: "converted" as const },
+  { firstName: "Can", lastName: "Öztürk", source: "social" as const, propertyInterest: "Villa", status: "disqualified" as const },
+  { firstName: "Elif", lastName: "Arslan", source: "campaign" as const, propertyInterest: "İş yeri", status: "new" as const, companyName: "Şirket B", website: "https://sirket-b.com", industry: "Finans" },
+  { firstName: "Burak", lastName: "Yıldız", source: "website" as const, propertyInterest: "Arsa", status: "qualified" as const },
+  { firstName: "Selin", lastName: "Korkmaz", source: "referral" as const, propertyInterest: "3+1 Daire", status: "new" as const },
+  { firstName: "Emre", lastName: "Çelik", source: "event" as const, propertyInterest: "Ofis katı", status: "qualified" as const, position: "Yatırım Müdürü" },
+  { firstName: "Deniz", lastName: "Aydın", source: "social" as const, propertyInterest: "Çoklu daire", status: "converted" as const },
+  { firstName: "Ceren", lastName: "Şahin", source: "campaign" as const, propertyInterest: "Villa", status: "disqualified" as const },
+];
 
 function buildLeads(): Lead[] {
-  const items: Lead[] = [];
-  for (let index = 1; index <= 50; index++) {
-    items.push({
-      id: String(index),
-      firstName: firstNames[(index - 1) % firstNames.length],
-      lastName: lastNames[(index - 1) % lastNames.length],
-      email: `lead${index}@example.com`,
-      phone: `+90-532-${String(100 + index).padStart(3, "0")}-${String(index).padStart(4, "0")}`,
-      source: sources[(index - 1) % sources.length],
-      propertyInterest: interests[(index - 1) % interests.length],
-      status: statuses[(index - 1) % statuses.length],
-      ...(index % 3 === 0 && {
-        companyName: `Şirket ${index}`,
-        website: `https://sirket${index}.com`,
-        industry: "Teknoloji",
-      }),
-      ...(index % 4 === 0 && { position: "Yatırım Müdürü" }),
-      createdAt: "2026-02-20",
-      updatedAt: "2026-02-20",
-    });
-  }
-  return items;
+  return baseLeads.map((lead, index) => ({
+    id: String(index + 1),
+    firstName: lead.firstName,
+    lastName: lead.lastName,
+    email: `lead${index + 1}@example.com`,
+    phone: `+90-532-${String(100 + index).padStart(3, "0")}-${String(index + 1).padStart(4, "0")}`,
+    source: lead.source,
+    propertyInterest: lead.propertyInterest,
+    status: lead.status,
+    ...(lead.companyName && { companyName: lead.companyName }),
+    ...(lead.website && { website: lead.website }),
+    ...(lead.industry && { industry: lead.industry }),
+    ...(lead.position && { position: lead.position }),
+    createdAt: "2026-02-20",
+    updatedAt: "2026-02-20",
+  }));
 }
 
 export const leads: Lead[] = buildLeads();
