@@ -1,13 +1,13 @@
 import { Company } from "../types";
 
 const names = [
-  "Acme Corporation",
-  "Globex Industries",
-  "Wayne Enterprises",
-  "Stark Industries",
+  "Acme Şirketi",
+  "Globex Endüstrileri",
+  "Wayne İşletmeleri",
+  "Stark Endüstrileri",
   "Ollivanders",
 ];
-const industries = ["Technology", "Manufacturing", "Defense", "Retail", "Finance"];
+const industries = ["Teknoloji", "Üretim", "Savunma", "Perakende", "Finans"];
 const sizes = ["1-10", "11-50", "51-200", "201-500", "501-1000", "1000+"];
 
 function buildCompanies(): Company[] {
@@ -20,7 +20,7 @@ function buildCompanies(): Company[] {
       industry: industries[(index - 1) % industries.length],
       size: sizes[(index - 1) % sizes.length],
       website: `https://company${index}.com`,
-      address: `${100 + index} Business Ave`,
+      address: `${100 + index} İş Caddesi`,
       phone: `+1-202-555-${String(1000 + index).slice(-4)}`,
       createdAt: "2026-01-15",
       updatedAt: "2026-02-10",

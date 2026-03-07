@@ -2,16 +2,16 @@ import { Activity } from "../types";
 
 const types: Activity["type"][] = ["call", "meeting", "email", "task", "note"];
 const subjects = [
-  "Initial Consultation",
-  "Proposal Presentation",
-  "Follow-up Questions",
-  "Prepare Demo",
-  "Contract Negotiation",
-  "Prospect Interest Level",
-  "Post-Sale Check-in",
-  "Technical Review",
-  "Kickoff Meeting",
-  "Status Update",
+  "İlk Danışma",
+  "Teklif Sunumu",
+  "Takip Soruları",
+  "Demo Hazırlığı",
+  "Sözleşme Müzakere",
+  "Müşteri İlgi Düzeyi",
+  "Satış Sonrası Görüşme",
+  "Teknik İnceleme",
+  "Başlangıç Toplantısı",
+  "Durum Güncellemesi",
 ];
 const assigned = ["sales-team", "tech-team", "legal-team", "account-management"];
 
@@ -26,7 +26,7 @@ function buildActivities(): Activity[] {
       id: String(index),
       type,
       subject: `${subjects[(index - 1) % subjects.length]} #${index}`,
-      description: `Activity ${index} description`,
+      description: `Aktivite ${index} açıklaması`,
       date,
       duration: type === "email" || type === "note" ? undefined : 30 + (index % 60),
       customerId: String((index % 5) + 1),

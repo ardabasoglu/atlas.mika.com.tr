@@ -19,9 +19,9 @@ function buildLeads(): Lead[] {
       propertyInterest: interests[(index - 1) % interests.length],
       status: statuses[(index - 1) % statuses.length],
       ...(index % 3 === 0 && {
-        companyName: `Company ${index}`,
-        website: `https://company${index}.com`,
-        industry: "Technology",
+        companyName: `Şirket ${index}`,
+        website: `https://sirket${index}.com`,
+        industry: "Teknoloji",
       }),
       ...(index % 4 === 0 && { position: "Yatırım Müdürü" }),
       createdAt: "2026-02-20",

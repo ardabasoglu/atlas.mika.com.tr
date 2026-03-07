@@ -1,11 +1,11 @@
 import { Customer } from "../types";
 
 const names = [
-  "Acme Corporation",
-  "Globex Industries",
-  "Wayne Enterprises",
-  "Stark Industries",
-  "Ollivander's Wand Shop",
+  "Acme Şirketi",
+  "Globex Endüstrileri",
+  "Wayne İşletmeleri",
+  "Stark Endüstrileri",
+  "Ollivander Asa Dükkânı",
 ];
 const statuses: Customer["status"][] = ["active", "inactive", "prospect"];
 
@@ -22,7 +22,7 @@ function buildCustomers(): Customer[] {
       status: statuses[(index - 1) % statuses.length],
       createdAt: "2026-01-15",
       updatedAt: "2026-02-10",
-      address: `${100 + index} Business Ave`,
+      address: `${100 + index} İş Caddesi`,
       website: `https://customer${index}.com`,
     });
   }

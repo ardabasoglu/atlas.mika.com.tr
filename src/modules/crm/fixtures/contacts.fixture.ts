@@ -1,8 +1,8 @@
 import { Contact } from "../types";
 
-const firstNames = ["John", "Jane", "Robert", "Emily", "Bruce", "Tony", "Hermione", "Alice", "Bob", "Carol"];
-const lastNames = ["Doe", "Smith", "Johnson", "Davis", "Wayne", "Stark", "Granger", "Brown", "Wilson", "Taylor"];
-const positions = ["CEO", "CTO", "Sales Director", "Marketing Manager", "CFO", "COO", "Manager", "Lead"];
+const firstNames = ["Mehmet", "Ayşe", "Ali", "Zeynep", "Can", "Elif", "Burak", "Selin", "Emre", "Deniz"];
+const lastNames = ["Yılmaz", "Kaya", "Demir", "Öztürk", "Arslan", "Yıldız", "Korkmaz", "Çelik", "Aydın", "Şahin"];
+const positions = ["Genel Müdür", "Teknoloji Müdürü", "Satış Müdürü", "Pazarlama Müdürü", "Finans Müdürü", "Operasyon Müdürü", "Müdür", "Takım Lideri"];
 
 function buildContacts(): Contact[] {
   const items: Contact[] = [];

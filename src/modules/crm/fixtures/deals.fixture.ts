@@ -1,14 +1,14 @@
 import { Deal } from "../types";
 
 const titles = [
-  "Enterprise Software License",
-  "Consulting Services Contract",
-  "Security System Upgrade",
-  "AI Research Partnership",
-  "Wand Customization Service",
-  "Cloud Migration",
-  "Support Agreement",
-  "Training Package",
+  "Kurumsal Yazılım Lisansı",
+  "Danışmanlık Hizmetleri Sözleşmesi",
+  "Güvenlik Sistemi Yükseltmesi",
+  "Yapay Zeka Araştırma Ortaklığı",
+  "Asa Özelleştirme Hizmeti",
+  "Bulut Geçişi",
+  "Destek Sözleşmesi",
+  "Eğitim Paketi",
 ];
 const stages: Deal["stage"][] = [
   "prospecting",
@@ -29,7 +29,7 @@ function buildDeals(): Deal[] {
       id: String(index),
       title: `${titles[(index - 1) % titles.length]} #${index}`,
       value: (index * 5000 + 10000) % 500000,
-      currency: "USD",
+      currency: "TRY",
       stage,
       probability,
       customerId: String((index % 5) + 1),
