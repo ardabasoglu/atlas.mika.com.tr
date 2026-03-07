@@ -159,8 +159,8 @@ export function OverviewChart() {
     return date >= startDate;
   });
 
-  const formatDate = (value: string) => {
-    return new Date(value).toLocaleDateString("tr-TR", {
+  const formatDate = (value: string | number | React.ReactNode) => {
+    return new Date(String(value)).toLocaleDateString("tr-TR", {
       month: "short",
       day: "numeric",
     });
