@@ -17,9 +17,9 @@ export function requireAuth(options: RequireAuthOptions = {}) {
       headers: new Headers(request.headers),
     });
     
-    // If no session exists, redirect to login
+    // If no session exists, redirect to home (auth pages removed)
     if (!session) {
-      const redirectTo = options.redirectTo || '/login';
+      const redirectTo = options.redirectTo || '/';
       return Response.redirect(new URL(redirectTo, request.url));
     }
 
