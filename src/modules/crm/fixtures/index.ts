@@ -1,7 +1,6 @@
-export { customers } from "./customers.fixture";
+export { persons } from "./persons.fixture";
 export { leads } from "./leads.fixture";
-export { contacts } from "./contacts.fixture";
 export { deals } from "./deals.fixture";
-export { activities } from "./activities.fixture";
+export { timelineEvents } from "./timeline-events.fixture";
 export { lifecycles } from "./lifecycles.fixture";
 export { teams } from "./teams.fixture";

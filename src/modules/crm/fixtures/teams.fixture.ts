@@ -13,11 +13,13 @@ const baseTeams = [
   { name: "Kaan Öz", role: "Teknik Destek", phone: "+90-530-1000010" },
 ];
 
+const TEAM_PREFIX = "team-";
+
 function buildTeams(): Team[] {
   return baseTeams.map((member, index) => {
     const slug = member.name.toLowerCase().replace(/\s+/g, ".");
     return {
-      id: String(index + 1),
+      id: `${TEAM_PREFIX}${index + 1}`,
       name: member.name,
       email: `${slug}@mika.com.tr`,
       role: member.role,

@@ -1,31 +1,46 @@
 import { Lead } from "../types";
 
-const baseLeads = [
-  { firstName: "Ayşe", lastName: "Yılmaz", source: "website" as const, propertyInterest: "3+1 Daire", status: "new" as const, website: "https://example.com", industry: "Teknoloji", position: "Yatırım Müdürü" },
-  { firstName: "Mehmet", lastName: "Kaya", source: "referral" as const, propertyInterest: "Ofis katı", status: "qualified" as const },
-  { firstName: "Zeynep", lastName: "Demir", source: "event" as const, propertyInterest: "Çoklu daire", status: "converted" as const },
-  { firstName: "Can", lastName: "Öztürk", source: "social" as const, propertyInterest: "Villa", status: "disqualified" as const },
-  { firstName: "Elif", lastName: "Arslan", source: "campaign" as const, propertyInterest: "İş yeri", status: "new" as const, website: "https://example.com", industry: "Finans" },
-  { firstName: "Burak", lastName: "Yıldız", source: "website" as const, propertyInterest: "Arsa", status: "qualified" as const },
-  { firstName: "Selin", lastName: "Korkmaz", source: "referral" as const, propertyInterest: "3+1 Daire", status: "new" as const },
-  { firstName: "Emre", lastName: "Çelik", source: "event" as const, propertyInterest: "Ofis katı", status: "qualified" as const, position: "Yatırım Müdürü" },
-  { firstName: "Deniz", lastName: "Aydın", source: "social" as const, propertyInterest: "Çoklu daire", status: "converted" as const },
-  { firstName: "Ceren", lastName: "Şahin", source: "campaign" as const, propertyInterest: "Villa", status: "disqualified" as const },
+/** Maps lead status to lifecycle id (lifecycle-1..6: İlk Temas, Niteliklendirme, Teklif, Müzakere, Kazanıldı, Kaybedildi). */
+const statusToLifecycleId: Record<Lead["status"], string> = {
+  new: "lifecycle-1",
+  contacted: "lifecycle-1",
+  qualified: "lifecycle-2",
+  converted: "lifecycle-5",
+  lost: "lifecycle-6",
+};
+
+const baseLeads: Array<{
+  name: string;
+  email: string;
+  phone: string;
+  source: string;
+  status: Lead["status"];
+  notes?: string;
+}> = [
+  { name: "Ayşe Yılmaz", email: "lead1@example.com", phone: "+90-532-100-0001", source: "website", status: "new", notes: "3+1 Daire ilgisi" },
+  { name: "Mehmet Kaya", email: "lead2@example.com", phone: "+90-532-100-0002", source: "referral", status: "qualified", notes: "Ofis katı" },
+  { name: "Zeynep Demir", email: "lead3@example.com", phone: "+90-532-100-0003", source: "event", status: "converted", notes: "Çoklu daire" },
+  { name: "Can Öztürk", email: "lead4@example.com", phone: "+90-532-100-0004", source: "social", status: "lost", notes: "Villa" },
+  { name: "Elif Arslan", email: "lead5@example.com", phone: "+90-532-100-0005", source: "campaign", status: "new", notes: "İş yeri" },
+  { name: "Burak Yıldız", email: "lead6@example.com", phone: "+90-532-100-0006", source: "website", status: "contacted", notes: "Arsa" },
+  { name: "Selin Korkmaz", email: "lead7@example.com", phone: "+90-532-100-0007", source: "referral", status: "new", notes: "3+1 Daire" },
+  { name: "Emre Çelik", email: "lead8@example.com", phone: "+90-532-100-0008", source: "event", status: "qualified", notes: "Ofis katı" },
+  { name: "Deniz Aydın", email: "lead9@example.com", phone: "+90-532-100-0009", source: "social", status: "converted" },
+  { name: "Ceren Şahin", email: "lead10@example.com", phone: "+90-532-100-0010", source: "campaign", status: "lost", notes: "Villa" },
 ];
+
+const LEAD_PREFIX = "lead-";
 
 function buildLeads(): Lead[] {
   return baseLeads.map((lead, index) => ({
-    id: String(index + 1),
-    firstName: lead.firstName,
-    lastName: lead.lastName,
-    email: `lead${index + 1}@example.com`,
-    phone: `+90-532-${String(100 + index).padStart(3, "0")}-${String(index + 1).padStart(4, "0")}`,
+    id: `${LEAD_PREFIX}${index + 1}`,
+    name: lead.name,
+    email: lead.email,
+    phone: lead.phone,
     source: lead.source,
-    propertyInterest: lead.propertyInterest,
     status: lead.status,
-    ...(lead.website && { website: lead.website }),
-    ...(lead.industry && { industry: lead.industry }),
-    ...(lead.position && { position: lead.position }),
+    lifecycleId: statusToLifecycleId[lead.status],
+    notes: lead.notes,
     createdAt: "2026-02-20",
     updatedAt: "2026-02-20",
   }));

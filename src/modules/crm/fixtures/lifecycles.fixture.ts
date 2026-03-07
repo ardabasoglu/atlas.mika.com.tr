@@ -9,9 +9,11 @@ const baseStages = [
   { name: "Kapatıldı - Kaybedildi", description: "Fırsat sonlandı", color: "#ef4444" },
 ];
 
+const LIFECYCLE_PREFIX = "lifecycle-";
+
 function buildLifecycles(): Lifecycle[] {
   return baseStages.map((stage, index) => ({
-    id: String(index + 1),
+    id: `${LIFECYCLE_PREFIX}${index + 1}`,
     name: stage.name,
     description: stage.description,
     order: index + 1,

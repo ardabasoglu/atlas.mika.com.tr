@@ -1,79 +1,72 @@
 export type Lead = {
   id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone?: string;
-  position?: string;
-  website?: string;
-  industry?: string;
-  source?: string;
-  propertyInterest?: string;
-  status: "new" | "qualified" | "converted" | "disqualified";
-  convertedAt?: string;
-  convertedContactId?: string;
-  createdAt: string;
-  updatedAt: string;
-};
-
-export type Customer = {
-  id: string;
   name: string;
-  email: string;
   phone?: string;
-  status: "active" | "inactive" | "prospect";
+  email: string;
+  source?: string;
+  status: "new" | "contacted" | "qualified" | "lost" | "converted";
+  /** Lifecycle stage id; when set, status is derived or kept in sync. */
+  lifecycleId?: string;
+  notes?: string;
   createdAt: string;
   updatedAt: string;
-  address?: string;
-  website?: string;
 };
 
-export type Contact = {
+export type Person = {
   id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
+  leadId?: string;
+  name: string;
   phone?: string;
-  position?: string;
-  customerId: string;
+  email: string;
+  notes?: string;
   createdAt: string;
   updatedAt: string;
 };
 
 export type Deal = {
   id: string;
+  personId: string;
+  unitId?: string;
   title: string;
   value: number;
-  currency: string;
+  /** ISO 4217 currency code (e.g. TRY). Omit for default. */
+  currency?: string;
   stage:
-    | "prospecting"
-    | "qualification"
-    | "proposal"
+    | "inquiry"
+    | "meeting"
+    | "offer"
     | "negotiation"
-    | "closed-won"
-    | "closed-lost";
-  probability: number; // 0-100 percentage
-  customerId: string;
-  contactId: string;
-  closeDate?: string;
+    | "won"
+    | "lost";
+  /** Lifecycle stage id; when set, stage is derived or kept in sync. */
+  lifecycleId?: string;
+  expectedCloseDate?: string;
   createdAt: string;
   updatedAt: string;
 };
 
-export type Activity = {
+export type TimelineEvent = {
   id: string;
-  type: "call" | "meeting" | "email" | "task" | "note";
-  subject: string;
+
+  entityType: "lead" | "person" | "deal";
+  entityId: string;
+
+  type:
+    | "note"
+    | "call"
+    | "meeting"
+    | "email"
+    | "status_change"
+    | "deal_created"
+    | "deal_stage_changed";
+
+  title?: string;
   description?: string;
-  date: string;
-  duration?: number; // in minutes
-  customerId: string;
-  contactId: string;
-  dealId?: string;
-  assignedTo: string;
-  completed: boolean;
+
+  metadata?: Record<string, unknown>;
+
+  createdBy?: string;
   createdAt: string;
-  updatedAt: string;
 };
 
 export type Lifecycle = {

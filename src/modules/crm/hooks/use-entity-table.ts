@@ -25,6 +25,7 @@ export interface UseEntityTableOptions<TData> {
   defaultPageSize?: number;
   enableRowSelection?: boolean;
   getRowId?: (row: TData, index: number, parent?: Row<TData>) => string;
+  meta?: Record<string, unknown>;
 }
 
 export interface UseEntityTableReturn<TData> {
@@ -41,6 +42,7 @@ export function useEntityTable<TData>({
   defaultPageSize = DEFAULT_PAGE_SIZE,
   enableRowSelection = true,
   getRowId,
+  meta,
 }: UseEntityTableOptions<TData>): UseEntityTableReturn<TData> {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -57,6 +59,7 @@ export function useEntityTable<TData>({
   const table = useReactTable({
     data,
     columns,
+    ...(meta !== undefined && { meta }),
     state: {
       sorting,
       columnVisibility,

@@ -1,58 +1,45 @@
 import {
-  Customer,
-  Contact,
   Deal,
-  Activity,
+  TimelineEvent,
   Lead,
   Lifecycle,
   Team,
+  Person,
 } from "../types";
 import {
-  customers as customerFixtures,
-  contacts as contactFixtures,
+  persons as personFixtures,
   deals as dealFixtures,
-  activities as activityFixtures,
+  timelineEvents as timelineEventFixtures,
   leads as leadFixtures,
   lifecycles as lifecycleFixtures,
   teams as teamFixtures,
 } from "../fixtures";
+import { projectServices } from "@/modules/project/services";
 
-function nextId(items: { id: string }[]): string {
+function nextId(items: { id: string }[], prefix: string): string {
   const numbers = items
-    .map((item) => parseInt(item.id, 10))
+    .map((item) => {
+      const match = item.id.match(new RegExp(`^${prefix}-(\\d+)$`));
+      return match ? parseInt(match[1], 10) : NaN;
+    })
     .filter((number) => !Number.isNaN(number));
-  return String((numbers.length ? Math.max(...numbers) : 0) + 1);
+  const next = numbers.length ? Math.max(...numbers) + 1 : 1;
+  return `${prefix}-${next}`;
 }
 
 export const crmServices = {
-  // Customer services
-  getCustomers: (): Promise<Customer[]> => {
+  // Person services
+  getPersons: (): Promise<Person[]> => {
     return new Promise((resolve) => {
-      setTimeout(() => resolve(customerFixtures), 200);
+      setTimeout(() => resolve([...personFixtures]), 200);
     });
   },
 
-  getCustomerById: (id: string): Promise<Customer | undefined> => {
+  getPersonById: (id: string): Promise<Person | undefined> => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const customer = customerFixtures.find((c) => c.id === id);
-        resolve(customer);
-      }, 200);
-    });
-  },
-
-  // Contact services
-  getContacts: (): Promise<Contact[]> => {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve(contactFixtures), 200);
-    });
-  },
-
-  getContactById: (id: string): Promise<Contact | undefined> => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const contact = contactFixtures.find((c) => c.id === id);
-        resolve(contact);
+        const person = personFixtures.find((personItem) => personItem.id === id);
+        resolve(person);
       }, 200);
     });
   },
@@ -60,7 +47,7 @@ export const crmServices = {
   // Deal services
   getDeals: (): Promise<Deal[]> => {
     return new Promise((resolve) => {
-      setTimeout(() => resolve(dealFixtures), 200);
+      setTimeout(() => resolve([...dealFixtures]), 200);
     });
   },
 
@@ -68,23 +55,138 @@ export const crmServices = {
     return new Promise((resolve) => {
       setTimeout(() => {
         const deal = dealFixtures.find((d) => d.id === id);
-        resolve(deal);
+        resolve(deal ? { ...deal } : undefined);
       }, 200);
     });
   },
 
-  // Activity services
-  getActivities: (): Promise<Activity[]> => {
+  getDealsByPersonId: (personId: string): Promise<Deal[]> => {
     return new Promise((resolve) => {
-      setTimeout(() => resolve(activityFixtures), 200);
+      setTimeout(() => {
+        const deals = dealFixtures.filter((deal) => deal.personId === personId);
+        resolve(deals.map((deal) => ({ ...deal })));
+      }, 200);
     });
   },
 
-  getActivityById: (id: string): Promise<Activity | undefined> => {
+  getDealWithUnit: async (
+    dealId: string
+  ): Promise<
+    | { deal: Deal; unit: { id: string; code: string; projectId: string }; project: { id: string; name: string } }
+    | undefined
+  > => {
+    const deal = dealFixtures.find((d) => d.id === dealId);
+    if (!deal || !deal.unitId) return undefined;
+    const unit = await projectServices.getUnitById(deal.unitId);
+    if (!unit) return undefined;
+    const project = await projectServices.getProjectById(unit.projectId);
+    if (!project) return undefined;
+    return {
+      deal: { ...deal },
+      unit: { id: unit.id, code: unit.code, projectId: unit.projectId },
+      project: { id: project.id, name: project.name },
+    };
+  },
+
+  updateDeal: (
+    dealId: string,
+    payload: {
+      title?: string;
+      value?: number;
+      stage?: Deal["stage"];
+      lifecycleId?: string | null;
+      personId?: string;
+      unitId?: string | null;
+      expectedCloseDate?: string | null;
+    }
+  ): Promise<Deal | undefined> => {
+    return new Promise((resolve, reject) => {
+      setTimeout(async () => {
+        const deal = dealFixtures.find((d) => d.id === dealId);
+        if (!deal) {
+          resolve(undefined);
+          return;
+        }
+        const previousUnitId = deal.unitId;
+        const previousStage = deal.stage;
+
+        if (payload.unitId !== undefined) {
+          if (payload.unitId) {
+            const unit = await projectServices.getUnitById(payload.unitId);
+            if (unit?.dealId && unit.dealId !== dealId) {
+              const otherDeal = dealFixtures.find((d) => d.id === unit.dealId);
+              if (otherDeal) {
+                otherDeal.unitId = undefined;
+                otherDeal.updatedAt = new Date().toISOString().slice(0, 10);
+                await projectServices.updateUnit(payload.unitId, {
+                  status: "available",
+                  dealId: null,
+                  personId: null,
+                });
+              }
+            }
+          }
+          deal.unitId = payload.unitId ?? undefined;
+        }
+
+        if (payload.title !== undefined) deal.title = payload.title;
+        if (payload.value !== undefined) deal.value = payload.value;
+        if (payload.lifecycleId !== undefined) {
+          deal.lifecycleId = payload.lifecycleId ?? undefined;
+          if (payload.lifecycleId) {
+            const lifecycle = lifecycleFixtures.find((lifecycleItem) => lifecycleItem.id === payload.lifecycleId);
+            if (lifecycle) {
+              const orderToStage: Record<number, Deal["stage"]> = {
+                1: "inquiry",
+                2: "meeting",
+                3: "offer",
+                4: "negotiation",
+                5: "won",
+                6: "lost",
+              };
+              deal.stage = orderToStage[lifecycle.order] ?? deal.stage;
+            }
+          }
+        }
+        if (payload.stage !== undefined) deal.stage = payload.stage;
+        if (payload.personId !== undefined) deal.personId = payload.personId;
+        if (payload.expectedCloseDate !== undefined) deal.expectedCloseDate = payload.expectedCloseDate ?? undefined;
+
+        const now = new Date().toISOString().slice(0, 10);
+        deal.updatedAt = now;
+
+        if (deal.stage === "won" && deal.unitId) {
+          await projectServices.updateUnit(deal.unitId, {
+            status: "sold",
+            dealId: deal.id,
+            personId: deal.personId,
+          });
+        }
+        if ((deal.stage === "lost" || payload.unitId === null) && previousUnitId) {
+          await projectServices.updateUnit(previousUnitId, {
+            status: "available",
+            dealId: null,
+            personId: null,
+          });
+        }
+
+        resolve({ ...deal });
+      }, 200);
+    });
+  },
+
+  // Timeline event services
+  getTimelineEvents: (): Promise<TimelineEvent[]> => {
+    return new Promise((resolve) => {
+      setTimeout(() => resolve([...timelineEventFixtures]), 200);
+    });
+  },
+
+  getTimelineEventById: (id: string): Promise<TimelineEvent | undefined> => {
     return new Promise((resolve) => {
       setTimeout(() => {
-        const activity = activityFixtures.find((a) => a.id === id);
-        resolve(activity);
+        const event = timelineEventFixtures.find((eventItem) => eventItem.id === id);
+        resolve(event);
       }, 200);
     });
   },
@@ -101,6 +203,44 @@ export const crmServices = {
       setTimeout(() => {
         const lead = leadFixtures.find((leadItem) => leadItem.id === id);
         resolve(lead);
+      }, 200);
+    });
+  },
+
+  updateLead: (
+    leadId: string,
+    payload: {
+      status?: Lead["status"];
+      lifecycleId?: string | null;
+    }
+  ): Promise<Lead | undefined> => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const lead = leadFixtures.find((leadItem) => leadItem.id === leadId);
+        if (!lead) {
+          resolve(undefined);
+          return;
+        }
+        if (payload.lifecycleId !== undefined) {
+          lead.lifecycleId = payload.lifecycleId ?? undefined;
+          if (payload.lifecycleId) {
+            const lifecycle = lifecycleFixtures.find((lifecycleItem) => lifecycleItem.id === payload.lifecycleId);
+            if (lifecycle) {
+              const orderToStatus: Record<number, Lead["status"]> = {
+                1: "new",
+                2: "qualified",
+                3: "qualified",
+                4: "qualified",
+                5: "converted",
+                6: "lost",
+              };
+              lead.status = orderToStatus[lifecycle.order] ?? lead.status;
+            }
+          }
+        }
+        if (payload.status !== undefined) lead.status = payload.status;
+        lead.updatedAt = new Date().toISOString().slice(0, 10);
+        resolve({ ...lead });
       }, 200);
     });
   },
@@ -145,8 +285,7 @@ export const crmServices = {
     leadId: string,
     options?: { createDeal?: boolean }
   ): Promise<{
-    contactId: string;
-    customerId: string;
+    personId: string;
     dealId?: string;
   }> => {
     return new Promise((resolve, reject) => {
@@ -156,7 +295,7 @@ export const crmServices = {
           reject(new Error("Lead not found"));
           return;
         }
-        if (lead.status === "converted" || lead.status === "disqualified") {
+        if (lead.status === "converted" || lead.status === "lost") {
           reject(
             new Error(
               `Lead cannot be converted: status is ${lead.status}`
@@ -166,60 +305,39 @@ export const crmServices = {
         }
 
         const now = new Date().toISOString().slice(0, 10);
-        const customerId = nextId(customerFixtures);
-        const customerName = `${lead.firstName} ${lead.lastName}`.trim();
-        const newCustomer: Customer = {
-          id: customerId,
-          name: customerName,
+        const personId = nextId(personFixtures, "person");
+        const newPerson: Person = {
+          id: personId,
+          leadId: lead.id,
+          name: lead.name,
           email: lead.email,
           phone: lead.phone,
-          status: "prospect",
+          notes: lead.notes,
           createdAt: now,
           updatedAt: now,
         };
-        customerFixtures.push(newCustomer);
-
-        const contactId = nextId(contactFixtures);
-        const newContact: Contact = {
-          id: contactId,
-          firstName: lead.firstName,
-          lastName: lead.lastName,
-          email: lead.email,
-          phone: lead.phone,
-          position: lead.position,
-          customerId,
-          createdAt: now,
-          updatedAt: now,
-        };
-        contactFixtures.push(newContact);
+        personFixtures.push(newPerson);
 
         let dealId: string | undefined;
         if (options?.createDeal) {
-          dealId = nextId(dealFixtures);
+          dealId = nextId(dealFixtures, "deal");
           dealFixtures.push({
             id: dealId,
-            title: lead.propertyInterest
-              ? `Fırsat - ${lead.propertyInterest}`
-              : "Yeni fırsat",
+            title: lead.notes ? `Fırsat - ${lead.notes}` : "Yeni fırsat",
             value: 0,
-            currency: "TRY",
-            stage: "prospecting",
-            probability: 10,
-            customerId,
-            contactId,
+            stage: "inquiry",
+            lifecycleId: "lifecycle-1",
+            personId,
             createdAt: now,
             updatedAt: now,
           });
         }
 
         lead.status = "converted";
-        lead.convertedAt = now;
-        lead.convertedContactId = contactId;
         lead.updatedAt = now;
 
         resolve({
-          contactId,
-          customerId,
+          personId,
           ...(dealId && { dealId }),
         });
       }, 200);
