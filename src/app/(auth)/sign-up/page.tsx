@@ -8,7 +8,6 @@ import Image from "next/image";
 import { Loader2, X } from "lucide-react";
 import { signUp } from "@/lib/auth-client";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { AuthLayout } from "@/components/auth-layout";
 
 export default function SignUp() {
@@ -19,7 +18,6 @@ export default function SignUp() {
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
   const [image, setImage] = useState<File | null>(null);
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -143,6 +141,8 @@ export default function SignUp() {
             className="w-full"
             disabled={loading}
             onClick={async () => {
+              setLoading(true);
+              // Auth is disabled for now – registration is a no-op
               await signUp.email({
                 email,
                 password,
@@ -150,21 +150,9 @@ export default function SignUp() {
                 image: image ? await convertImageToBase64(image) : "",
                 role: "MEMBER",
                 callbackURL: "/dashboard",
-                fetchOptions: {
-                  onResponse: () => {
-                    setLoading(false);
-                  },
-                  onRequest: () => {
-                    setLoading(true);
-                  },
-                  onError: (context) => {
-                    toast.error(context.error.message);
-                  },
-                  onSuccess: () => {
-                    router.push("/dashboard");
-                  },
-                },
               });
+              setLoading(false);
+              toast.info("Kayıt şu an devre dışı.");
             }}
           >
             {loading ? (
