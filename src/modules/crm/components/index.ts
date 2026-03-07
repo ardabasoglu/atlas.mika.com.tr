@@ -9,8 +9,7 @@ export { TablePagination, TABLE_PAGE_SIZE } from "./table-pagination";
 
 // Entity tables
 export { LeadTable } from "./lead-table";
-export { CustomerTable } from "./customer-table";
-export { ContactTable } from "./contact-table";
+export { PersonTable } from "./person-table";
 export { DealTable } from "./deal-table";
 export { ActivityTable } from "./activity-table";
 export { LifecycleTable } from "./lifecycle-table";
@@ -23,5 +22,5 @@ export { EmptyState } from "./common/empty-state";
 
 // Feature components
 export { ConvertLeadButton } from "./convert-lead-button";
-export { CustomerCard } from "./customer-card";
+export { PersonCard } from "./person-card";
 export { OverviewChart } from "./overview-chart";

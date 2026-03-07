@@ -1,10 +1,12 @@
 "use client";
 
+import * as React from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox";
 import { type ColumnDef } from "@tanstack/react-table";
-import { Deal } from "../types";
+import { Deal, Lifecycle } from "../types";
+import { formatMoney } from "@/lib/currency";
 import { DataTableShell } from "./data-table-shell";
 import { StatusBadge } from "./common/status-badge";
 import { EntityActionMenu } from "./common/entity-action-menu";
@@ -12,11 +14,17 @@ import { useEntityTable } from "../hooks";
 
 interface DealTableProps {
   deals: Deal[];
+  lifecycles?: Lifecycle[];
   /** Rendered in the table toolbar row (e.g. "Add" button), to the left of Sütunları Özelleştir */
   toolbar?: ReactNode;
 }
 
-const columns: ColumnDef<Deal>[] = [
+function buildColumns(lifecycles: Lifecycle[] | undefined): ColumnDef<Deal>[] {
+  const lifecycleById = lifecycles
+    ? new Map(lifecycles.map((lifecycle) => [lifecycle.id, lifecycle]))
+    : null;
+
+  return [
   {
     id: "select",
     header: ({ table }) => (
@@ -54,7 +62,7 @@ const columns: ColumnDef<Deal>[] = [
     accessorKey: "value",
     header: "Değer",
     cell: ({ row }) =>
-      `${row.original.currency === "USD" ? "$" : ""}${row.original.value.toLocaleString()}`,
+      formatMoney(row.original.value, row.original.currency),
   },
   {
     accessorKey: "stage",
@@ -64,23 +72,36 @@ const columns: ColumnDef<Deal>[] = [
     ),
   },
   {
-    accessorKey: "probability",
-    header: "Olasılık",
-    cell: ({ row }) => (
-      <div className="flex items-center gap-2">
-        <span>{row.original.probability}%</span>
-        <div className="bg-secondary h-2 w-16 rounded-full">
-          <div
-            className="bg-primary h-2 rounded-full"
-            style={{ width: `${row.original.probability}%` }}
-          />
-        </div>
-      </div>
-    ),
+    id: "lifecycle",
+    header: "Yaşam döngüsü",
+    cell: ({ row }) => {
+      const lifecycleId = row.original.lifecycleId;
+      if (!lifecycleId) return "-";
+      const lifecycle = lifecycleById?.get(lifecycleId);
+      return lifecycle ? lifecycle.name : lifecycleId;
+    },
   },
   {
-    accessorKey: "customerId",
-    header: "Müşteri",
+    accessorKey: "expectedCloseDate",
+    header: "Tahmini Kapanış",
+    cell: ({ row }) =>
+      row.original.expectedCloseDate
+        ? new Date(
+            row.original.expectedCloseDate,
+          ).toLocaleDateString()
+        : "-",
+  },
+  {
+    accessorKey: "personId",
+    header: "Kişi",
+    cell: ({ row }) => (
+      <Link
+        href={`/crm/persons/${row.original.personId}`}
+        className="text-primary hover:underline"
+      >
+        {row.original.personId}
+      </Link>
+    ),
   },
   {
     id: "actions",
@@ -94,8 +115,13 @@ const columns: ColumnDef<Deal>[] = [
     enableHiding: false,
   },
 ];
+}
 
-export function DealTable({ deals, toolbar }: DealTableProps) {
+export function DealTable({ deals, lifecycles, toolbar }: DealTableProps) {
+  const columns = React.useMemo(
+    () => buildColumns(lifecycles),
+    [lifecycles]
+  );
   const { table } = useEntityTable({
     data: deals,
     columns,

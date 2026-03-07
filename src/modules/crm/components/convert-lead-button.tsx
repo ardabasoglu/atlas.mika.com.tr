@@ -30,7 +30,7 @@ export function ConvertLeadButton({ lead }: ConvertLeadButtonProps) {
   const [error, setError] = useState<string | null>(null);
 
   const canConvert =
-    lead.status !== "converted" && lead.status !== "disqualified";
+    lead.status !== "converted" && lead.status !== "lost";
 
   async function handleConvert() {
     setError(null);
@@ -38,7 +38,7 @@ export function ConvertLeadButton({ lead }: ConvertLeadButtonProps) {
     try {
       const result = await crmServices.convertLead(lead.id, { createDeal });
       setOpen(false);
-      router.push(`/crm/contacts/${result.contactId}`);
+      router.push(`/crm/persons/${result.personId}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Dönüştürme başarısız");
     } finally {
@@ -62,8 +62,8 @@ export function ConvertLeadButton({ lead }: ConvertLeadButtonProps) {
         <SheetHeader>
           <SheetTitle>Adayı dönüştür</SheetTitle>
           <SheetDescription>
-            Bu aday için müşteri (Customer) ve kişi (Contact) oluşturulacak.
-            İsterseniz bir fırsat (gayrimenkul) da ekleyebilirsiniz.
+            Bu aday için kişi (Person) oluşturulacak. İsterseniz bir fırsat
+            (Deal) da ekleyebilirsiniz.
           </SheetDescription>
         </SheetHeader>
         <div className="py-4 space-y-4">

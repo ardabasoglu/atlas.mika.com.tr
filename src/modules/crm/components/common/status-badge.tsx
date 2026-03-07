@@ -5,7 +5,6 @@ import type { LucideIcon } from "lucide-react";
 import {
   CheckCircle,
   XCircle,
-  UserPlus,
   Sparkles,
   Target,
   UserSearch,
@@ -13,6 +12,7 @@ import {
   FileText,
   Handshake,
   Trophy,
+  Phone,
 } from "lucide-react";
 
 type BadgeProps = React.ComponentProps<"span"> &
@@ -20,9 +20,7 @@ type BadgeProps = React.ComponentProps<"span"> &
 
 type StatusType =
   | "lead"
-  | "customer"
   | "deal"
-  | "activity"
   | "generic";
 
 interface StatusConfig {
@@ -40,11 +38,23 @@ const statusConfigs: Record<StatusType, Record<string, StatusConfig>> = {
       icon: Sparkles,
       iconClassName: "text-muted-foreground",
     },
+    contacted: {
+      label: "İletişime Geçildi",
+      variant: "secondary",
+      icon: Phone,
+      iconClassName: "text-blue-600",
+    },
     qualified: {
       label: "Nitelikli",
       variant: "secondary",
       icon: Target,
       iconClassName: "text-blue-600",
+    },
+    lost: {
+      label: "Kaybedildi",
+      variant: "destructive",
+      icon: XCircle,
+      iconClassName: "text-destructive",
     },
     converted: {
       label: "Dönüştürüldü",
@@ -52,47 +62,21 @@ const statusConfigs: Record<StatusType, Record<string, StatusConfig>> = {
       icon: CheckCircle,
       iconClassName: "text-green-600",
     },
-    disqualified: {
-      label: "Elendi",
-      variant: "destructive",
-      icon: XCircle,
-      iconClassName: "text-destructive",
-    },
-  },
-  customer: {
-    active: {
-      label: "Aktif",
-      variant: "default",
-      icon: CheckCircle,
-      iconClassName: "text-green-600",
-    },
-    inactive: {
-      label: "Pasif",
-      variant: "destructive",
-      icon: XCircle,
-      iconClassName: "text-destructive",
-    },
-    prospect: {
-      label: "Potansiyel",
-      variant: "secondary",
-      icon: UserPlus,
-      iconClassName: "text-muted-foreground",
-    },
   },
   deal: {
-    prospecting: {
-      label: "Aday Müşteri",
+    inquiry: {
+      label: "Sorgulama",
       variant: "secondary",
       icon: UserSearch,
       iconClassName: "text-muted-foreground",
     },
-    qualification: {
-      label: "Nitelik",
+    meeting: {
+      label: "Toplantı",
       variant: "secondary",
       icon: ClipboardCheck,
       iconClassName: "text-blue-600",
     },
-    proposal: {
+    offer: {
       label: "Teklif",
       variant: "outline",
       icon: FileText,
@@ -104,22 +88,18 @@ const statusConfigs: Record<StatusType, Record<string, StatusConfig>> = {
       icon: Handshake,
       iconClassName: "text-amber-600",
     },
-    "closed-won": {
+    won: {
       label: "Kazanıldı",
       variant: "default",
       icon: Trophy,
       iconClassName: "text-green-600",
     },
-    "closed-lost": {
+    lost: {
       label: "Kaybedildi",
       variant: "destructive",
       icon: XCircle,
       iconClassName: "text-destructive",
     },
-  },
-  activity: {
-    completed: { label: "Tamamlandı", variant: "default" },
-    pending: { label: "Beklemede", variant: "secondary" },
   },
   generic: {},
 };

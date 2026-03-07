@@ -1,10 +1,11 @@
 "use client";
 
+import * as React from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { Checkbox } from "@/components/ui/checkbox";
 import { type ColumnDef } from "@tanstack/react-table";
-import { Lead } from "../types";
+import { Lead, Lifecycle } from "../types";
 import { DataTableShell } from "./data-table-shell";
 import { StatusBadge } from "./common/status-badge";
 import { EntityActionMenu } from "./common/entity-action-menu";
@@ -12,11 +13,17 @@ import { useEntityTable } from "../hooks";
 
 interface LeadTableProps {
   leads: Lead[];
+  lifecycles?: Lifecycle[];
   /** Rendered in the table toolbar row (e.g. "Add" button), to the left of Sütunları Özelleştir */
   toolbar?: ReactNode;
 }
 
-const columns: ColumnDef<Lead>[] = [
+function buildColumns(lifecycles: Lifecycle[] | undefined): ColumnDef<Lead>[] {
+  const lifecycleById = lifecycles
+    ? new Map(lifecycles.map((lifecycle) => [lifecycle.id, lifecycle]))
+    : null;
+
+  return [
   {
     id: "select",
     header: ({ table }) => (
@@ -44,12 +51,10 @@ const columns: ColumnDef<Lead>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "firstName",
+    accessorKey: "name",
     header: "Ad Soyad",
     cell: ({ row }) => (
-      <span className="font-medium">
-        {row.original.firstName} {row.original.lastName}
-      </span>
+      <span className="font-medium">{row.original.name}</span>
     ),
   },
   {
@@ -57,14 +62,14 @@ const columns: ColumnDef<Lead>[] = [
     header: "E-posta",
   },
   {
+    accessorKey: "phone",
+    header: "Telefon",
+    cell: ({ row }) => row.original.phone ?? "-",
+  },
+  {
     accessorKey: "source",
     header: "Kaynak",
     cell: ({ row }) => row.original.source ?? "-",
-  },
-  {
-    accessorKey: "propertyInterest",
-    header: "İlgi",
-    cell: ({ row }) => row.original.propertyInterest ?? "-",
   },
   {
     accessorKey: "status",
@@ -72,6 +77,16 @@ const columns: ColumnDef<Lead>[] = [
     cell: ({ row }) => (
       <StatusBadge status={row.original.status} type="lead" />
     ),
+  },
+  {
+    id: "lifecycle",
+    header: "Yaşam döngüsü",
+    cell: ({ row }) => {
+      const lifecycleId = row.original.lifecycleId;
+      if (!lifecycleId) return "-";
+      const lifecycle = lifecycleById?.get(lifecycleId);
+      return lifecycle ? lifecycle.name : lifecycleId;
+    },
   },
   {
     id: "actions",
@@ -85,8 +100,13 @@ const columns: ColumnDef<Lead>[] = [
     enableHiding: false,
   },
 ];
+}
 
-export function LeadTable({ leads, toolbar }: LeadTableProps) {
+export function LeadTable({ leads, lifecycles, toolbar }: LeadTableProps) {
+  const columns = React.useMemo(
+    () => buildColumns(lifecycles),
+    [lifecycles]
+  );
   const { table } = useEntityTable({
     data: leads,
     columns,

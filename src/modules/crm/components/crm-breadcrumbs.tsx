@@ -41,8 +41,8 @@ function buildCrmBreadcrumbItems(pathname: string): CrmBreadcrumbItem[] {
           case "dashboard":
             label = "Pano";
             break;
-          case "customers":
-            label = "Müşteriler";
+          case "persons":
+            label = "Kişiler";
             break;
           case "contacts":
             label = "Kişiler";
@@ -62,13 +62,19 @@ function buildCrmBreadcrumbItems(pathname: string): CrmBreadcrumbItem[] {
           case "team":
             label = "Takım";
             break;
+          case "companies":
+            label = "Şirketler";
+            break;
+          case "customers":
+            label = "Kişiler";
+            break;
           default:
             label = pathSegment.charAt(0).toUpperCase() + pathSegment.slice(1);
             break;
         }
       } else if (
         pathSegmentIndex === 2 &&
-        (pathSegments[1] === "customers" ||
+        (pathSegments[1] === "persons" ||
           pathSegments[1] === "leads" ||
           pathSegments[1] === "lifecycle" ||
           pathSegments[1] === "team")
