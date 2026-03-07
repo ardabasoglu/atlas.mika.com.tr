@@ -4,17 +4,14 @@ import * as React from "react";
 import Link from "next/link";
 import {
   IconActivity,
-  IconAddressBook,
   IconBriefcase,
-  IconCamera,
   IconChartBar,
   IconDatabase,
-  IconFileAi,
-  IconFileDescription,
   IconFileWord,
   IconFolder,
   IconHelp,
   IconLayoutDashboard,
+  IconLayoutGrid,
   IconRefresh,
   IconReport,
   IconSearch,
@@ -59,16 +56,10 @@ const data = {
       featureKey: "leads",
     },
     {
-      title: "Müşteriler",
-      url: "/crm/customers",
-      icon: IconUserCircle,
-      featureKey: "customers",
-    },
-    {
       title: "Kişiler",
-      url: "/crm/contacts",
-      icon: IconAddressBook,
-      featureKey: "contacts",
+      url: "/crm/persons",
+      icon: IconUserCircle,
+      featureKey: "persons",
     },
     {
       title: "Fırsatlar",
@@ -95,61 +86,32 @@ const data = {
       featureKey: "team",
     },
   ],
+  navProject: [
+    {
+      title: "Genel Bakış",
+      url: "/project",
+      icon: IconLayoutDashboard,
+      featureKey: "project",
+    },
+    {
+      title: "Projeler",
+      url: "/project/projects",
+      icon: IconFolder,
+      featureKey: "projects",
+    },
+    {
+      title: "Üniteler",
+      url: "/project/units",
+      icon: IconLayoutGrid,
+      featureKey: "units",
+    },
+  ],
   navMainOther: [
     {
       title: "Analitik",
       url: "#",
       icon: IconChartBar,
       featureKey: "analytics",
-    },
-    { title: "Projeler", url: "#", icon: IconFolder, featureKey: "projects" },
-  ],
-  navClouds: [
-    {
-      title: "Yakalama",
-      icon: IconCamera,
-      isActive: true,
-      url: "#",
-      items: [
-        {
-          title: "Aktif Teklifler",
-          url: "#",
-        },
-        {
-          title: "Arşivlenmiş",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Teklif",
-      icon: IconFileDescription,
-      url: "#",
-      items: [
-        {
-          title: "Aktif Teklifler",
-          url: "#",
-        },
-        {
-          title: "Arşivlenmiş",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "İstekler",
-      icon: IconFileAi,
-      url: "#",
-      items: [
-        {
-          title: "Aktif Teklifler",
-          url: "#",
-        },
-        {
-          title: "Arşivlenmiş",
-          url: "#",
-        },
-      ],
     },
   ],
   navSecondary: [
@@ -191,6 +153,9 @@ const data = {
 const navCrmFiltered = data.navCrm.filter((item) =>
   isSidebarFeatureEnabled(item.featureKey),
 );
+const navProjectFiltered = data.navProject.filter((item) =>
+  isSidebarFeatureEnabled(item.featureKey),
+);
 const navMainOtherFiltered = data.navMainOther.filter((item) =>
   isSidebarFeatureEnabled(item.featureKey),
 );
@@ -214,6 +179,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={navCrmFiltered} groupLabel="CRM" />
+        <NavMain items={navProjectFiltered} groupLabel="Proje" />
         <NavMain items={navMainOtherFiltered} />
         {isSidebarFeatureEnabled("documents") && (
           <NavDocuments items={data.documents} />

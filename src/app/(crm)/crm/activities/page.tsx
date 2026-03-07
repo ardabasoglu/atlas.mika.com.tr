@@ -6,12 +6,12 @@ import Link from "next/link";
 import { crmServices } from "@/modules/crm/services";
 
 export default async function ActivitiesPage() {
-  const activities = await crmServices.getActivities();
+  const timelineEvents = await crmServices.getTimelineEvents();
 
   return (
     <CRMPageLayout>
       <ActivityTable
-        activities={activities}
+        timelineEvents={timelineEvents}
         toolbar={
           <Button asChild>
             <Link href="/crm/activities/new">

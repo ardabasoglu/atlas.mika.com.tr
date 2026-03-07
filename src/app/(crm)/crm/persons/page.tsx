@@ -1,26 +1,22 @@
 import { CRMPageLayout } from "@/modules/crm/components/crm-page-layout";
-import { DealTable } from "@/modules/crm/components/deal-table";
+import { PersonTable } from "@/modules/crm/components/person-table";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 import { crmServices } from "@/modules/crm/services";
 
-export default async function DealsPage() {
-  const [deals, lifecycles] = await Promise.all([
-    crmServices.getDeals(),
-    crmServices.getLifecycles(),
-  ]);
+export default async function PersonsPage() {
+  const persons = await crmServices.getPersons();
 
   return (
     <CRMPageLayout>
-      <DealTable
-        deals={deals}
-        lifecycles={lifecycles}
+      <PersonTable
+        persons={persons}
         toolbar={
           <Button asChild>
-            <Link href="/crm/deals/new">
+            <Link href="/crm/persons/new">
               <PlusIcon className="mr-2 h-4 w-4" />
-              Fırsat Ekle
+              Kişi Ekle
             </Link>
           </Button>
         }
@@ -28,4 +24,3 @@ export default async function DealsPage() {
     </CRMPageLayout>
   );
 }
-

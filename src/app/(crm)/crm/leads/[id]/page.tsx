@@ -17,9 +17,12 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
     notFound();
   }
 
+  const lifecycle = lead.lifecycleId
+    ? await crmServices.getLifecycleById(lead.lifecycleId)
+    : undefined;
+
   return (
-    <CRMPageLayout actions={<ConvertLeadButton lead={lead} />}
-    >
+    <CRMPageLayout actions={<ConvertLeadButton lead={lead} />}>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
@@ -30,9 +33,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
               <h4 className="text-sm font-medium text-muted-foreground">
                 Ad Soyad
               </h4>
-              <p>
-                {lead.firstName} {lead.lastName}
-              </p>
+              <p>{lead.name}</p>
             </div>
             <div>
               <h4 className="text-sm font-medium text-muted-foreground">
@@ -48,12 +49,12 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
                 <p>{lead.phone}</p>
               </div>
             )}
-            {lead.position && (
+            {lead.notes && (
               <div>
                 <h4 className="text-sm font-medium text-muted-foreground">
-                  Pozisyon
+                  Notlar
                 </h4>
-                <p>{lead.position}</p>
+                <p>{lead.notes}</p>
               </div>
             )}
           </CardContent>
@@ -70,6 +71,14 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
               </h4>
               <StatusBadge status={lead.status} type="lead" />
             </div>
+            {lifecycle && (
+              <div>
+                <h4 className="text-sm font-medium text-muted-foreground">
+                  Yaşam döngüsü
+                </h4>
+                <p>{lifecycle.name}</p>
+              </div>
+            )}
             {lead.source && (
               <div>
                 <h4 className="text-sm font-medium text-muted-foreground">
@@ -78,63 +87,14 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
                 <p>{lead.source}</p>
               </div>
             )}
-            {lead.propertyInterest && (
-              <div>
-                <h4 className="text-sm font-medium text-muted-foreground">
-                  İlgi alanı (gayrimenkul)
-                </h4>
-                <p>{lead.propertyInterest}</p>
-              </div>
-            )}
-            {lead.convertedAt && (
-              <div>
-                <h4 className="text-sm font-medium text-muted-foreground">
-                  Dönüştürülme tarihi
-                </h4>
-                <p>
-                  {new Date(lead.convertedAt).toLocaleDateString("tr-TR")}
-                </p>
-              </div>
-            )}
+            <div>
+              <h4 className="text-sm font-medium text-muted-foreground">
+                Oluşturulma
+              </h4>
+              <p>{new Date(lead.createdAt).toLocaleDateString("tr-TR")}</p>
+            </div>
           </CardContent>
         </Card>
-
-        {(lead.website || lead.industry) && (
-          <Card className="lg:col-span-2">
-            <CardHeader>
-              <CardTitle>Ek bilgiler</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {lead.website && (
-                <div>
-                  <h4 className="text-sm font-medium text-muted-foreground">
-                    Web sitesi
-                  </h4>
-                  <a
-                    href={
-                      lead.website.startsWith("http")
-                        ? lead.website
-                        : `https://${lead.website}`
-                    }
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline"
-                  >
-                    {lead.website}
-                  </a>
-                </div>
-              )}
-              {lead.industry && (
-                <div>
-                  <h4 className="text-sm font-medium text-muted-foreground">
-                    Sektör
-                  </h4>
-                  <p>{lead.industry}</p>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        )}
       </div>
     </CRMPageLayout>
   );
