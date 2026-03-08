@@ -407,12 +407,16 @@ export async function convertLead(
 
     let dealId: string | undefined;
     if (options?.createDeal) {
+      const defaultLifecycleId =
+        process.env.DEFAULT_DEAL_LIFECYCLE_ID ??
+        (await tx.lifecycle.findFirst({ orderBy: { order: "asc" } }))?.id ??
+        null;
       const deal = await tx.deal.create({
         data: {
           title: lead.notes ? `Fırsat - ${lead.notes}` : "Yeni fırsat",
           value: 0,
           stage: "inquiry",
-          lifecycleId: "lifecycle-1",
+          lifecycleId: defaultLifecycleId,
           personId: person.id,
         },
       });
