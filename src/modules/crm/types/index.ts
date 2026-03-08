@@ -41,6 +41,21 @@ export type Deal = {
   /** Lifecycle stage id; when set, stage is derived or kept in sync. */
   lifecycleId?: string;
   expectedCloseDate?: string;
+  /** Present when deal is loaded with payment plan (e.g. getDealWithPaymentPlan). */
+  paymentPlan?: PaymentPlan;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export type PaymentPlan = {
+  id: string;
+  dealId: string;
+  downPaymentAmount: number;
+  installmentCount: number;
+  installmentAmount: number;
+  balloonAmount: number;
+  /** 0 = at signing; null = after last installment */
+  balloonDueMonth: number | null;
   createdAt: string;
   updatedAt: string;
 };
@@ -88,3 +103,12 @@ export type Team = {
   createdAt: string;
   updatedAt: string;
 };
+
+/** Sum of plan: downPaymentAmount + installmentCount * installmentAmount + balloonAmount */
+export function getPaymentPlanTotal(plan: PaymentPlan): number {
+  return (
+    plan.downPaymentAmount +
+    plan.installmentCount * plan.installmentAmount +
+    plan.balloonAmount
+  );
+}
