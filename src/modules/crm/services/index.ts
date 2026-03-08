@@ -5,6 +5,8 @@ import {
   Lifecycle,
   Team,
   Person,
+  PaymentPlan,
+  getPaymentPlanTotal,
 } from "../types";
 import {
   persons as personFixtures,
@@ -13,6 +15,7 @@ import {
   leads as leadFixtures,
   lifecycles as lifecycleFixtures,
   teams as teamFixtures,
+  paymentPlans as paymentPlanFixtures,
 } from "../fixtures";
 import { projectServices } from "@/modules/project/services";
 
@@ -86,6 +89,69 @@ export const crmServices = {
       unit: { id: unit.id, code: unit.code, projectId: unit.projectId },
       project: { id: project.id, name: project.name },
     };
+  },
+
+  getPaymentPlanByDealId: (dealId: string): Promise<PaymentPlan | undefined> => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        const plan = paymentPlanFixtures.find((planItem) => planItem.dealId === dealId);
+        resolve(plan ? { ...plan } : undefined);
+      }, 100);
+    });
+  },
+
+  getDealWithPaymentPlan: async (
+    dealId: string
+  ): Promise<(Deal & { paymentPlan?: PaymentPlan }) | undefined> => {
+    const deal = dealFixtures.find((d) => d.id === dealId);
+    if (!deal) return undefined;
+    const plan = paymentPlanFixtures.find((planItem) => planItem.dealId === dealId);
+    return { ...deal, ...(plan && { paymentPlan: { ...plan } }) };
+  },
+
+  savePaymentPlan: (
+    dealId: string,
+    data: Omit<PaymentPlan, "id" | "dealId" | "createdAt" | "updatedAt">
+  ): Promise<PaymentPlan> => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const deal = dealFixtures.find((d) => d.id === dealId);
+        if (!deal) {
+          reject(new Error("Deal not found"));
+          return;
+        }
+        const now = new Date().toISOString().slice(0, 10);
+        const existing = paymentPlanFixtures.find((planItem) => planItem.dealId === dealId);
+        let plan: PaymentPlan;
+        if (existing) {
+          existing.downPaymentAmount = data.downPaymentAmount;
+          existing.installmentCount = data.installmentCount;
+          existing.installmentAmount = data.installmentAmount;
+          existing.balloonAmount = data.balloonAmount;
+          existing.balloonDueMonth = data.balloonDueMonth;
+          existing.updatedAt = now;
+          plan = { ...existing };
+        } else {
+          const newPlan: PaymentPlan = {
+            id: nextId(paymentPlanFixtures, "payment-plan"),
+            dealId,
+            downPaymentAmount: data.downPaymentAmount,
+            installmentCount: data.installmentCount,
+            installmentAmount: data.installmentAmount,
+            balloonAmount: data.balloonAmount,
+            balloonDueMonth: data.balloonDueMonth,
+            createdAt: now,
+            updatedAt: now,
+          };
+          paymentPlanFixtures.push(newPlan);
+          plan = { ...newPlan };
+        }
+        const total = getPaymentPlanTotal(plan);
+        deal.value = total;
+        deal.updatedAt = now;
+        resolve(plan);
+      }, 200);
+    });
   },
 
   updateDeal: (
