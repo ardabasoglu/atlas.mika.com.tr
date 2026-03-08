@@ -13,8 +13,11 @@ interface DealDetailPageProps {
 
 export default async function DealDetailPage({ params }: DealDetailPageProps) {
   const { id: dealId } = await params;
-  const dealWithUnit = await crmServices.getDealWithUnit(dealId);
-  const deal = dealWithUnit?.deal ?? (await crmServices.getDealById(dealId));
+  const [dealWithPlan, dealWithUnit] = await Promise.all([
+    crmServices.getDealWithPaymentPlan(dealId),
+    crmServices.getDealWithUnit(dealId),
+  ]);
+  const deal = dealWithPlan ?? dealWithUnit?.deal ?? (await crmServices.getDealById(dealId));
 
   if (!deal) {
     notFound();
@@ -110,6 +113,67 @@ export default async function DealDetailPage({ params }: DealDetailPageProps) {
                   </>
                 )}
               </dl>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Ödeme planı</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {deal.paymentPlan ? (
+                <dl className="grid gap-3 text-sm">
+                  <div>
+                    <dt className="font-medium text-muted-foreground">
+                      Peşinat
+                    </dt>
+                    <dd>
+                      {formatMoney(
+                        deal.paymentPlan.downPaymentAmount,
+                        deal.currency,
+                      )}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="font-medium text-muted-foreground">
+                      Taksit
+                    </dt>
+                    <dd>
+                      {deal.paymentPlan.installmentCount} x{" "}
+                      {formatMoney(
+                        deal.paymentPlan.installmentAmount,
+                        deal.currency,
+                      )}
+                    </dd>
+                  </div>
+                  <div>
+                    <dt className="font-medium text-muted-foreground">
+                      Balon
+                    </dt>
+                    <dd>
+                      {formatMoney(
+                        deal.paymentPlan.balloonAmount,
+                        deal.currency,
+                      )}
+                      {deal.paymentPlan.balloonDueMonth === null
+                        ? " (Vade sonu)"
+                        : deal.paymentPlan.balloonDueMonth === 0
+                          ? " (İmzada)"
+                          : ` (Ay ${deal.paymentPlan.balloonDueMonth})`}
+                    </dd>
+                  </div>
+                  <div className="border-t pt-2 mt-2">
+                    <dt className="font-medium text-muted-foreground">
+                      Toplam
+                    </dt>
+                    <dd>{formatMoney(deal.value, deal.currency)}</dd>
+                  </div>
+                </dl>
+              ) : (
+                <p className="text-sm text-muted-foreground">
+                  Ödeme planı yok. Plan eklemek için aşağıdaki formu kullanın.
+                </p>
+              )}
             </CardContent>
           </Card>
         </div>
