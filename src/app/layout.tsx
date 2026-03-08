@@ -5,16 +5,19 @@ import { QueryProvider } from "@/components/providers/query-provider";
 import { EventListenersInit } from "@/components/providers/event-listeners-init";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
-const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
+const figtree = Figtree({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-sans",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
 });
 
 export const metadata: Metadata = {
@@ -33,7 +36,7 @@ export default function RootLayout({
   return (
     <html lang="tr" className={figtree.variable} suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${figtree.variable} ${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
         suppressHydrationWarning
       >
         <QueryProvider>
