@@ -6,3 +6,185 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
+
+// ---------------------------------------------------------------------------
+// Enums (mirror src/modules/crm/types and src/modules/project/types)
+// ---------------------------------------------------------------------------
+
+enum LeadStatus {
+  new
+  contacted
+  qualified
+  lost
+  converted
+}
+
+enum DealStage {
+  inquiry
+  meeting
+  offer
+  negotiation
+  won
+  lost
+}
+
+enum TimelineEventEntityType {
+  lead
+  person
+  deal
+}
+
+enum TimelineEventType {
+  note
+  call
+  meeting
+  email
+  status_change
+  deal_created
+  deal_stage_changed
+}
+
+enum ProjectStatus {
+  planning
+  construction
+  completed
+  on_hold
+}
+
+enum UnitType {
+  apartment
+  commercial
+  parking
+  other
+}
+
+enum UnitStatus {
+  available
+  reserved
+  sold
+}
+
+// ---------------------------------------------------------------------------
+// Lifecycle (referenced by Lead and Deal via lifecycleId)
+// ---------------------------------------------------------------------------
+
+model Lifecycle {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  order       Int      @map("sort_order")
+  color       String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  leads Lead[]
+  deals Deal[]
+}
+
+// ---------------------------------------------------------------------------
+// CRM: Lead → Person (1:1 on conversion), Deal, TimelineEvent
+// ---------------------------------------------------------------------------
+
+model Lead {
+  id          String     @id @default(cuid())
+  name        String
+  phone       String?
+  email       String
+  source      String?
+  status      LeadStatus
+  lifecycleId String?    @map("lifecycle_id")
+  notes       String?
+  createdAt   DateTime   @default(now()) @map("created_at")
+  updatedAt   DateTime   @updatedAt @map("updated_at")
+
+  lifecycle Lifecycle? @relation(fields: [lifecycleId], references: [id])
+  person    Person?
+}
+
+model Person {
+  id        String   @id @default(cuid())
+  leadId    String?  @unique @map("lead_id")
+  name      String
+  phone     String?
+  email     String
+  notes     String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  lead   Lead?   @relation(fields: [leadId], references: [id])
+  deals  Deal[]
+  units  Unit[]
+}
+
+model Deal {
+  id                 String    @id @default(cuid())
+  personId           String    @map("person_id")
+  unitId             String?   @unique @map("unit_id")
+  title              String
+  value              Decimal   @db.Decimal(18, 2)
+  currency           String?
+  stage              DealStage
+  lifecycleId        String?   @map("lifecycle_id")
+  expectedCloseDate  DateTime? @db.Date @map("expected_close_date")
+  createdAt          DateTime  @default(now()) @map("created_at")
+  updatedAt          DateTime  @updatedAt @map("updated_at")
+
+  person    Person     @relation(fields: [personId], references: [id], onDelete: Restrict)
+  lifecycle Lifecycle? @relation(fields: [lifecycleId], references: [id])
+  unit      Unit?      @relation("DealUnit", fields: [unitId], references: [id])
+}
+
+// ---------------------------------------------------------------------------
+// Timeline (polymorphic: entityType + entityId; no FKs to keep flexibility)
+// ---------------------------------------------------------------------------
+
+model TimelineEvent {
+  id          String                   @id @default(cuid())
+  entityType  TimelineEventEntityType @map("entity_type")
+  entityId    String                   @map("entity_id")
+  type        TimelineEventType
+  title       String?
+  description String?
+  metadata    Json?
+  createdBy   String?                  @map("created_by")
+  createdAt   DateTime                 @default(now()) @map("created_at")
+
+  @@index([entityType, entityId])
+}
+
+// ---------------------------------------------------------------------------
+// Project & Unit (real estate)
+// ---------------------------------------------------------------------------
+
+model Project {
+  id          String        @id @default(cuid())
+  name        String
+  description String?
+  address     String?
+  status      ProjectStatus
+  startDate   DateTime?     @db.Date @map("start_date")
+  endDate     DateTime?     @db.Date @map("end_date")
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+
+  units Unit[]
+}
+
+model Unit {
+  id        String     @id @default(cuid())
+  projectId String     @map("project_id")
+  code      String
+  type      UnitType
+  sizeSqm   Float      @map("size_sqm")
+  price     Decimal?   @db.Decimal(18, 2)
+  currency  String?
+  status    UnitStatus
+  floor     Int?
+  personId  String?    @map("person_id")
+  createdAt DateTime   @default(now()) @map("created_at")
+  updatedAt DateTime   @updatedAt @map("updated_at")
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Restrict)
+  person  Person? @relation(fields: [personId], references: [id])
+  deal    Deal?   @relation("DealUnit")
+}
