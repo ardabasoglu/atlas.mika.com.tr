@@ -1,15 +1,16 @@
 import { CRMPageLayout } from "@/modules/crm/components/crm-page-layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Building2, DollarSign, Calendar } from "lucide-react";
-import { crmServices } from "@/modules/crm/services";
+import { getPersons, getDeals, getTimelineEvents } from "@/modules/crm/services";
 import { formatMoneyCompact } from "@/lib/currency";
 import { PersonTable } from "@/modules/crm/components/person-table";
 import { OverviewChart } from "@/modules/crm/components/overview-chart";
 
 export default async function CRMDashboardPage() {
-  const persons = await crmServices.getPersons();
-  const deals = await crmServices.getDeals();
-  const timelineEvents = await crmServices.getTimelineEvents();
+  const persons = await getPersons();
+  const deals = await getDeals();
+  const timelineEvents = await getTimelineEvents();
+
 
   const totalRevenue = deals.reduce((sum, deal) => {
     if (deal.stage === "won") {

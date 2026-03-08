@@ -1,9 +1,9 @@
 import { CRMPageLayout } from "@/modules/crm/components/crm-page-layout";
 import { LifecycleTable } from "@/modules/crm/components/lifecycle-table";
-import { crmServices } from "@/modules/crm/services";
+import { getLifecycles } from "@/modules/crm/services";
 
 export default async function LifecyclePage() {
-  const lifecycles = await crmServices.getLifecycles();
+  const lifecycles = await getLifecycles();
 
   return (
     <CRMPageLayout>

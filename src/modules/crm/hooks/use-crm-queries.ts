@@ -2,19 +2,28 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/lib/query/keys";
-import { crmServices } from "../services";
+import { 
+  getDeals, 
+  getDealById, 
+  getDealWithUnit, 
+  getDealWithPaymentPlan, 
+  getPersonById, 
+  getDealsByPersonId, 
+  getPaymentPlanByDealId, 
+  getLifecycles 
+} from "../services";
 
 export function useDeals() {
   return useQuery({
     queryKey: queryKeys.crm.deals(),
-    queryFn: () => crmServices.getDeals(),
+    queryFn: () => getDeals(),
   });
 }
 
 export function useDeal(dealId: string) {
   return useQuery({
     queryKey: queryKeys.crm.deal(dealId),
-    queryFn: () => crmServices.getDealById(dealId),
+    queryFn: () => getDealById(dealId),
     enabled: !!dealId,
   });
 }
@@ -22,7 +31,7 @@ export function useDeal(dealId: string) {
 export function useDealWithUnit(dealId: string) {
   return useQuery({
     queryKey: queryKeys.crm.dealWithUnit(dealId),
-    queryFn: () => crmServices.getDealWithUnit(dealId),
+    queryFn: () => getDealWithUnit(dealId),
     enabled: !!dealId,
   });
 }
@@ -30,7 +39,7 @@ export function useDealWithUnit(dealId: string) {
 export function useDealWithPaymentPlan(dealId: string) {
   return useQuery({
     queryKey: queryKeys.crm.dealWithPaymentPlan(dealId),
-    queryFn: () => crmServices.getDealWithPaymentPlan(dealId),
+    queryFn: () => getDealWithPaymentPlan(dealId),
     enabled: !!dealId,
   });
 }
@@ -38,7 +47,7 @@ export function useDealWithPaymentPlan(dealId: string) {
 export function usePerson(personId: string) {
   return useQuery({
     queryKey: queryKeys.crm.person(personId),
-    queryFn: () => crmServices.getPersonById(personId),
+    queryFn: () => getPersonById(personId),
     enabled: !!personId,
   });
 }
@@ -46,7 +55,7 @@ export function usePerson(personId: string) {
 export function usePersonDeals(personId: string) {
   return useQuery({
     queryKey: queryKeys.crm.personDeals(personId),
-    queryFn: () => crmServices.getDealsByPersonId(personId),
+    queryFn: () => getDealsByPersonId(personId),
     enabled: !!personId,
   });
 }
@@ -54,7 +63,7 @@ export function usePersonDeals(personId: string) {
 export function usePaymentPlan(dealId: string) {
   return useQuery({
     queryKey: queryKeys.crm.paymentPlan(dealId),
-    queryFn: () => crmServices.getPaymentPlanByDealId(dealId),
+    queryFn: () => getPaymentPlanByDealId(dealId),
     enabled: !!dealId,
   });
 }
@@ -62,6 +71,6 @@ export function usePaymentPlan(dealId: string) {
 export function useLifecycles() {
   return useQuery({
     queryKey: queryKeys.crm.lifecycles(),
-    queryFn: () => crmServices.getLifecycles(),
+    queryFn: () => getLifecycles(),
   });
 }

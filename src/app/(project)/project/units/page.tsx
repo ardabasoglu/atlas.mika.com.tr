@@ -3,10 +3,10 @@ import { UnitTable } from "@/modules/project/components/unit-table";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
-import { projectServices } from "@/modules/project/services";
+import { getUnits } from "@/modules/project/services";
 
 export default async function UnitsListPage() {
-  const units = await projectServices.getUnits();
+  const units = await getUnits();
 
   return (
     <ProjectPageLayout>

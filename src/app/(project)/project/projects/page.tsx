@@ -3,10 +3,10 @@ import { ProjectTable } from "@/modules/project/components/project-table";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
-import { projectServices } from "@/modules/project/services";
+import { getProjects } from "@/modules/project/services";
 
 export default async function ProjectsListPage() {
-  const projects = await projectServices.getProjects();
+  const projects = await getProjects();
 
   return (
     <ProjectPageLayout>

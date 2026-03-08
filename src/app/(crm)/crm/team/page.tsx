@@ -1,9 +1,9 @@
 import { CRMPageLayout } from "@/modules/crm/components/crm-page-layout";
 import { TeamTable } from "@/modules/crm/components/team-table";
-import { crmServices } from "@/modules/crm/services";
+import { getTeams } from "@/modules/crm/services";
 
 export default async function TeamPage() {
-  const teams = await crmServices.getTeams();
+  const teams = await getTeams();
 
   return (
     <CRMPageLayout>

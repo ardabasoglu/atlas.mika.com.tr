@@ -1,7 +1,7 @@
 import { CRMPageLayout } from "@/modules/crm/components/crm-page-layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { notFound } from "next/navigation";
-import { crmServices } from "@/modules/crm/services";
+import { getTeamById } from "@/modules/crm/services";
 
 interface TeamDetailPageProps {
   params: Promise<{ id: string }>;
@@ -9,7 +9,7 @@ interface TeamDetailPageProps {
 
 export default async function TeamDetailPage({ params }: TeamDetailPageProps) {
   const { id } = await params;
-  const team = await crmServices.getTeamById(id);
+  const team = await getTeamById(id);
 
   if (!team) {
     notFound();

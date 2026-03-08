@@ -3,10 +3,10 @@ import { PersonTable } from "@/modules/crm/components/person-table";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
-import { crmServices } from "@/modules/crm/services";
+import { getPersons } from "@/modules/crm/services";
 
 export default async function PersonsPage() {
-  const persons = await crmServices.getPersons();
+  const persons = await getPersons();
 
   return (
     <CRMPageLayout>

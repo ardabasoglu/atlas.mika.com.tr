@@ -3,7 +3,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Unit } from "../types";
 import { queryKeys } from "@/lib/query/keys";
-import { projectServices } from "../services";
+import { updateUnit } from "../services";
 
 export type UpdateUnitPayload = {
   status?: Unit["status"];
@@ -21,7 +21,7 @@ export function useUpdateUnit() {
     }: {
       unitId: string;
       payload: UpdateUnitPayload;
-    }) => projectServices.updateUnit(unitId, payload),
+    }) => updateUnit(unitId, payload),
     onMutate: async ({ unitId, payload }) => {
       await queryClient.cancelQueries({ queryKey: queryKeys.project.unit(unitId) });
 

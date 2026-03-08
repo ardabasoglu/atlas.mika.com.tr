@@ -3,11 +3,11 @@ import { ProjectTable } from "@/modules/project/components/project-table";
 import { UnitTable } from "@/modules/project/components/unit-table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Building2, LayoutGrid, Hammer, CheckCircle } from "lucide-react";
-import { projectServices } from "@/modules/project/services";
+import { getProjects, getUnits } from "@/modules/project/services";
 
 export default async function ProjectOverviewPage() {
-  const projects = await projectServices.getProjects();
-  const units = await projectServices.getUnits();
+  const projects = await getProjects();
+  const units = await getUnits();
 
   const byStatus = {
     planning: projects.filter((project) => project.status === "planning")

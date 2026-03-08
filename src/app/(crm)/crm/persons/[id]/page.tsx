@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { DollarSign, Calendar } from "lucide-react";
 import { notFound } from "next/navigation";
-import { crmServices } from "@/modules/crm/services";
+import { getPersonById, getDealsByPersonId, getTimelineEvents } from "@/modules/crm/services";
 import { formatMoney } from "@/lib/currency";
 import { StatusBadge } from "@/modules/crm/components/common/status-badge";
 
@@ -18,15 +18,15 @@ export default async function PersonDetailPage({
   params,
 }: PersonDetailPageProps) {
   const { id: personId } = await params;
-  const person = await crmServices.getPersonById(personId);
+  const person = await getPersonById(personId);
 
   if (!person) {
     notFound();
   }
 
   const [deals, timelineEvents] = await Promise.all([
-    crmServices.getDealsByPersonId(personId),
-    crmServices.getTimelineEvents(),
+    getDealsByPersonId(personId),
+    getTimelineEvents(),
   ]);
 
   const personTimelineEvents = timelineEvents.filter(

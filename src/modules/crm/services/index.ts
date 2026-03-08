@@ -1,3 +1,6 @@
+"use server";
+
+import { prisma } from "@/lib/prisma";
 import {
   Deal,
   TimelineEvent,
@@ -8,414 +11,429 @@ import {
   PaymentPlan,
   getPaymentPlanTotal,
 } from "../types";
-import {
-  persons as personFixtures,
-  deals as dealFixtures,
-  timelineEvents as timelineEventFixtures,
-  leads as leadFixtures,
-  lifecycles as lifecycleFixtures,
-  teams as teamFixtures,
-  paymentPlans as paymentPlanFixtures,
-} from "../fixtures";
-import { projectServices } from "@/modules/project/services";
+import { getUnitById, getProjectById } from "@/modules/project/services";
 import { domainEvents } from "@/lib/events";
+import { 
+  Person as PrismaPerson, 
+  Deal as PrismaDeal, 
+  Lead as PrismaLead,
+  Lifecycle as PrismaLifecycle,
+  PaymentPlan as PrismaPaymentPlan,
+  TimelineEvent as PrismaTimelineEvent,
+  LeadStatus,
+  DealStage
+} from "@/generated/prisma/client";
 
-function nextId(items: { id: string }[], prefix: string): string {
-  const numbers = items
-    .map((item) => {
-      const match = item.id.match(new RegExp(`^${prefix}-(\\d+)$`));
-      return match ? parseInt(match[1], 10) : NaN;
-    })
-    .filter((number) => !Number.isNaN(number));
-  const next = numbers.length ? Math.max(...numbers) + 1 : 1;
-  return `${prefix}-${next}`;
+// --- Mappers ---
+
+function mapPrismaPerson(p: PrismaPerson): Person {
+  return {
+    id: p.id,
+    leadId: p.leadId ?? undefined,
+    name: p.name,
+    email: p.email,
+    phone: p.phone ?? undefined,
+    notes: p.notes ?? undefined,
+    createdAt: p.createdAt.toISOString(),
+    updatedAt: p.updatedAt.toISOString(),
+  };
 }
 
-export const crmServices = {
-  // Person services
-  getPersons: (): Promise<Person[]> => {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve([...personFixtures]), 200);
+function mapPrismaPaymentPlan(p: PrismaPaymentPlan): PaymentPlan {
+  return {
+    id: p.id,
+    dealId: p.dealId,
+    downPaymentAmount: Number(p.downPaymentAmount),
+    installmentCount: p.installmentCount,
+    installmentAmount: Number(p.installmentAmount),
+    balloonAmount: Number(p.balloonAmount),
+    balloonDueMonth: p.balloonDueMonth,
+    createdAt: p.createdAt.toISOString(),
+    updatedAt: p.updatedAt.toISOString(),
+  };
+}
+
+function mapPrismaDeal(d: PrismaDeal & { paymentPlan?: PrismaPaymentPlan | null }): Deal {
+  return {
+    id: d.id,
+    personId: d.personId,
+    unitId: d.unitId ?? undefined,
+    title: d.title,
+    value: Number(d.value),
+    currency: d.currency ?? undefined,
+    stage: d.stage as any,
+    lifecycleId: d.lifecycleId ?? undefined,
+    expectedCloseDate: d.expectedCloseDate?.toISOString(),
+    paymentPlan: d.paymentPlan ? mapPrismaPaymentPlan(d.paymentPlan) : undefined,
+    createdAt: d.createdAt.toISOString(),
+    updatedAt: d.updatedAt.toISOString(),
+  };
+}
+
+function mapPrismaLead(l: PrismaLead): Lead {
+  return {
+    id: l.id,
+    name: l.name,
+    email: l.email,
+    phone: l.phone ?? undefined,
+    source: l.source ?? undefined,
+    status: l.status as any,
+    lifecycleId: l.lifecycleId ?? undefined,
+    notes: l.notes ?? undefined,
+    createdAt: l.createdAt.toISOString(),
+    updatedAt: l.updatedAt.toISOString(),
+  };
+}
+
+function mapPrismaLifecycle(l: PrismaLifecycle): Lifecycle {
+  return {
+    id: l.id,
+    name: l.name,
+    description: l.description ?? undefined,
+    order: l.order,
+    color: l.color ?? undefined,
+    createdAt: l.createdAt.toISOString(),
+    updatedAt: l.updatedAt.toISOString(),
+  };
+}
+
+function mapPrismaTimelineEvent(e: PrismaTimelineEvent): TimelineEvent {
+  return {
+    id: e.id,
+    entityType: e.entityType as any,
+    entityId: e.entityId,
+    type: e.type as any,
+    title: e.title ?? undefined,
+    description: e.description ?? undefined,
+    metadata: (e.metadata as any) ?? undefined,
+    createdBy: e.createdBy ?? undefined,
+    createdAt: e.createdAt.toISOString(),
+  };
+}
+
+// --- Services ---
+
+export async function getPersons(): Promise<Person[]> {
+  const persons = await prisma.person.findMany({
+    orderBy: { createdAt: "desc" },
+  });
+  return persons.map(mapPrismaPerson);
+}
+
+export async function getPersonById(id: string): Promise<Person | undefined> {
+  const person = await prisma.person.findUnique({
+    where: { id },
+  });
+  return person ? mapPrismaPerson(person) : undefined;
+}
+
+export async function getDeals(): Promise<Deal[]> {
+  const deals = await prisma.deal.findMany({
+    include: { paymentPlan: true },
+    orderBy: { createdAt: "desc" },
+  });
+  return deals.map(mapPrismaDeal);
+}
+
+export async function getDealById(id: string): Promise<Deal | undefined> {
+  const deal = await prisma.deal.findUnique({
+    where: { id },
+    include: { paymentPlan: true },
+  });
+  return deal ? mapPrismaDeal(deal) : undefined;
+}
+
+export async function getDealsByPersonId(personId: string): Promise<Deal[]> {
+  const deals = await prisma.deal.findMany({
+    where: { personId },
+    include: { paymentPlan: true },
+    orderBy: { createdAt: "desc" },
+  });
+  return deals.map(mapPrismaDeal);
+}
+
+export async function getDealWithUnit(
+  dealId: string
+): Promise<
+  | { deal: Deal; unit: { id: string; code: string; projectId: string }; project: { id: string; name: string } }
+  | undefined
+> {
+  const deal = await prisma.deal.findUnique({
+    where: { id: dealId },
+    include: { paymentPlan: true },
+  });
+  if (!deal || !deal.unitId) return undefined;
+  
+  const unit = await getUnitById(deal.unitId);
+  if (!unit) return undefined;
+  
+  const project = await getProjectById(unit.projectId);
+  if (!project) return undefined;
+  
+  return {
+    deal: mapPrismaDeal(deal),
+    unit: { id: unit.id, code: unit.code, projectId: unit.projectId },
+    project: { id: project.id, name: project.name },
+  };
+}
+
+export async function getPaymentPlanByDealId(dealId: string): Promise<PaymentPlan | undefined> {
+  const plan = await prisma.paymentPlan.findUnique({
+    where: { dealId },
+  });
+  return plan ? mapPrismaPaymentPlan(plan) : undefined;
+}
+
+export async function getDealWithPaymentPlan(
+  dealId: string
+): Promise<(Deal & { paymentPlan?: PaymentPlan }) | undefined> {
+  const deal = await prisma.deal.findUnique({
+    where: { id: dealId },
+    include: { paymentPlan: true },
+  });
+  return deal ? mapPrismaDeal(deal) : undefined;
+}
+
+export async function savePaymentPlan(
+  dealId: string,
+  data: Omit<PaymentPlan, "id" | "dealId" | "createdAt" | "updatedAt">
+): Promise<PaymentPlan> {
+  const plan = await prisma.paymentPlan.upsert({
+    where: { dealId },
+    create: {
+      dealId,
+      downPaymentAmount: data.downPaymentAmount,
+      installmentCount: data.installmentCount,
+      installmentAmount: data.installmentAmount,
+      balloonAmount: data.balloonAmount,
+      balloonDueMonth: data.balloonDueMonth,
+    },
+    update: {
+      downPaymentAmount: data.downPaymentAmount,
+      installmentCount: data.installmentCount,
+      installmentAmount: data.installmentAmount,
+      balloonAmount: data.balloonAmount,
+      balloonDueMonth: data.balloonDueMonth,
+    },
+  });
+
+  const total = getPaymentPlanTotal(mapPrismaPaymentPlan(plan));
+  await prisma.deal.update({
+    where: { id: dealId },
+    data: { value: total },
+  });
+
+  return mapPrismaPaymentPlan(plan);
+}
+
+export async function updateDeal(
+  dealId: string,
+  payload: {
+    title?: string;
+    value?: number;
+    stage?: Deal["stage"];
+    lifecycleId?: string | null;
+    personId?: string;
+    unitId?: string | null;
+    expectedCloseDate?: string | null;
+  }
+): Promise<Deal | undefined> {
+  const currentDeal = await prisma.deal.findUnique({ where: { id: dealId } });
+  if (!currentDeal) return undefined;
+  
+  const previousUnitId = currentDeal.unitId;
+
+  if (payload.unitId !== undefined && previousUnitId && previousUnitId !== payload.unitId) {
+    domainEvents.emit("crm:deal-unit-unassigned", {
+      dealId: currentDeal.id,
+      unitId: previousUnitId,
+      timestamp: new Date().toISOString(),
     });
-  },
+  }
 
-  getPersonById: (id: string): Promise<Person | undefined> => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const person = personFixtures.find((personItem) => personItem.id === id);
-        resolve(person);
-      }, 200);
+  const updatedDeal = await prisma.deal.update({
+    where: { id: dealId },
+    data: {
+      ...(payload.title !== undefined && { title: payload.title }),
+      ...(payload.value !== undefined && { value: payload.value }),
+      ...(payload.stage !== undefined && { stage: payload.stage as DealStage }),
+      ...(payload.lifecycleId !== undefined && { lifecycleId: payload.lifecycleId }),
+      ...(payload.personId !== undefined && { personId: payload.personId }),
+      ...(payload.unitId !== undefined && { unitId: payload.unitId }),
+      ...(payload.expectedCloseDate !== undefined && { 
+        expectedCloseDate: payload.expectedCloseDate ? new Date(payload.expectedCloseDate) : null 
+      }),
+    },
+    include: { paymentPlan: true },
+  });
+
+  // Domain Events for State Changes
+  if (updatedDeal.stage === "won" && updatedDeal.unitId) {
+    domainEvents.emit("crm:deal-won", {
+      dealId: updatedDeal.id,
+      personId: updatedDeal.personId,
+      unitId: updatedDeal.unitId,
+      value: Number(updatedDeal.value),
+      timestamp: new Date().toISOString(),
     });
-  },
-
-  // Deal services
-  getDeals: (): Promise<Deal[]> => {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve([...dealFixtures]), 200);
+  } else if (updatedDeal.stage === "lost") {
+    domainEvents.emit("crm:deal-lost", {
+      dealId: updatedDeal.id,
+      unitId: updatedDeal.unitId ?? undefined,
+      timestamp: new Date().toISOString(),
     });
-  },
-
-  getDealById: (id: string): Promise<Deal | undefined> => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const deal = dealFixtures.find((d) => d.id === id);
-        resolve(deal ? { ...deal } : undefined);
-      }, 200);
+  } else if (payload.unitId === null && previousUnitId) {
+    domainEvents.emit("crm:deal-unit-unassigned", {
+      dealId: updatedDeal.id,
+      unitId: previousUnitId,
+      timestamp: new Date().toISOString(),
     });
-  },
+  }
 
-  getDealsByPersonId: (personId: string): Promise<Deal[]> => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const deals = dealFixtures.filter((deal) => deal.personId === personId);
-        resolve(deals.map((deal) => ({ ...deal })));
-      }, 200);
+  return mapPrismaDeal(updatedDeal);
+}
+
+export async function getTimelineEvents(): Promise<TimelineEvent[]> {
+  const events = await prisma.timelineEvent.findMany({
+    orderBy: { createdAt: "desc" },
+  });
+  return events.map(mapPrismaTimelineEvent);
+}
+
+export async function getTimelineEventById(id: string): Promise<TimelineEvent | undefined> {
+  const event = await prisma.timelineEvent.findUnique({
+    where: { id },
+  });
+  return event ? mapPrismaTimelineEvent(event) : undefined;
+}
+
+export async function getLeads(): Promise<Lead[]> {
+  const leads = await prisma.lead.findMany({
+    orderBy: { createdAt: "desc" },
+  });
+  return leads.map(mapPrismaLead);
+}
+
+export async function getLeadById(id: string): Promise<Lead | undefined> {
+  const lead = await prisma.lead.findUnique({
+    where: { id },
+  });
+  return lead ? mapPrismaLead(lead) : undefined;
+}
+
+export async function updateLead(
+  leadId: string,
+  payload: {
+    status?: Lead["status"];
+    lifecycleId?: string | null;
+  }
+): Promise<Lead | undefined> {
+  const lead = await prisma.lead.update({
+    where: { id: leadId },
+    data: {
+      ...(payload.status !== undefined && { status: payload.status as LeadStatus }),
+      ...(payload.lifecycleId !== undefined && { lifecycleId: payload.lifecycleId }),
+    },
+  });
+  return mapPrismaLead(lead);
+}
+
+export async function getLifecycles(): Promise<Lifecycle[]> {
+  const lifecycles = await prisma.lifecycle.findMany({
+    orderBy: { order: "asc" },
+  });
+  return lifecycles.map(mapPrismaLifecycle);
+}
+
+export async function getLifecycleById(id: string): Promise<Lifecycle | undefined> {
+  const lifecycle = await prisma.lifecycle.findUnique({
+    where: { id },
+  });
+  return lifecycle ? mapPrismaLifecycle(lifecycle) : undefined;
+}
+
+export async function getTeams(): Promise<Team[]> {
+  const users = await prisma.user.findMany({
+    orderBy: { createdAt: "desc" },
+  });
+  return users.map((u) => ({
+    id: u.id,
+    name: u.name,
+    email: u.email,
+    role: u.role ?? "MEMBER",
+    createdAt: u.createdAt.toISOString(),
+    updatedAt: u.updatedAt.toISOString(),
+  }));
+}
+
+export async function getTeamById(id: string): Promise<Team | undefined> {
+  const user = await prisma.user.findUnique({
+    where: { id },
+  });
+  return user ? {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    role: user.role ?? "MEMBER",
+    createdAt: user.createdAt.toISOString(),
+    updatedAt: user.updatedAt.toISOString(),
+  } : undefined;
+}
+
+export async function convertLead(
+  leadId: string,
+  options?: { createDeal?: boolean }
+): Promise<{
+  personId: string;
+  dealId?: string;
+}> {
+  const lead = await prisma.lead.findUnique({ where: { id: leadId } });
+  if (!lead) throw new Error("Lead not found");
+  if (lead.status === "converted" || lead.status === "lost") {
+    throw new Error(`Lead cannot be converted: status is ${lead.status}`);
+  }
+
+  const result = await prisma.$transaction(async (tx) => {
+    const person = await tx.person.create({
+      data: {
+        leadId: lead.id,
+        name: lead.name,
+        email: lead.email,
+        phone: lead.phone,
+        notes: lead.notes,
+      },
     });
-  },
 
-  getDealWithUnit: async (
-    dealId: string
-  ): Promise<
-    | { deal: Deal; unit: { id: string; code: string; projectId: string }; project: { id: string; name: string } }
-    | undefined
-  > => {
-    const deal = dealFixtures.find((d) => d.id === dealId);
-    if (!deal || !deal.unitId) return undefined;
-    const unit = await projectServices.getUnitById(deal.unitId);
-    if (!unit) return undefined;
-    const project = await projectServices.getProjectById(unit.projectId);
-    if (!project) return undefined;
-    return {
-      deal: { ...deal },
-      unit: { id: unit.id, code: unit.code, projectId: unit.projectId },
-      project: { id: project.id, name: project.name },
-    };
-  },
-
-  getPaymentPlanByDealId: (dealId: string): Promise<PaymentPlan | undefined> => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const plan = paymentPlanFixtures.find((planItem) => planItem.dealId === dealId);
-        resolve(plan ? { ...plan } : undefined);
-      }, 100);
-    });
-  },
-
-  getDealWithPaymentPlan: async (
-    dealId: string
-  ): Promise<(Deal & { paymentPlan?: PaymentPlan }) | undefined> => {
-    const deal = dealFixtures.find((d) => d.id === dealId);
-    if (!deal) return undefined;
-    const plan = paymentPlanFixtures.find((planItem) => planItem.dealId === dealId);
-    return { ...deal, ...(plan && { paymentPlan: { ...plan } }) };
-  },
-
-  savePaymentPlan: (
-    dealId: string,
-    data: Omit<PaymentPlan, "id" | "dealId" | "createdAt" | "updatedAt">
-  ): Promise<PaymentPlan> => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const deal = dealFixtures.find((d) => d.id === dealId);
-        if (!deal) {
-          reject(new Error("Deal not found"));
-          return;
-        }
-        const now = new Date().toISOString().slice(0, 10);
-        const existing = paymentPlanFixtures.find((planItem) => planItem.dealId === dealId);
-        let plan: PaymentPlan;
-        if (existing) {
-          existing.downPaymentAmount = data.downPaymentAmount;
-          existing.installmentCount = data.installmentCount;
-          existing.installmentAmount = data.installmentAmount;
-          existing.balloonAmount = data.balloonAmount;
-          existing.balloonDueMonth = data.balloonDueMonth;
-          existing.updatedAt = now;
-          plan = { ...existing };
-        } else {
-          const newPlan: PaymentPlan = {
-            id: nextId(paymentPlanFixtures, "payment-plan"),
-            dealId,
-            downPaymentAmount: data.downPaymentAmount,
-            installmentCount: data.installmentCount,
-            installmentAmount: data.installmentAmount,
-            balloonAmount: data.balloonAmount,
-            balloonDueMonth: data.balloonDueMonth,
-            createdAt: now,
-            updatedAt: now,
-          };
-          paymentPlanFixtures.push(newPlan);
-          plan = { ...newPlan };
-        }
-        const total = getPaymentPlanTotal(plan);
-        deal.value = total;
-        deal.updatedAt = now;
-        resolve(plan);
-      }, 200);
-    });
-  },
-
-  updateDeal: (
-    dealId: string,
-    payload: {
-      title?: string;
-      value?: number;
-      stage?: Deal["stage"];
-      lifecycleId?: string | null;
-      personId?: string;
-      unitId?: string | null;
-      expectedCloseDate?: string | null;
+    let dealId: string | undefined;
+    if (options?.createDeal) {
+      const deal = await tx.deal.create({
+        data: {
+          title: lead.notes ? `Fırsat - ${lead.notes}` : "Yeni fırsat",
+          value: 0,
+          stage: "inquiry",
+          lifecycleId: "lifecycle-1",
+          personId: person.id,
+        },
+      });
+      dealId = deal.id;
     }
-  ): Promise<Deal | undefined> => {
-    return new Promise((resolve, reject) => {
-      setTimeout(async () => {
-        const deal = dealFixtures.find((d) => d.id === dealId);
-        if (!deal) {
-          resolve(undefined);
-          return;
-        }
-        const previousUnitId = deal.unitId;
 
-        if (payload.unitId !== undefined) {
-          // If unit is being changed, emit unassignment for old one
-          if (previousUnitId && previousUnitId !== payload.unitId) {
-            domainEvents.emit("crm:deal-unit-unassigned", {
-              dealId: deal.id,
-              unitId: previousUnitId,
-              timestamp: new Date().toISOString(),
-            });
-          }
-          deal.unitId = payload.unitId ?? undefined;
-        }
-
-        if (payload.title !== undefined) deal.title = payload.title;
-        if (payload.value !== undefined) deal.value = payload.value;
-        if (payload.lifecycleId !== undefined) {
-          deal.lifecycleId = payload.lifecycleId ?? undefined;
-          if (payload.lifecycleId) {
-            const lifecycle = lifecycleFixtures.find((lifecycleItem) => lifecycleItem.id === payload.lifecycleId);
-            if (lifecycle) {
-              const orderToStage: Record<number, Deal["stage"]> = {
-                1: "inquiry",
-                2: "meeting",
-                3: "offer",
-                4: "negotiation",
-                5: "won",
-                6: "lost",
-              };
-              deal.stage = orderToStage[lifecycle.order] ?? deal.stage;
-            }
-          }
-        }
-        if (payload.stage !== undefined) deal.stage = payload.stage;
-        if (payload.personId !== undefined) deal.personId = payload.personId;
-        if (payload.expectedCloseDate !== undefined) deal.expectedCloseDate = payload.expectedCloseDate ?? undefined;
-
-        const now = new Date().toISOString().slice(0, 10);
-        deal.updatedAt = now;
-
-        // Domain Events for State Changes
-        if (deal.stage === "won" && deal.unitId) {
-          domainEvents.emit("crm:deal-won", {
-            dealId: deal.id,
-            personId: deal.personId,
-            unitId: deal.unitId,
-            value: deal.value,
-            timestamp: now,
-          });
-        } else if (deal.stage === "lost") {
-          domainEvents.emit("crm:deal-lost", {
-            dealId: deal.id,
-            unitId: deal.unitId,
-            timestamp: now,
-          });
-        } else if (payload.unitId === null && previousUnitId) {
-          domainEvents.emit("crm:deal-unit-unassigned", {
-            dealId: deal.id,
-            unitId: previousUnitId,
-            timestamp: now,
-          });
-        }
-
-        resolve({ ...deal });
-      }, 200);
+    await tx.lead.update({
+      where: { id: leadId },
+      data: { status: "converted" },
     });
-  },
 
-  // Timeline event services
-  getTimelineEvents: (): Promise<TimelineEvent[]> => {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve([...timelineEventFixtures]), 200);
-    });
-  },
+    return { personId: person.id, dealId };
+  });
 
-  getTimelineEventById: (id: string): Promise<TimelineEvent | undefined> => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const event = timelineEventFixtures.find((eventItem) => eventItem.id === id);
-        resolve(event);
-      }, 200);
-    });
-  },
+  domainEvents.emit("crm:lead-converted", {
+    leadId: lead.id,
+    personId: result.personId,
+    dealId: result.dealId,
+    timestamp: new Date().toISOString(),
+  });
 
-  // Lead services
-  getLeads: (): Promise<Lead[]> => {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve([...leadFixtures]), 200);
-    });
-  },
+  return result;
+}
 
-  getLeadById: (id: string): Promise<Lead | undefined> => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const lead = leadFixtures.find((leadItem) => leadItem.id === id);
-        resolve(lead);
-      }, 200);
-    });
-  },
-
-  updateLead: (
-    leadId: string,
-    payload: {
-      status?: Lead["status"];
-      lifecycleId?: string | null;
-    }
-  ): Promise<Lead | undefined> => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const lead = leadFixtures.find((leadItem) => leadItem.id === leadId);
-        if (!lead) {
-          resolve(undefined);
-          return;
-        }
-        if (payload.lifecycleId !== undefined) {
-          lead.lifecycleId = payload.lifecycleId ?? undefined;
-          if (payload.lifecycleId) {
-            const lifecycle = lifecycleFixtures.find((lifecycleItem) => lifecycleItem.id === payload.lifecycleId);
-            if (lifecycle) {
-              const orderToStatus: Record<number, Lead["status"]> = {
-                1: "new",
-                2: "qualified",
-                3: "qualified",
-                4: "qualified",
-                5: "converted",
-                6: "lost",
-              };
-              lead.status = orderToStatus[lifecycle.order] ?? lead.status;
-            }
-          }
-        }
-        if (payload.status !== undefined) lead.status = payload.status;
-        lead.updatedAt = new Date().toISOString().slice(0, 10);
-        resolve({ ...lead });
-      }, 200);
-    });
-  },
-
-  // Lifecycle services
-  getLifecycles: (): Promise<Lifecycle[]> => {
-    return new Promise((resolve) => {
-      setTimeout(
-        () =>
-          resolve([...lifecycleFixtures].sort((a, b) => a.order - b.order)),
-        200
-      );
-    });
-  },
-
-  getLifecycleById: (id: string): Promise<Lifecycle | undefined> => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const lifecycle = lifecycleFixtures.find((lifecycleItem) => lifecycleItem.id === id);
-        resolve(lifecycle);
-      }, 200);
-    });
-  },
-
-  // Team services
-  getTeams: (): Promise<Team[]> => {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve([...teamFixtures]), 200);
-    });
-  },
-
-  getTeamById: (id: string): Promise<Team | undefined> => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const team = teamFixtures.find((teamItem) => teamItem.id === id);
-        resolve(team);
-      }, 200);
-    });
-  },
-
-  convertLead: (
-    leadId: string,
-    options?: { createDeal?: boolean }
-  ): Promise<{
-    personId: string;
-    dealId?: string;
-  }> => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const lead = leadFixtures.find((leadItem) => leadItem.id === leadId);
-        if (!lead) {
-          reject(new Error("Lead not found"));
-          return;
-        }
-        if (lead.status === "converted" || lead.status === "lost") {
-          reject(
-            new Error(
-              `Lead cannot be converted: status is ${lead.status}`
-            )
-          );
-          return;
-        }
-
-        const now = new Date().toISOString().slice(0, 10);
-        const personId = nextId(personFixtures, "person");
-        const newPerson: Person = {
-          id: personId,
-          leadId: lead.id,
-          name: lead.name,
-          email: lead.email,
-          phone: lead.phone,
-          notes: lead.notes,
-          createdAt: now,
-          updatedAt: now,
-        };
-        personFixtures.push(newPerson);
-
-        let dealId: string | undefined;
-        if (options?.createDeal) {
-          dealId = nextId(dealFixtures, "deal");
-          dealFixtures.push({
-            id: dealId,
-            title: lead.notes ? `Fırsat - ${lead.notes}` : "Yeni fırsat",
-            value: 0,
-            stage: "inquiry",
-            lifecycleId: "lifecycle-1",
-            personId,
-            createdAt: now,
-            updatedAt: now,
-          });
-        }
-
-        lead.status = "converted";
-        lead.updatedAt = now;
-
-        // Emit Lead Converted Event
-        domainEvents.emit("crm:lead-converted", {
-          leadId: lead.id,
-          personId,
-          dealId,
-          timestamp: now,
-        });
-
-        resolve({
-          personId,
-          ...(dealId && { dealId }),
-        });
-      }, 200);
-    });
-  },
-};
+// Individual exports are used as Server Actions

@@ -3,7 +3,7 @@ import { ConvertLeadButton } from "@/modules/crm/components/convert-lead-button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatusBadge } from "@/modules/crm/components/common/status-badge";
 import { notFound } from "next/navigation";
-import { crmServices } from "@/modules/crm/services";
+import { getLeadById, getLifecycleById } from "@/modules/crm/services";
 
 interface LeadDetailPageProps {
   params: Promise<{ id: string }>;
@@ -11,14 +11,14 @@ interface LeadDetailPageProps {
 
 export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
   const { id } = await params;
-  const lead = await crmServices.getLeadById(id);
+  const lead = await getLeadById(id);
 
   if (!lead) {
     notFound();
   }
 
   const lifecycle = lead.lifecycleId
-    ? await crmServices.getLifecycleById(lead.lifecycleId)
+    ? await getLifecycleById(lead.lifecycleId)
     : undefined;
 
   return (

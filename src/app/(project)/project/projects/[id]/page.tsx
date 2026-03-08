@@ -3,7 +3,7 @@ import { ProjectCard } from "@/modules/project/components/project-card";
 import { UnitTable } from "@/modules/project/components/unit-table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { notFound } from "next/navigation";
-import { projectServices } from "@/modules/project/services";
+import { getProjectById, getUnitsByProjectId } from "@/modules/project/services";
 
 interface ProjectDetailPageProps {
   params: Promise<{ id: string }>;
@@ -13,13 +13,13 @@ export default async function ProjectDetailPage({
   params,
 }: ProjectDetailPageProps) {
   const { id: projectId } = await params;
-  const project = await projectServices.getProjectById(projectId);
+  const project = await getProjectById(projectId);
 
   if (!project) {
     notFound();
   }
 
-  const units = await projectServices.getUnitsByProjectId(projectId);
+  const units = await getUnitsByProjectId(projectId);
 
   return (
     <ProjectPageLayout>

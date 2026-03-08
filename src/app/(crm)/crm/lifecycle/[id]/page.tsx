@@ -1,7 +1,7 @@
 import { CRMPageLayout } from "@/modules/crm/components/crm-page-layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { notFound } from "next/navigation";
-import { crmServices } from "@/modules/crm/services";
+import { getLifecycleById } from "@/modules/crm/services";
 
 interface LifecycleDetailPageProps {
   params: Promise<{ id: string }>;
@@ -11,7 +11,7 @@ export default async function LifecycleDetailPage({
   params,
 }: LifecycleDetailPageProps) {
   const { id } = await params;
-  const lifecycle = await crmServices.getLifecycleById(id);
+  const lifecycle = await getLifecycleById(id);
 
   if (!lifecycle) {
     notFound();

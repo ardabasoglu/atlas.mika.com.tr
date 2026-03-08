@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { Deal, PaymentPlan } from "../types";
 import { getPaymentPlanTotal } from "../types";
 import { queryKeys } from "@/lib/query/keys";
-import { crmServices } from "../services";
+import { updateDeal, savePaymentPlan, convertLead } from "../services";
 
 export type UpdateDealPayload = {
   title?: string;
@@ -26,7 +26,7 @@ export function useUpdateDeal() {
     }: {
       dealId: string;
       payload: UpdateDealPayload;
-    }) => crmServices.updateDeal(dealId, payload),
+    }) => updateDeal(dealId, payload),
     onMutate: async ({ dealId, payload }) => {
       await queryClient.cancelQueries({ queryKey: queryKeys.crm.deal(dealId) });
       await queryClient.cancelQueries({ queryKey: queryKeys.crm.deals() });
@@ -99,7 +99,7 @@ export function useSavePaymentPlan() {
     }: {
       dealId: string;
       data: SavePaymentPlanData;
-    }) => crmServices.savePaymentPlan(dealId, data),
+    }) => savePaymentPlan(dealId, data),
     onMutate: async ({ dealId, data }) => {
       await queryClient.cancelQueries({
         queryKey: queryKeys.crm.paymentPlan(dealId),
@@ -194,7 +194,7 @@ export function useConvertLead() {
     }: {
       leadId: string;
       createDeal?: boolean;
-    }) => crmServices.convertLead(leadId, { createDeal }),
+    }) => convertLead(leadId, { createDeal }),
     onSettled: (data) => {
       if (data?.personId) {
         queryClient.invalidateQueries({

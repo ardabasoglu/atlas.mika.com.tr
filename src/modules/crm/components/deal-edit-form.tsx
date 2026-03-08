@@ -12,8 +12,8 @@ import {
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Deal, Lifecycle } from "../types";
-import { crmServices } from "../services";
-import { projectServices } from "@/modules/project/services";
+import { getLifecycles } from "../services";
+import { getProjects, getUnitsByProjectId } from "@/modules/project/services";
 import { useUpdateDeal } from "../hooks";
 import type { Project } from "@/modules/project/types";
 import type { Unit } from "@/modules/project/types";
@@ -33,11 +33,11 @@ export function DealEditForm({ deal, initialProjectId }: DealEditFormProps) {
   const [lifecycleId, setLifecycleId] = useState<string>(deal.lifecycleId ?? "");
 
   useEffect(() => {
-    projectServices.getProjects().then(setProjects);
+    getProjects().then(setProjects);
   }, []);
 
   useEffect(() => {
-    crmServices.getLifecycles().then(setLifecycles);
+    getLifecycles().then(setLifecycles);
   }, []);
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export function DealEditForm({ deal, initialProjectId }: DealEditFormProps) {
       setUnitId("");
       return;
     }
-    projectServices.getUnitsByProjectId(projectId).then((list) => {
+    getUnitsByProjectId(projectId).then((list) => {
       setUnits(list);
       const currentUnitInList = list.some((unit) => unit.id === unitId);
       if (unitId && !currentUnitInList) {

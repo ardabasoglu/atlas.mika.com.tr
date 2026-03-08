@@ -3,10 +3,10 @@ import { ActivityTable } from "@/modules/crm/components/activity-table";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
-import { crmServices } from "@/modules/crm/services";
+import { getTimelineEvents } from "@/modules/crm/services";
 
 export default async function ActivitiesPage() {
-  const timelineEvents = await crmServices.getTimelineEvents();
+  const timelineEvents = await getTimelineEvents();
 
   return (
     <CRMPageLayout>

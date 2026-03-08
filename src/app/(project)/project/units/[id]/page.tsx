@@ -2,8 +2,8 @@ import { ProjectPageLayout } from "@/modules/project/components/project-page-lay
 import { UnitCard } from "@/modules/project/components/unit-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { notFound } from "next/navigation";
-import { projectServices } from "@/modules/project/services";
-import { crmServices } from "@/modules/crm/services";
+import { getUnitById, getProjectById } from "@/modules/project/services";
+import { getDealById, getPersonById } from "@/modules/crm/services";
 import { formatMoney } from "@/lib/currency";
 
 interface UnitDetailPageProps {
@@ -12,19 +12,19 @@ interface UnitDetailPageProps {
 
 export default async function UnitDetailPage({ params }: UnitDetailPageProps) {
   const { id: unitId } = await params;
-  const unit = await projectServices.getUnitById(unitId);
+  const unit = await getUnitById(unitId);
 
   if (!unit) {
     notFound();
   }
 
   const [project, deal, person] = await Promise.all([
-    projectServices.getProjectById(unit.projectId),
+    getProjectById(unit.projectId),
     unit.dealId
-      ? crmServices.getDealById(unit.dealId)
+      ? getDealById(unit.dealId)
       : Promise.resolve(undefined),
     unit.personId
-      ? crmServices.getPersonById(unit.personId)
+      ? getPersonById(unit.personId)
       : Promise.resolve(undefined),
   ]);
 

@@ -1,5 +1,5 @@
 import { domainEvents } from "@/lib/events";
-import { projectServices } from "./services";
+import { updateUnit } from "./services";
 
 /**
  * Initializes listeners for the Project module.
@@ -9,7 +9,7 @@ export function initProjectListeners() {
   // Listen for Won Deals in CRM
   domainEvents.on("crm:deal-won", async (payload) => {
     console.log(`[ProjectListener] Deal ${payload.dealId} won, updating unit ${payload.unitId}`);
-    await projectServices.updateUnit(payload.unitId, {
+    await updateUnit(payload.unitId, {
       status: "sold",
       dealId: payload.dealId,
       personId: payload.personId,
@@ -20,7 +20,7 @@ export function initProjectListeners() {
   domainEvents.on("crm:deal-lost", async (payload) => {
     if (payload.unitId) {
       console.log(`[ProjectListener] Deal ${payload.dealId} lost, releasing unit ${payload.unitId}`);
-      await projectServices.updateUnit(payload.unitId, {
+      await updateUnit(payload.unitId, {
         status: "available",
         dealId: null,
         personId: null,
@@ -31,7 +31,7 @@ export function initProjectListeners() {
   // Listen for Unit Unassignment (when a unit is removed from a deal or replaced)
   domainEvents.on("crm:deal-unit-unassigned", async (payload) => {
     console.log(`[ProjectListener] Unit ${payload.unitId} unassigned from deal ${payload.dealId}`);
-    await projectServices.updateUnit(payload.unitId, {
+    await updateUnit(payload.unitId, {
       status: "available",
       dealId: null,
       personId: null,
