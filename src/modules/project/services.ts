@@ -2,12 +2,10 @@
 
 import { prisma } from "@/lib/prisma";
 import { Project, Unit } from "./types";
-import { 
-  Project as PrismaProject, 
+import {
+  Project as PrismaProject,
   Unit as PrismaUnit,
-  ProjectStatus,
   UnitStatus,
-  UnitType
 } from "@/generated/prisma/client";
 
 function mapPrismaProject(p: PrismaProject): Project {
@@ -16,7 +14,7 @@ function mapPrismaProject(p: PrismaProject): Project {
     name: p.name,
     description: p.description ?? undefined,
     address: p.address ?? undefined,
-    status: p.status as any, // Cast to match our Zod enum if needed
+    status: p.status as Project["status"],
     startDate: p.startDate ? p.startDate.toISOString() : undefined,
     endDate: p.endDate ? p.endDate.toISOString() : undefined,
     createdAt: p.createdAt.toISOString(),
@@ -29,11 +27,11 @@ function mapPrismaUnit(u: PrismaUnit): Unit {
     id: u.id,
     projectId: u.projectId,
     code: u.code,
-    type: u.type as any,
+    type: u.type as Unit["type"],
     sizeSqm: u.sizeSqm,
     price: u.price ? Number(u.price) : undefined,
     currency: u.currency ?? undefined,
-    status: u.status as any,
+    status: u.status as Unit["status"],
     floor: u.floor ?? undefined,
     personId: u.personId ?? undefined,
     dealId: undefined, // Handled via relation in some contexts if needed

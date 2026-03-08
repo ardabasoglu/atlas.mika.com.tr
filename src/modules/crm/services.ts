@@ -14,14 +14,13 @@ import {
 import { getUnitById, getProjectById, updateUnit } from "@/modules/project/services";
 import {
   Person as PrismaPerson,
- 
-  Deal as PrismaDeal, 
+  Deal as PrismaDeal,
   Lead as PrismaLead,
   Lifecycle as PrismaLifecycle,
   PaymentPlan as PrismaPaymentPlan,
   TimelineEvent as PrismaTimelineEvent,
+  DealStage,
   LeadStatus,
-  DealStage
 } from "@/generated/prisma/client";
 
 // --- Mappers ---
@@ -61,7 +60,7 @@ function mapPrismaDeal(d: PrismaDeal & { paymentPlan?: PrismaPaymentPlan | null 
     title: d.title,
     value: Number(d.value),
     currency: d.currency ?? undefined,
-    stage: d.stage as any,
+    stage: d.stage as Deal["stage"],
     lifecycleId: d.lifecycleId ?? undefined,
     expectedCloseDate: d.expectedCloseDate?.toISOString(),
     paymentPlan: d.paymentPlan ? mapPrismaPaymentPlan(d.paymentPlan) : undefined,
@@ -77,7 +76,7 @@ function mapPrismaLead(l: PrismaLead): Lead {
     email: l.email,
     phone: l.phone ?? undefined,
     source: l.source ?? undefined,
-    status: l.status as any,
+    status: l.status as Lead["status"],
     lifecycleId: l.lifecycleId ?? undefined,
     notes: l.notes ?? undefined,
     createdAt: l.createdAt.toISOString(),
@@ -100,12 +99,12 @@ function mapPrismaLifecycle(l: PrismaLifecycle): Lifecycle {
 function mapPrismaTimelineEvent(e: PrismaTimelineEvent): TimelineEvent {
   return {
     id: e.id,
-    entityType: e.entityType as any,
+    entityType: e.entityType as TimelineEvent["entityType"],
     entityId: e.entityId,
-    type: e.type as any,
+    type: e.type as TimelineEvent["type"],
     title: e.title ?? undefined,
     description: e.description ?? undefined,
-    metadata: (e.metadata as any) ?? undefined,
+    metadata: (e.metadata as Record<string, unknown> | null) ?? undefined,
     createdBy: e.createdBy ?? undefined,
     createdAt: e.createdAt.toISOString(),
   };
