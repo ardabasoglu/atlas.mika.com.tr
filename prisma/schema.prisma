@@ -129,9 +129,24 @@ model Deal {
   createdAt          DateTime  @default(now()) @map("created_at")
   updatedAt          DateTime  @updatedAt @map("updated_at")
 
-  person    Person     @relation(fields: [personId], references: [id], onDelete: Restrict)
-  lifecycle Lifecycle? @relation(fields: [lifecycleId], references: [id])
-  unit      Unit?      @relation("DealUnit", fields: [unitId], references: [id])
+  person       Person        @relation(fields: [personId], references: [id], onDelete: Restrict)
+  lifecycle    Lifecycle?    @relation(fields: [lifecycleId], references: [id])
+  unit         Unit?         @relation("DealUnit", fields: [unitId], references: [id])
+  paymentPlan  PaymentPlan?
+}
+
+model PaymentPlan {
+  id                  String   @id @default(cuid())
+  dealId              String   @unique @map("deal_id")
+  downPaymentAmount   Decimal  @map("down_payment_amount") @db.Decimal(18, 2)
+  installmentCount    Int      @map("installment_count")
+  installmentAmount   Decimal  @map("installment_amount") @db.Decimal(18, 2)
+  balloonAmount       Decimal  @map("balloon_amount") @db.Decimal(18, 2)
+  balloonDueMonth     Int?     @map("balloon_due_month") // 0 = at signing; null = end
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+
+  deal Deal @relation(fields: [dealId], references: [id], onDelete: Cascade)
 }
 
 // ---------------------------------------------------------------------------
