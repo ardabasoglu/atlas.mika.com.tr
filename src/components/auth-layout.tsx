@@ -6,13 +6,20 @@ interface AuthLayoutProps {
   title: string;
   description: string;
   showImage?: boolean;
+  imageSrc?: string;
+  imageAlt?: string;
 }
+
+const DEFAULT_AUTH_IMAGE =
+  "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1920&auto=format&fit=crop";
 
 export function AuthLayout({
   children,
   title,
   description,
   showImage = true,
+  imageSrc = DEFAULT_AUTH_IMAGE,
+  imageAlt = "Kimlik doğrulama arka planı",
 }: AuthLayoutProps) {
   return (
     <div className="grid min-h-svh bg-slate-50 dark:bg-slate-950/50 lg:grid-cols-2">
@@ -59,8 +66,8 @@ export function AuthLayout({
       {showImage && (
         <div className="bg-muted relative hidden lg:block">
           <img
-            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1920&auto=format&fit=crop"
-            alt="Kimlik doğrulama arka planı"
+            src={imageSrc}
+            alt={imageAlt}
             className="size-full object-cover dark:brightness-[0.2] dark:grayscale"
           />
         </div>

@@ -1,35 +1,32 @@
 "use client";
 
-/**
- * Auth client stub – Better Auth has been removed for now.
- * No session, sign-in/sign-up/sign-out are no-ops. Replace with real auth when needed.
- */
+import { createAuthClient } from "better-auth/react";
+import {
+  magicLinkClient,
+  inferAdditionalFields,
+} from "better-auth/client/plugins";
+
+const authClient = createAuthClient({
+  baseURL: typeof window !== "undefined" ? undefined : process.env.BETTER_AUTH_URL,
+  plugins: [
+    magicLinkClient(),
+    inferAdditionalFields({
+      user: {
+        role: {
+          type: "string",
+          required: false,
+        },
+      },
+    }),
+  ],
+});
 
 export function useSession() {
-  return {
-    data: null as { user?: { role?: string } } | null,
-    isPending: false,
-  };
-}
-
-async function signInNoOp(): Promise<void> {
-  // No-op
-}
-
-async function signOutNoOp(): Promise<void> {
-  // No-op
-}
-
-async function signUpEmailNoOp(_options?: unknown): Promise<void> {
-  // No-op – registration disabled
+  return authClient.useSession();
 }
 
 export const signIn = {
-  email: signInNoOp,
+  magicLink: authClient.signIn.magicLink,
 };
 
-export const signOut = signOutNoOp;
-
-export const signUp = {
-  email: signUpEmailNoOp,
-};
+export const signOut = authClient.signOut;
