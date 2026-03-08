@@ -10,7 +10,7 @@ import {
   Person,
   PaymentPlan,
   getPaymentPlanTotal,
-} from "../types";
+} from "./types";
 import { getUnitById, getProjectById, updateUnit } from "@/modules/project/services";
 import { domainEvents } from "@/lib/events";
 import { 

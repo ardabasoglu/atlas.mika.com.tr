@@ -1,9 +1,18 @@
 "use client";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { Unit } from "../types";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import type { Unit } from "./types";
 import { queryKeys } from "@/lib/query/keys";
-import { updateUnit } from "../services";
+import { 
+  updateUnit, 
+  getProjects, 
+  getProjectById, 
+  getUnitsByProjectId, 
+  getUnits, 
+  getUnitById 
+} from "./services";
+
+// --- Mutations ---
 
 export type UpdateUnitPayload = {
   status?: Unit["status"];
@@ -92,5 +101,45 @@ export function useUpdateUnit() {
       }
       queryClient.invalidateQueries({ queryKey: queryKeys.project.all });
     },
+  });
+}
+
+// --- Queries ---
+
+export function useProjects() {
+  return useQuery({
+    queryKey: queryKeys.project.projects(),
+    queryFn: () => getProjects(),
+  });
+}
+
+export function useProject(projectId: string) {
+  return useQuery({
+    queryKey: queryKeys.project.project(projectId),
+    queryFn: () => getProjectById(projectId),
+    enabled: !!projectId,
+  });
+}
+
+export function useUnits(projectId: string) {
+  return useQuery({
+    queryKey: queryKeys.project.units(projectId),
+    queryFn: () => getUnitsByProjectId(projectId),
+    enabled: !!projectId,
+  });
+}
+
+export function useAllUnits() {
+  return useQuery({
+    queryKey: queryKeys.project.unitsAll(),
+    queryFn: () => getUnits(),
+  });
+}
+
+export function useUnit(unitId: string) {
+  return useQuery({
+    queryKey: queryKeys.project.unit(unitId),
+    queryFn: () => getUnitById(unitId),
+    enabled: !!unitId,
   });
 }

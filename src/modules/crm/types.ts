@@ -6,7 +6,7 @@ export type {
   TimelineEvent,
   Lifecycle,
   Team,
-} from "../schemas";
+} from "./schemas";
 export {
   leadSchema,
   personSchema,
@@ -22,8 +22,8 @@ export {
   timelineEventArraySchema,
   lifecycleArraySchema,
   teamArraySchema,
-} from "../schemas";
-import type { PaymentPlan } from "../schemas";
+} from "./schemas";
+import type { PaymentPlan } from "./schemas";
 
 /** Sum of plan: downPaymentAmount + installmentCount * installmentAmount + balloonAmount */
 export function getPaymentPlanTotal(plan: PaymentPlan): number {

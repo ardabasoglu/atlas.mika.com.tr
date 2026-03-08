@@ -1,7 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
-import { Project, Unit } from "../types";
+import { Project, Unit } from "./types";
 import { 
   Project as PrismaProject, 
   Unit as PrismaUnit,

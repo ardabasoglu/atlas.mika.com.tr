@@ -1,10 +1,182 @@
 "use client";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { Deal, PaymentPlan } from "../types";
-import { getPaymentPlanTotal } from "../types";
+import * as React from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  getCoreRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
+  useReactTable,
+  type ColumnDef,
+  type ColumnFiltersState,
+  type SortingState,
+  type VisibilityState,
+  type PaginationState,
+  type Row,
+} from "@tanstack/react-table";
+import type { Deal, PaymentPlan } from "./types";
+import { getPaymentPlanTotal } from "./types";
 import { queryKeys } from "@/lib/query/keys";
-import { updateDeal, savePaymentPlan, convertLead } from "../services";
+import { 
+  updateDeal, 
+  savePaymentPlan, 
+  convertLead,
+  getDeals, 
+  getDealById, 
+  getDealWithUnit, 
+  getDealWithPaymentPlan, 
+  getPersonById, 
+  getDealsByPersonId, 
+  getPaymentPlanByDealId, 
+  getLifecycles 
+} from "./services";
+
+// --- Table Hooks ---
+
+const DEFAULT_PAGE_SIZE = 10;
+
+export interface UseEntityTableOptions<TData> {
+  data: TData[];
+  columns: ColumnDef<TData>[];
+  defaultPageSize?: number;
+  enableRowSelection?: boolean;
+  getRowId?: (row: TData, index: number, parent?: Row<TData>) => string;
+  meta?: Record<string, unknown>;
+}
+
+export interface UseEntityTableReturn<TData> {
+  table: ReturnType<typeof useReactTable<TData>>;
+  pagination: PaginationState;
+  setPagination: (pagination: PaginationState | ((prev: PaginationState) => PaginationState)) => void;
+  currentPage: number;
+  pageSize: number;
+}
+
+export function useEntityTable<TData>({
+  data,
+  columns,
+  defaultPageSize = DEFAULT_PAGE_SIZE,
+  enableRowSelection = true,
+  getRowId,
+  meta,
+}: UseEntityTableOptions<TData>): UseEntityTableReturn<TData> {
+  const [rowSelection, setRowSelection] = React.useState({});
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
+    []
+  );
+  const [sorting, setSorting] = React.useState<SortingState>([]);
+  const [pagination, setPagination] = React.useState<PaginationState>({
+    pageIndex: 0,
+    pageSize: defaultPageSize,
+  });
+
+  const table = useReactTable({
+    data,
+    columns,
+    ...(meta !== undefined && { meta }),
+    state: {
+      sorting,
+      columnVisibility,
+      rowSelection,
+      columnFilters,
+      pagination,
+    },
+    getRowId,
+    enableRowSelection,
+    onRowSelectionChange: setRowSelection,
+    onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
+    onColumnVisibilityChange: setColumnVisibility,
+    onPaginationChange: setPagination,
+    getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
+  });
+
+  return {
+    table,
+    pagination,
+    setPagination,
+    currentPage: pagination.pageIndex + 1,
+    pageSize: pagination.pageSize,
+  };
+}
+
+export { DEFAULT_PAGE_SIZE as TABLE_PAGE_SIZE };
+
+// --- Query Hooks ---
+
+export function useDeals() {
+  return useQuery({
+    queryKey: queryKeys.crm.deals(),
+    queryFn: () => getDeals(),
+  });
+}
+
+export function useDeal(dealId: string) {
+  return useQuery({
+    queryKey: queryKeys.crm.deal(dealId),
+    queryFn: () => getDealById(dealId),
+    enabled: !!dealId,
+  });
+}
+
+export function useDealWithUnit(dealId: string) {
+  return useQuery({
+    queryKey: queryKeys.crm.dealWithUnit(dealId),
+    queryFn: () => getDealWithUnit(dealId),
+    enabled: !!dealId,
+  });
+}
+
+export function useDealWithPaymentPlan(dealId: string) {
+  return useQuery({
+    queryKey: queryKeys.crm.dealWithPaymentPlan(dealId),
+    queryFn: () => getDealWithPaymentPlan(dealId),
+    enabled: !!dealId,
+  });
+}
+
+export function usePerson(personId: string) {
+  return useQuery({
+    queryKey: queryKeys.crm.person(personId),
+    queryFn: () => getPersonById(personId),
+    enabled: !!personId,
+  });
+}
+
+export function usePersonDeals(personId: string) {
+  return useQuery({
+    queryKey: queryKeys.crm.personDeals(personId),
+    queryFn: () => getDealsByPersonId(personId),
+    enabled: !!personId,
+  });
+}
+
+export function usePaymentPlan(dealId: string) {
+  return useQuery({
+    queryKey: queryKeys.crm.paymentPlan(dealId),
+    queryFn: () => getPaymentPlanByDealId(dealId),
+    enabled: !!dealId,
+  });
+}
+
+export function useLifecycles() {
+  return useQuery({
+    queryKey: queryKeys.crm.lifecycles(),
+    queryFn: () => getLifecycles(),
+  });
+}
+
+// --- Mutation Hooks ---
 
 export type UpdateDealPayload = {
   title?: string;
