@@ -12,9 +12,9 @@ import {
   getPaymentPlanTotal,
 } from "./types";
 import { getUnitById, getProjectById, updateUnit } from "@/modules/project/services";
-import { domainEvents } from "@/lib/events";
-import { 
-  Person as PrismaPerson, 
+import {
+  Person as PrismaPerson,
+ 
   Deal as PrismaDeal, 
   Lead as PrismaLead,
   Lifecycle as PrismaLifecycle,
@@ -425,13 +425,6 @@ export async function convertLead(
     });
 
     return { personId: person.id, dealId };
-  });
-
-  domainEvents.emit("crm:lead-converted", {
-    leadId: lead.id,
-    personId: result.personId,
-    dealId: result.dealId,
-    timestamp: new Date().toISOString(),
   });
 
   return result;
