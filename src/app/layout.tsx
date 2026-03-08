@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Figtree } from "next/font/google";
 import "./globals.css";
+import { QueryProvider } from "@/components/providers/query-provider";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
@@ -34,7 +35,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
       >
-        <SidebarProvider>{children}</SidebarProvider>
+        <QueryProvider>
+          <SidebarProvider>{children}</SidebarProvider>
+        </QueryProvider>
       </body>
     </html>
   );

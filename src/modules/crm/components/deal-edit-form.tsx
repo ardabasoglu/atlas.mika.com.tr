@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Deal, Lifecycle } from "../types";
 import { crmServices } from "../services";
 import { projectServices } from "@/modules/project/services";
+import { useUpdateDeal } from "../hooks";
 import type { Project } from "@/modules/project/types";
 import type { Unit } from "@/modules/project/types";
 
@@ -24,15 +24,13 @@ interface DealEditFormProps {
 }
 
 export function DealEditForm({ deal, initialProjectId }: DealEditFormProps) {
-  const router = useRouter();
+  const updateDeal = useUpdateDeal();
   const [projects, setProjects] = useState<Project[]>([]);
   const [units, setUnits] = useState<Unit[]>([]);
   const [lifecycles, setLifecycles] = useState<Lifecycle[]>([]);
   const [projectId, setProjectId] = useState<string>(initialProjectId ?? "");
   const [unitId, setUnitId] = useState<string>(deal.unitId ?? "");
   const [lifecycleId, setLifecycleId] = useState<string>(deal.lifecycleId ?? "");
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     projectServices.getProjects().then(setProjects);
@@ -63,20 +61,14 @@ export function DealEditForm({ deal, initialProjectId }: DealEditFormProps) {
     });
   }, [projectId, unitId]);
 
-  const handleSave = async () => {
-    setError(null);
-    setSaving(true);
-    try {
-      await crmServices.updateDeal(deal.id, {
+  const handleSave = () => {
+    updateDeal.mutate({
+      dealId: deal.id,
+      payload: {
         lifecycleId: lifecycleId || null,
         unitId: unitId || null,
-      });
-      router.refresh();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Kaydetme başarısız");
-    } finally {
-      setSaving(false);
-    }
+      },
+    });
   };
 
   const hasChanges =
@@ -153,15 +145,19 @@ export function DealEditForm({ deal, initialProjectId }: DealEditFormProps) {
           </Select>
         </div>
 
-        {error && (
-          <p className="text-sm text-destructive">{error}</p>
+        {updateDeal.error && (
+          <p className="text-sm text-destructive">
+            {updateDeal.error instanceof Error
+              ? updateDeal.error.message
+              : "Kaydetme başarısız"}
+          </p>
         )}
 
         <Button
           onClick={handleSave}
-          disabled={!hasChanges || saving}
+          disabled={!hasChanges || updateDeal.isPending}
         >
-          {saving ? "Kaydediliyor…" : "Kaydet"}
+          {updateDeal.isPending ? "Kaydediliyor…" : "Kaydet"}
         </Button>
       </CardContent>
     </Card>

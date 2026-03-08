@@ -12,7 +12,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { PaymentPlan } from "../types";
-import { crmServices } from "../services";
+import { useSavePaymentPlan } from "../hooks";
 
 export interface PaymentPlanFormPayload {
   downPaymentAmount: number;
@@ -70,12 +70,12 @@ export function PaymentPlanForm({
         : String(existingPlan.balloonDueMonth)
       : "end"
   );
-  const [saving, setSaving] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const savePaymentPlan = useSavePaymentPlan();
+  const [validationError, setValidationError] = useState<string | null>(null);
 
-  const handleSubmit = async (event: React.FormEvent) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    setError(null);
+    setValidationError(null);
     const down = Number(downPaymentAmount);
     const count = Number(installmentCount);
     const installment = Number(installmentAmount);
@@ -86,32 +86,34 @@ export function PaymentPlanForm({
       Number.isNaN(installment) ||
       Number.isNaN(balloon)
     ) {
-      setError("Tüm alanlar sayı olmalıdır.");
+      setValidationError("Tüm alanlar sayı olmalıdır.");
       return;
     }
     if (down < 0 || installment < 0 || balloon < 0) {
-      setError("Tutarlar negatif olamaz.");
+      setValidationError("Tutarlar negatif olamaz.");
       return;
     }
     if (count < 0) {
-      setError("Taksit sayısı negatif olamaz.");
+      setValidationError("Taksit sayısı negatif olamaz.");
       return;
     }
-    setSaving(true);
-    try {
-      await crmServices.savePaymentPlan(dealId, {
-        downPaymentAmount: down,
-        installmentCount: count,
-        installmentAmount: installment,
-        balloonAmount: balloon,
-        balloonDueMonth: parseBalloonDueMonth(balloonDueMonth),
-      });
-      onSaved();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Kaydetme başarısız");
-    } finally {
-      setSaving(false);
-    }
+    savePaymentPlan.mutate(
+      {
+        dealId,
+        data: {
+          downPaymentAmount: down,
+          installmentCount: count,
+          installmentAmount: installment,
+          balloonAmount: balloon,
+          balloonDueMonth: parseBalloonDueMonth(balloonDueMonth),
+        },
+      },
+      {
+        onSuccess: () => {
+          onSaved();
+        },
+      }
+    );
   };
 
   return (
@@ -182,12 +184,17 @@ export function PaymentPlanForm({
           </SelectContent>
         </Select>
       </div>
-      {error && (
-        <p className="text-sm text-destructive">{error}</p>
+      {(validationError || savePaymentPlan.error) && (
+        <p className="text-sm text-destructive">
+          {validationError ??
+            (savePaymentPlan.error instanceof Error
+              ? savePaymentPlan.error.message
+              : "Kaydetme başarısız")}
+        </p>
       )}
       <div className="flex gap-2">
-        <Button type="submit" disabled={saving}>
-          {saving ? "Kaydediliyor…" : "Kaydet"}
+        <Button type="submit" disabled={savePaymentPlan.isPending}>
+          {savePaymentPlan.isPending ? "Kaydediliyor…" : "Kaydet"}
         </Button>
         {onCancel && (
           <Button type="button" variant="outline" onClick={onCancel}>

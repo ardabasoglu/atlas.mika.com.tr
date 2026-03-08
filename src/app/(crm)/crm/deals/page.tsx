@@ -1,31 +1,5 @@
-import { CRMPageLayout } from "@/modules/crm/components/crm-page-layout";
-import { DealTable } from "@/modules/crm/components/deal-table";
-import { Button } from "@/components/ui/button";
-import { PlusIcon } from "lucide-react";
-import Link from "next/link";
-import { crmServices } from "@/modules/crm/services";
+import { DealsListClient } from "./deals-list-client";
 
-export default async function DealsPage() {
-  const [deals, lifecycles] = await Promise.all([
-    crmServices.getDeals(),
-    crmServices.getLifecycles(),
-  ]);
-
-  return (
-    <CRMPageLayout>
-      <DealTable
-        deals={deals}
-        lifecycles={lifecycles}
-        toolbar={
-          <Button asChild>
-            <Link href="/crm/deals/new">
-              <PlusIcon className="mr-2 h-4 w-4" />
-              Fırsat Ekle
-            </Link>
-          </Button>
-        }
-      />
-    </CRMPageLayout>
-  );
+export default function DealsPage() {
+  return <DealsListClient />;
 }
-

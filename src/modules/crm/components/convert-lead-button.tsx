@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/sheet";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
-import { crmServices } from "../services";
+import { useConvertLead } from "../hooks";
 import { Lead } from "../types";
 import { Loader2Icon, UserPlusIcon } from "lucide-react";
 
@@ -24,26 +24,23 @@ interface ConvertLeadButtonProps {
 
 export function ConvertLeadButton({ lead }: ConvertLeadButtonProps) {
   const router = useRouter();
+  const convertLead = useConvertLead();
   const [open, setOpen] = useState(false);
   const [createDeal, setCreateDeal] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const canConvert =
     lead.status !== "converted" && lead.status !== "lost";
 
-  async function handleConvert() {
-    setError(null);
-    setLoading(true);
-    try {
-      const result = await crmServices.convertLead(lead.id, { createDeal });
-      setOpen(false);
-      router.push(`/crm/persons/${result.personId}`);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Dönüştürme başarısız");
-    } finally {
-      setLoading(false);
-    }
+  function handleConvert() {
+    convertLead.mutate(
+      { leadId: lead.id, createDeal },
+      {
+        onSuccess: (result) => {
+          setOpen(false);
+          router.push(`/crm/persons/${result.personId}`);
+        },
+      }
+    );
   }
 
   if (!canConvert) {
@@ -79,20 +76,24 @@ export function ConvertLeadButton({ lead }: ConvertLeadButtonProps) {
               Fırsat (gayrimenkul) oluştur
             </Label>
           </div>
-          {error && (
-            <p className="text-sm text-destructive">{error}</p>
+          {convertLead.error && (
+            <p className="text-sm text-destructive">
+              {convertLead.error instanceof Error
+                ? convertLead.error.message
+                : "Dönüştürme başarısız"}
+            </p>
           )}
         </div>
         <SheetFooter>
           <Button
             variant="outline"
             onClick={() => setOpen(false)}
-            disabled={loading}
+            disabled={convertLead.isPending}
           >
             İptal
           </Button>
-          <Button onClick={handleConvert} disabled={loading}>
-            {loading ? (
+          <Button onClick={handleConvert} disabled={convertLead.isPending}>
+            {convertLead.isPending ? (
               <Loader2Icon className="mr-2 h-4 w-4 animate-spin" />
             ) : (
               <UserPlusIcon className="mr-2 h-4 w-4" />
