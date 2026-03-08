@@ -47,8 +47,8 @@ src/generated/
 skills-lock.json
 
 .doc/
-
 doc/
+docs/
 
 .cursor/
 
