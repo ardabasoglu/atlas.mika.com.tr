@@ -15,7 +15,10 @@ function mapPrismaProject(p: PrismaProject): Project {
     id: p.id,
     name: p.name,
     description: p.description ?? undefined,
+    address: p.address ?? undefined,
     status: p.status as any, // Cast to match our Zod enum if needed
+    startDate: p.startDate ? p.startDate.toISOString() : undefined,
+    endDate: p.endDate ? p.endDate.toISOString() : undefined,
     createdAt: p.createdAt.toISOString(),
     updatedAt: p.updatedAt.toISOString(),
   };
