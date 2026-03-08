@@ -6,6 +6,7 @@ import { crmServices } from "@/modules/crm/services";
 import { formatMoney } from "@/lib/currency";
 import { StatusBadge } from "@/modules/crm/components/common/status-badge";
 import { DealEditForm } from "@/modules/crm/components/deal-edit-form";
+import { DealPaymentPlanCard } from "@/modules/crm/components/deal-payment-plan-card";
 
 interface DealDetailPageProps {
   params: Promise<{ id: string }>;
@@ -116,66 +117,7 @@ export default async function DealDetailPage({ params }: DealDetailPageProps) {
             </CardContent>
           </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle>Ödeme planı</CardTitle>
-            </CardHeader>
-            <CardContent>
-              {deal.paymentPlan ? (
-                <dl className="grid gap-3 text-sm">
-                  <div>
-                    <dt className="font-medium text-muted-foreground">
-                      Peşinat
-                    </dt>
-                    <dd>
-                      {formatMoney(
-                        deal.paymentPlan.downPaymentAmount,
-                        deal.currency,
-                      )}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="font-medium text-muted-foreground">
-                      Taksit
-                    </dt>
-                    <dd>
-                      {deal.paymentPlan.installmentCount} x{" "}
-                      {formatMoney(
-                        deal.paymentPlan.installmentAmount,
-                        deal.currency,
-                      )}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="font-medium text-muted-foreground">
-                      Balon
-                    </dt>
-                    <dd>
-                      {formatMoney(
-                        deal.paymentPlan.balloonAmount,
-                        deal.currency,
-                      )}
-                      {deal.paymentPlan.balloonDueMonth === null
-                        ? " (Vade sonu)"
-                        : deal.paymentPlan.balloonDueMonth === 0
-                          ? " (İmzada)"
-                          : ` (Ay ${deal.paymentPlan.balloonDueMonth})`}
-                    </dd>
-                  </div>
-                  <div className="border-t pt-2 mt-2">
-                    <dt className="font-medium text-muted-foreground">
-                      Toplam
-                    </dt>
-                    <dd>{formatMoney(deal.value, deal.currency)}</dd>
-                  </div>
-                </dl>
-              ) : (
-                <p className="text-sm text-muted-foreground">
-                  Ödeme planı yok. Plan eklemek için aşağıdaki formu kullanın.
-                </p>
-              )}
-            </CardContent>
-          </Card>
+          <DealPaymentPlanCard deal={deal} />
         </div>
 
         <div className="lg:col-span-2">
