@@ -1,6 +1,8 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { formatZodError } from "@/lib/utils";
+import { idParamSchema, updateUnitPayloadSchema } from "./schemas";
 import { Project, Unit } from "./types";
 import {
   Project as PrismaProject,
@@ -84,11 +86,21 @@ export async function updateUnit(
     personId?: string | null;
   }
 ): Promise<Unit | undefined> {
+  const unitIdResult = idParamSchema.safeParse(unitId);
+  if (!unitIdResult.success) {
+    throw new Error(formatZodError(unitIdResult.error));
+  }
+  const payloadResult = updateUnitPayloadSchema.safeParse(payload);
+  if (!payloadResult.success) {
+    throw new Error(formatZodError(payloadResult.error));
+  }
+  const validatedPayload = payloadResult.data;
+
   const unit = await prisma.unit.update({
-    where: { id: unitId },
+    where: { id: unitIdResult.data },
     data: {
-      ...(payload.status && { status: payload.status as UnitStatus }),
-      ...(payload.personId !== undefined && { personId: payload.personId }),
+      ...(validatedPayload.status && { status: validatedPayload.status as UnitStatus }),
+      ...(validatedPayload.personId !== undefined && { personId: validatedPayload.personId }),
     },
   });
   return mapPrismaUnit(unit);

@@ -41,5 +41,17 @@ export const unitSchema = z.object({
 export const projectArraySchema = z.array(projectSchema);
 export const unitArraySchema = z.array(unitSchema);
 
+// --- Server action input schemas (for .safeParse() at boundaries) ---
+
+export const idParamSchema = z.string().min(1, "ID is required");
+
+export const updateUnitPayloadSchema = z
+  .object({
+    status: unitStatusEnum.optional(),
+    dealId: z.string().nullable().optional(),
+    personId: z.string().nullable().optional(),
+  })
+  .strict();
+
 export type Project = z.infer<typeof projectSchema>;
 export type Unit = z.infer<typeof unitSchema>;

@@ -1,6 +1,14 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { formatZodError } from "@/lib/utils";
+import {
+  idParamSchema,
+  savePaymentPlanInputSchema,
+  updateDealPayloadSchema,
+  updateLeadPayloadSchema,
+  convertLeadOptionsSchema,
+} from "./schemas";
 import {
   Deal,
   TimelineEvent,
@@ -197,28 +205,36 @@ export async function savePaymentPlan(
   dealId: string,
   data: Omit<PaymentPlan, "id" | "dealId" | "createdAt" | "updatedAt">
 ): Promise<PaymentPlan> {
+  const dealIdResult = idParamSchema.safeParse(dealId);
+  if (!dealIdResult.success) {
+    throw new Error(formatZodError(dealIdResult.error));
+  }
+  const dataResult = savePaymentPlanInputSchema.safeParse(data);
+  if (!dataResult.success) {
+    throw new Error(formatZodError(dataResult.error));
+  }
   const plan = await prisma.paymentPlan.upsert({
-    where: { dealId },
+    where: { dealId: dealIdResult.data },
     create: {
-      dealId,
-      downPaymentAmount: data.downPaymentAmount,
-      installmentCount: data.installmentCount,
-      installmentAmount: data.installmentAmount,
-      balloonAmount: data.balloonAmount,
-      balloonDueMonth: data.balloonDueMonth,
+      dealId: dealIdResult.data,
+      downPaymentAmount: dataResult.data.downPaymentAmount,
+      installmentCount: dataResult.data.installmentCount,
+      installmentAmount: dataResult.data.installmentAmount,
+      balloonAmount: dataResult.data.balloonAmount,
+      balloonDueMonth: dataResult.data.balloonDueMonth,
     },
     update: {
-      downPaymentAmount: data.downPaymentAmount,
-      installmentCount: data.installmentCount,
-      installmentAmount: data.installmentAmount,
-      balloonAmount: data.balloonAmount,
-      balloonDueMonth: data.balloonDueMonth,
+      downPaymentAmount: dataResult.data.downPaymentAmount,
+      installmentCount: dataResult.data.installmentCount,
+      installmentAmount: dataResult.data.installmentAmount,
+      balloonAmount: dataResult.data.balloonAmount,
+      balloonDueMonth: dataResult.data.balloonDueMonth,
     },
   });
 
   const total = getPaymentPlanTotal(mapPrismaPaymentPlan(plan));
   await prisma.deal.update({
-    where: { id: dealId },
+    where: { id: dealIdResult.data },
     data: { value: total },
   });
 
@@ -237,12 +253,22 @@ export async function updateDeal(
     expectedCloseDate?: string | null;
   }
 ): Promise<Deal | undefined> {
-  const currentDeal = await prisma.deal.findUnique({ where: { id: dealId } });
+  const dealIdResult = idParamSchema.safeParse(dealId);
+  if (!dealIdResult.success) {
+    throw new Error(formatZodError(dealIdResult.error));
+  }
+  const payloadResult = updateDealPayloadSchema.safeParse(payload);
+  if (!payloadResult.success) {
+    throw new Error(formatZodError(payloadResult.error));
+  }
+  const validatedPayload = payloadResult.data;
+
+  const currentDeal = await prisma.deal.findUnique({ where: { id: dealIdResult.data } });
   if (!currentDeal) return undefined;
   
   const previousUnitId = currentDeal.unitId;
 
-  if (payload.unitId !== undefined && previousUnitId && previousUnitId !== payload.unitId) {
+  if (validatedPayload.unitId !== undefined && previousUnitId && previousUnitId !== validatedPayload.unitId) {
     // Release previous unit explicitly
     await updateUnit(previousUnitId, {
       status: "available",
@@ -252,16 +278,16 @@ export async function updateDeal(
   }
 
   const updatedDeal = await prisma.deal.update({
-    where: { id: dealId },
+    where: { id: dealIdResult.data },
     data: {
-      ...(payload.title !== undefined && { title: payload.title }),
-      ...(payload.value !== undefined && { value: payload.value }),
-      ...(payload.stage !== undefined && { stage: payload.stage as DealStage }),
-      ...(payload.lifecycleId !== undefined && { lifecycleId: payload.lifecycleId }),
-      ...(payload.personId !== undefined && { personId: payload.personId }),
-      ...(payload.unitId !== undefined && { unitId: payload.unitId }),
-      ...(payload.expectedCloseDate !== undefined && { 
-        expectedCloseDate: payload.expectedCloseDate ? new Date(payload.expectedCloseDate) : null 
+      ...(validatedPayload.title !== undefined && { title: validatedPayload.title }),
+      ...(validatedPayload.value !== undefined && { value: validatedPayload.value }),
+      ...(validatedPayload.stage !== undefined && { stage: validatedPayload.stage as DealStage }),
+      ...(validatedPayload.lifecycleId !== undefined && { lifecycleId: validatedPayload.lifecycleId }),
+      ...(validatedPayload.personId !== undefined && { personId: validatedPayload.personId }),
+      ...(validatedPayload.unitId !== undefined && { unitId: validatedPayload.unitId }),
+      ...(validatedPayload.expectedCloseDate !== undefined && { 
+        expectedCloseDate: validatedPayload.expectedCloseDate ? new Date(validatedPayload.expectedCloseDate) : null 
       }),
     },
     include: { paymentPlan: true },
@@ -282,7 +308,7 @@ export async function updateDeal(
         personId: null,
       });
     }
-  } else if (payload.unitId === null && previousUnitId) {
+  } else if (validatedPayload.unitId === null && previousUnitId) {
     await updateUnit(previousUnitId, {
       status: "available",
       dealId: null,
@@ -328,11 +354,21 @@ export async function updateLead(
     lifecycleId?: string | null;
   }
 ): Promise<Lead | undefined> {
+  const leadIdResult = idParamSchema.safeParse(leadId);
+  if (!leadIdResult.success) {
+    throw new Error(formatZodError(leadIdResult.error));
+  }
+  const payloadResult = updateLeadPayloadSchema.safeParse(payload);
+  if (!payloadResult.success) {
+    throw new Error(formatZodError(payloadResult.error));
+  }
+  const validatedPayload = payloadResult.data;
+
   const lead = await prisma.lead.update({
-    where: { id: leadId },
+    where: { id: leadIdResult.data },
     data: {
-      ...(payload.status !== undefined && { status: payload.status as LeadStatus }),
-      ...(payload.lifecycleId !== undefined && { lifecycleId: payload.lifecycleId }),
+      ...(validatedPayload.status !== undefined && { status: validatedPayload.status as LeadStatus }),
+      ...(validatedPayload.lifecycleId !== undefined && { lifecycleId: validatedPayload.lifecycleId }),
     },
   });
   return mapPrismaLead(lead);
@@ -387,7 +423,17 @@ export async function convertLead(
   personId: string;
   dealId?: string;
 }> {
-  const lead = await prisma.lead.findUnique({ where: { id: leadId } });
+  const leadIdResult = idParamSchema.safeParse(leadId);
+  if (!leadIdResult.success) {
+    throw new Error(formatZodError(leadIdResult.error));
+  }
+  const optionsResult = convertLeadOptionsSchema.safeParse(options);
+  if (!optionsResult.success) {
+    throw new Error(formatZodError(optionsResult.error));
+  }
+  const validatedOptions = optionsResult.data;
+
+  const lead = await prisma.lead.findUnique({ where: { id: leadIdResult.data } });
   if (!lead) throw new Error("Lead not found");
   if (lead.status === "converted" || lead.status === "lost") {
     throw new Error(`Lead cannot be converted: status is ${lead.status}`);
@@ -405,7 +451,7 @@ export async function convertLead(
     });
 
     let dealId: string | undefined;
-    if (options?.createDeal) {
+    if (validatedOptions?.createDeal) {
       const defaultLifecycleId =
         process.env.DEFAULT_DEAL_LIFECYCLE_ID ??
         (await tx.lifecycle.findFirst({ orderBy: { order: "asc" } }))?.id ??
@@ -423,7 +469,7 @@ export async function convertLead(
     }
 
     await tx.lead.update({
-      where: { id: leadId },
+      where: { id: leadIdResult.data },
       data: { status: "converted" },
     });
 

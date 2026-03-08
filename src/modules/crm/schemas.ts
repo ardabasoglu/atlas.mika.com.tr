@@ -122,6 +122,44 @@ export const timelineEventArraySchema = z.array(timelineEventSchema);
 export const lifecycleArraySchema = z.array(lifecycleSchema);
 export const teamArraySchema = z.array(teamSchema);
 
+// --- Server action input schemas (for .safeParse() at boundaries) ---
+
+export const idParamSchema = z.string().min(1, "ID is required");
+
+export const savePaymentPlanInputSchema = z.object({
+  downPaymentAmount: z.number(),
+  installmentCount: z.number(),
+  installmentAmount: z.number(),
+  balloonAmount: z.number(),
+  balloonDueMonth: z.number().nullable(),
+});
+
+export const updateDealPayloadSchema = z
+  .object({
+    title: z.string().optional(),
+    value: z.number().optional(),
+    stage: dealStageEnum.optional(),
+    lifecycleId: z.string().nullable().optional(),
+    personId: z.string().optional(),
+    unitId: z.string().nullable().optional(),
+    expectedCloseDate: z.string().nullable().optional(),
+  })
+  .strict();
+
+export const updateLeadPayloadSchema = z
+  .object({
+    status: leadStatusEnum.optional(),
+    lifecycleId: z.string().nullable().optional(),
+  })
+  .strict();
+
+export const convertLeadOptionsSchema = z
+  .object({
+    createDeal: z.boolean().optional(),
+  })
+  .strict()
+  .optional();
+
 export type Lead = z.infer<typeof leadSchema>;
 export type Person = z.infer<typeof personSchema>;
 export type PaymentPlan = z.infer<typeof paymentPlanSchema>;
