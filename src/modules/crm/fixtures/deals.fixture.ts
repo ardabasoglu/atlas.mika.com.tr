@@ -20,7 +20,7 @@ const baseDeals: Array<{
   unitId?: string;
   expectedCloseDate?: string;
 }> = [
-  { title: "Bahçeşehir 3+1 Daire Satışı", stage: "inquiry", value: 2850000, personId: "person-1", unitId: "unit-2", expectedCloseDate: "2026-03-31" },
+  { title: "Bahçeşehir 3+1 Daire Satışı", stage: "inquiry", value: 2852000, personId: "person-1", unitId: "unit-2", expectedCloseDate: "2026-03-31" },
   { title: "Levent Ofis Katı Kiralama", stage: "meeting", value: 120000, personId: "person-2", unitId: "unit-7", expectedCloseDate: "2026-04-15" },
   { title: "Kartal Rezidans 2+1 Satışı", stage: "offer", value: 1950000, personId: "person-3", unitId: "unit-8", expectedCloseDate: "2026-03-20" },
   { title: "Beylikdüzü Villa Projesi", stage: "negotiation", value: 8500000, personId: "person-4", unitId: "unit-11", expectedCloseDate: "2026-05-01" },
