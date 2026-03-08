@@ -11,7 +11,7 @@ import {
   PaymentPlan,
   getPaymentPlanTotal,
 } from "../types";
-import { getUnitById, getProjectById } from "@/modules/project/services";
+import { getUnitById, getProjectById, updateUnit } from "@/modules/project/services";
 import { domainEvents } from "@/lib/events";
 import { 
   Person as PrismaPerson, 
@@ -244,10 +244,11 @@ export async function updateDeal(
   const previousUnitId = currentDeal.unitId;
 
   if (payload.unitId !== undefined && previousUnitId && previousUnitId !== payload.unitId) {
-    domainEvents.emit("crm:deal-unit-unassigned", {
-      dealId: currentDeal.id,
-      unitId: previousUnitId,
-      timestamp: new Date().toISOString(),
+    // Release previous unit explicitly
+    await updateUnit(previousUnitId, {
+      status: "available",
+      dealId: null,
+      personId: null,
     });
   }
 
@@ -267,26 +268,26 @@ export async function updateDeal(
     include: { paymentPlan: true },
   });
 
-  // Domain Events for State Changes
+  // Explicit service calls for state changes
   if (updatedDeal.stage === "won" && updatedDeal.unitId) {
-    domainEvents.emit("crm:deal-won", {
+    await updateUnit(updatedDeal.unitId, {
+      status: "sold",
       dealId: updatedDeal.id,
       personId: updatedDeal.personId,
-      unitId: updatedDeal.unitId,
-      value: Number(updatedDeal.value),
-      timestamp: new Date().toISOString(),
     });
   } else if (updatedDeal.stage === "lost") {
-    domainEvents.emit("crm:deal-lost", {
-      dealId: updatedDeal.id,
-      unitId: updatedDeal.unitId ?? undefined,
-      timestamp: new Date().toISOString(),
-    });
+    if (updatedDeal.unitId) {
+      await updateUnit(updatedDeal.unitId, {
+        status: "available",
+        dealId: null,
+        personId: null,
+      });
+    }
   } else if (payload.unitId === null && previousUnitId) {
-    domainEvents.emit("crm:deal-unit-unassigned", {
-      dealId: updatedDeal.id,
-      unitId: previousUnitId,
-      timestamp: new Date().toISOString(),
+    await updateUnit(previousUnitId, {
+      status: "available",
+      dealId: null,
+      personId: null,
     });
   }
 
