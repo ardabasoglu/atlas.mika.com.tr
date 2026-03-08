@@ -8,6 +8,72 @@ datasource db {
 }
 
 // ---------------------------------------------------------------------------
+// Better Auth (user, session, account, verification)
+// ---------------------------------------------------------------------------
+
+model User {
+  id            String    @id @default(cuid())
+  name          String
+  email         String    @unique
+  emailVerified Boolean   @default(false) @map("email_verified")
+  image         String?
+  role          String?   @default("MEMBER") // SYSTEM_ADMIN | ADMIN | MEMBER | GUEST
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  accounts Account[]
+  sessions Session[]
+
+  @@map("users")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String   @map("user_id")
+  token     String   @unique
+  expiresAt DateTime @map("expires_at")
+  ipAddress String?  @map("ip_address")
+  userAgent String?  @map("user_agent")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("sessions")
+}
+
+model Account {
+  id                   String    @id @default(cuid())
+  userId               String    @map("user_id")
+  accountId            String    @map("account_id")
+  providerId           String    @map("provider_id")
+  accessToken          String?   @map("access_token")
+  refreshToken         String?   @map("refresh_token")
+  accessTokenExpiresAt DateTime? @map("access_token_expires_at")
+  refreshTokenExpiresAt DateTime? @map("refresh_token_expires_at")
+  scope                String?
+  idToken              String?   @map("id_token")
+  password             String?
+  createdAt            DateTime  @default(now()) @map("created_at")
+  updatedAt            DateTime  @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("accounts")
+}
+
+model Verification {
+  id         String   @id @default(cuid())
+  identifier String   @unique
+  value     String
+  expiresAt DateTime @map("expires_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("verifications")
+}
+
+// ---------------------------------------------------------------------------
 // Enums (mirror src/modules/crm/types and src/modules/project/types)
 // ---------------------------------------------------------------------------
 
@@ -17,6 +83,8 @@ enum LeadStatus {
   qualified
   lost
   converted
+
+  @@map("lead_status")
 }
 
 enum DealStage {
@@ -26,12 +94,16 @@ enum DealStage {
   negotiation
   won
   lost
+
+  @@map("deal_stage")
 }
 
 enum TimelineEventEntityType {
   lead
   person
   deal
+
+  @@map("timeline_event_entity_type")
 }
 
 enum TimelineEventType {
@@ -42,6 +114,8 @@ enum TimelineEventType {
   status_change
   deal_created
   deal_stage_changed
+
+  @@map("timeline_event_type")
 }
 
 enum ProjectStatus {
@@ -49,6 +123,8 @@ enum ProjectStatus {
   construction
   completed
   on_hold
+
+  @@map("project_status")
 }
 
 enum UnitType {
@@ -56,12 +132,16 @@ enum UnitType {
   commercial
   parking
   other
+
+  @@map("unit_type")
 }
 
 enum UnitStatus {
   available
   reserved
   sold
+
+  @@map("unit_status")
 }
 
 // ---------------------------------------------------------------------------
@@ -79,6 +159,8 @@ model Lifecycle {
 
   leads Lead[]
   deals Deal[]
+
+  @@map("lifecycles")
 }
 
 // ---------------------------------------------------------------------------
@@ -99,6 +181,8 @@ model Lead {
 
   lifecycle Lifecycle? @relation(fields: [lifecycleId], references: [id])
   person    Person?
+
+  @@map("leads")
 }
 
 model Person {
@@ -114,6 +198,8 @@ model Person {
   lead   Lead?   @relation(fields: [leadId], references: [id])
   deals  Deal[]
   units  Unit[]
+
+  @@map("people")
 }
 
 model Deal {
@@ -133,6 +219,8 @@ model Deal {
   lifecycle    Lifecycle?    @relation(fields: [lifecycleId], references: [id])
   unit         Unit?         @relation("DealUnit", fields: [unitId], references: [id])
   paymentPlan  PaymentPlan?
+
+  @@map("deals")
 }
 
 model PaymentPlan {
@@ -147,6 +235,8 @@ model PaymentPlan {
   updatedAt           DateTime @updatedAt @map("updated_at")
 
   deal Deal @relation(fields: [dealId], references: [id], onDelete: Cascade)
+
+  @@map("payment_plans")
 }
 
 // ---------------------------------------------------------------------------
@@ -165,6 +255,7 @@ model TimelineEvent {
   createdAt   DateTime                 @default(now()) @map("created_at")
 
   @@index([entityType, entityId])
+  @@map("timeline_events")
 }
 
 // ---------------------------------------------------------------------------
@@ -183,6 +274,8 @@ model Project {
   updatedAt   DateTime      @updatedAt @map("updated_at")
 
   units Unit[]
+
+  @@map("projects")
 }
 
 model Unit {
@@ -202,4 +295,6 @@ model Unit {
   project Project @relation(fields: [projectId], references: [id], onDelete: Restrict)
   person  Person? @relation(fields: [personId], references: [id])
   deal    Deal?   @relation("DealUnit")
+
+  @@map("units")
 }
