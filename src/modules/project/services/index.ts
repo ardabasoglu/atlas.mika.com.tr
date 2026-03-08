@@ -1,5 +1,9 @@
 import { Project, Unit } from "../types";
 import { projects as projectFixtures, units as unitFixtures } from "../fixtures";
+import { initProjectListeners } from "../listeners";
+
+// Initialize listeners for the project module
+initProjectListeners();
 
 export const projectServices = {
   getProjects: (): Promise<Project[]> => {

@@ -18,6 +18,7 @@ import {
   paymentPlans as paymentPlanFixtures,
 } from "../fixtures";
 import { projectServices } from "@/modules/project/services";
+import { domainEvents } from "@/lib/events";
 
 function nextId(items: { id: string }[], prefix: string): string {
   const numbers = items
@@ -174,23 +175,15 @@ export const crmServices = {
           return;
         }
         const previousUnitId = deal.unitId;
-        const previousStage = deal.stage;
 
         if (payload.unitId !== undefined) {
-          if (payload.unitId) {
-            const unit = await projectServices.getUnitById(payload.unitId);
-            if (unit?.dealId && unit.dealId !== dealId) {
-              const otherDeal = dealFixtures.find((d) => d.id === unit.dealId);
-              if (otherDeal) {
-                otherDeal.unitId = undefined;
-                otherDeal.updatedAt = new Date().toISOString().slice(0, 10);
-                await projectServices.updateUnit(payload.unitId, {
-                  status: "available",
-                  dealId: null,
-                  personId: null,
-                });
-              }
-            }
+          // If unit is being changed, emit unassignment for old one
+          if (previousUnitId && previousUnitId !== payload.unitId) {
+            domainEvents.emit("crm:deal-unit-unassigned", {
+              dealId: deal.id,
+              unitId: previousUnitId,
+              timestamp: new Date().toISOString(),
+            });
           }
           deal.unitId = payload.unitId ?? undefined;
         }
@@ -221,18 +214,26 @@ export const crmServices = {
         const now = new Date().toISOString().slice(0, 10);
         deal.updatedAt = now;
 
+        // Domain Events for State Changes
         if (deal.stage === "won" && deal.unitId) {
-          await projectServices.updateUnit(deal.unitId, {
-            status: "sold",
+          domainEvents.emit("crm:deal-won", {
             dealId: deal.id,
             personId: deal.personId,
+            unitId: deal.unitId,
+            value: deal.value,
+            timestamp: now,
           });
-        }
-        if ((deal.stage === "lost" || payload.unitId === null) && previousUnitId) {
-          await projectServices.updateUnit(previousUnitId, {
-            status: "available",
-            dealId: null,
-            personId: null,
+        } else if (deal.stage === "lost") {
+          domainEvents.emit("crm:deal-lost", {
+            dealId: deal.id,
+            unitId: deal.unitId,
+            timestamp: now,
+          });
+        } else if (payload.unitId === null && previousUnitId) {
+          domainEvents.emit("crm:deal-unit-unassigned", {
+            dealId: deal.id,
+            unitId: previousUnitId,
+            timestamp: now,
           });
         }
 
@@ -401,6 +402,14 @@ export const crmServices = {
 
         lead.status = "converted";
         lead.updatedAt = now;
+
+        // Emit Lead Converted Event
+        domainEvents.emit("crm:lead-converted", {
+          leadId: lead.id,
+          personId,
+          dealId,
+          timestamp: now,
+        });
 
         resolve({
           personId,
