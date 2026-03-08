@@ -1,4 +1,4 @@
-import { Lifecycle } from "../types";
+import { Lifecycle, lifecycleArraySchema } from "../types";
 
 const baseStages = [
   { name: "İlk Temas", description: "Potansiyel müşteri ile ilk iletişim aşaması", color: "#94a3b8" },
@@ -23,4 +23,5 @@ function buildLifecycles(): Lifecycle[] {
   }));
 }
 
-export const lifecycles: Lifecycle[] = buildLifecycles();
+export const lifecycles: Lifecycle[] =
+  lifecycleArraySchema.parse(buildLifecycles());

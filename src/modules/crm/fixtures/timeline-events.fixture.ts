@@ -1,4 +1,4 @@
-import { TimelineEvent } from "../types";
+import { TimelineEvent, timelineEventArraySchema } from "../types";
 
 const EVENT_PREFIX = "activity-";
 
@@ -122,4 +122,5 @@ function buildTimelineEvents(): TimelineEvent[] {
   }));
 }
 
-export const timelineEvents: TimelineEvent[] = buildTimelineEvents();
+export const timelineEvents: TimelineEvent[] =
+  timelineEventArraySchema.parse(buildTimelineEvents());

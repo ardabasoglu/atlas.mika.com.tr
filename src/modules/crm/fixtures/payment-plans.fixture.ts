@@ -1,9 +1,9 @@
-import { PaymentPlan } from "../types";
+import { PaymentPlan, paymentPlanArraySchema } from "../types";
 
 const DEAL_PREFIX = "deal-";
 
 /** Payment plans for first two deals: deal-1 and deal-2. */
-export const paymentPlans: PaymentPlan[] = [
+const paymentPlansData: PaymentPlan[] = [
   {
     id: "payment-plan-1",
     dealId: `${DEAL_PREFIX}1`,
@@ -27,3 +27,6 @@ export const paymentPlans: PaymentPlan[] = [
     updatedAt: "2026-02-10",
   },
 ];
+
+export const paymentPlans: PaymentPlan[] =
+  paymentPlanArraySchema.parse(paymentPlansData);

@@ -1,4 +1,4 @@
-import { Deal } from "../types";
+import { Deal, dealArraySchema } from "../types";
 
 const DEAL_PREFIX = "deal-";
 
@@ -45,4 +45,4 @@ function buildDeals(): Deal[] {
   }));
 }
 
-export const deals: Deal[] = buildDeals();
+export const deals: Deal[] = dealArraySchema.parse(buildDeals());

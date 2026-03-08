@@ -1,4 +1,4 @@
-import { Lead } from "../types";
+import { Lead, leadArraySchema } from "../types";
 
 /** Maps lead status to lifecycle id (lifecycle-1..6: İlk Temas, Niteliklendirme, Teklif, Müzakere, Kazanıldı, Kaybedildi). */
 const statusToLifecycleId: Record<Lead["status"], string> = {
@@ -46,4 +46,4 @@ function buildLeads(): Lead[] {
   }));
 }
 
-export const leads: Lead[] = buildLeads();
+export const leads: Lead[] = leadArraySchema.parse(buildLeads());

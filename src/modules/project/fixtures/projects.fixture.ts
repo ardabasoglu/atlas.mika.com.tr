@@ -1,4 +1,4 @@
-import { Project } from "../types";
+import { Project, projectArraySchema } from "../types";
 
 const PROJECT_PREFIX = "project-";
 
@@ -65,4 +65,5 @@ function buildProjects(): Project[] {
   }));
 }
 
-export const projects: Project[] = buildProjects();
+export const projects: Project[] =
+  projectArraySchema.parse(buildProjects());

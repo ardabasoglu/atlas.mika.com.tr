@@ -1,4 +1,4 @@
-import { Unit } from "../types";
+import { Unit, unitArraySchema } from "../types";
 
 const UNIT_PREFIX = "unit-";
 
@@ -44,4 +44,4 @@ function buildUnits(): Unit[] {
   }));
 }
 
-export const units: Unit[] = buildUnits();
+export const units: Unit[] = unitArraySchema.parse(buildUnits());

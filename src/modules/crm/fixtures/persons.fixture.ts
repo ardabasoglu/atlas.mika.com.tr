@@ -1,4 +1,4 @@
-import { Person } from "../types";
+import { Person, personArraySchema } from "../types";
 
 const PERSON_PREFIX = "person-";
 
@@ -29,4 +29,4 @@ function buildPersons(): Person[] {
   }));
 }
 
-export const persons: Person[] = buildPersons();
+export const persons: Person[] = personArraySchema.parse(buildPersons());

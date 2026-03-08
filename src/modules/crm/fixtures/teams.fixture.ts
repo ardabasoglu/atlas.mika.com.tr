@@ -1,4 +1,4 @@
-import { Team } from "../types";
+import { Team, teamArraySchema } from "../types";
 
 const baseTeams = [
   { name: "Elif Arslan", role: "Satış Müdürü", phone: "+90-531-1000001" },
@@ -30,4 +30,4 @@ function buildTeams(): Team[] {
   });
 }
 
-export const teams: Team[] = buildTeams();
+export const teams: Team[] = teamArraySchema.parse(buildTeams());
