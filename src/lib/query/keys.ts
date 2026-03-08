@@ -17,7 +17,10 @@ export const queryKeys = {
   project: {
     all: ["project"] as const,
     projects: () => [...queryKeys.project.all, "projects"] as const,
+    project: (id: string) => [...queryKeys.project.all, "project", id] as const,
     units: (projectId: string) =>
       [...queryKeys.project.all, "units", projectId] as const,
+    unit: (id: string) => [...queryKeys.project.all, "unit", id] as const,
+    unitsAll: () => [...queryKeys.project.all, "units"] as const,
   },
 };

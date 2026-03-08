@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Figtree } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "@/components/providers/query-provider";
+import { EventListenersInit } from "@/components/providers/event-listeners-init";
 import { SidebarProvider } from "@/components/ui/sidebar";
 
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
@@ -36,6 +37,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <QueryProvider>
+          <EventListenersInit />
           <SidebarProvider>{children}</SidebarProvider>
         </QueryProvider>
       </body>
