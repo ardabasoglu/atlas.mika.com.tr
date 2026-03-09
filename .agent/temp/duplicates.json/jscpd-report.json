@@ -1,0 +1,4925 @@
+{
+  "statistics": {
+    "detectionDate": "2026-03-09T06:54:43.016Z",
+    "formats": {
+      "javascript": {
+        "sources": {
+          "src/app/(project)/project/units/[id]/page.tsx": {
+            "lines": 3,
+            "tokens": 30,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(project)/project/projects/[id]/page.tsx": {
+            "lines": 12,
+            "tokens": 92,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/persons/[id]/page.tsx": {
+            "lines": 137,
+            "tokens": 1072,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/lifecycle/[id]/page.tsx": {
+            "lines": 0,
+            "tokens": 9,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/leads/[id]/page.tsx": {
+            "lines": 47,
+            "tokens": 347,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/deals/[id]/page.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/deals/[id]/deal-detail-client.tsx": {
+            "lines": 103,
+            "tokens": 671,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/common/status-badge.tsx": {
+            "lines": 4,
+            "tokens": 30,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/common/entity-action-menu.tsx": {
+            "lines": 19,
+            "tokens": 133,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(project)/project/units/page.tsx": {
+            "lines": 8,
+            "tokens": 44,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(project)/project/projects/page.tsx": {
+            "lines": 8,
+            "tokens": 44,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/team/page.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/persons/page.tsx": {
+            "lines": 8,
+            "tokens": 44,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/lifecycle/page.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/leads/page.tsx": {
+            "lines": 0,
+            "tokens": 9,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/deals/deals-list-client.tsx": {
+            "lines": 15,
+            "tokens": 103,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/activities/page.tsx": {
+            "lines": 8,
+            "tokens": 44,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/project/components/unit-table.tsx": {
+            "lines": 60,
+            "tokens": 485,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/project/components/unit-card.tsx": {
+            "lines": 25,
+            "tokens": 191,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/project/components/project-table.tsx": {
+            "lines": 56,
+            "tokens": 432,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/project/components/project-breadcrumbs.tsx": {
+            "lines": 11,
+            "tokens": 83,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/team-table.tsx": {
+            "lines": 20,
+            "tokens": 138,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/person-table.tsx": {
+            "lines": 20,
+            "tokens": 138,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/payment-plan-form.tsx": {
+            "lines": 80,
+            "tokens": 657,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/overview-chart.tsx": {
+            "lines": 79,
+            "tokens": 574,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/lifecycle-table.tsx": {
+            "lines": 31,
+            "tokens": 204,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/lead-table.tsx": {
+            "lines": 42,
+            "tokens": 332,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/deal-table.tsx": {
+            "lines": 64,
+            "tokens": 484,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/deal-payment-plan-card.tsx": {
+            "lines": 43,
+            "tokens": 345,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/deal-edit-form.tsx": {
+            "lines": 71,
+            "tokens": 548,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/data-table-shell.tsx": {
+            "lines": 164,
+            "tokens": 1254,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 60,
+            "duplicatedTokens": 505,
+            "percentage": 36.59,
+            "percentageTokens": 40.27,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/crm-breadcrumbs.tsx": {
+            "lines": 8,
+            "tokens": 82,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/convert-lead-button.tsx": {
+            "lines": 44,
+            "tokens": 350,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/activity-table.tsx": {
+            "lines": 34,
+            "tokens": 225,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(project)/project/page.tsx": {
+            "lines": 10,
+            "tokens": 108,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/page.tsx": {
+            "lines": 58,
+            "tokens": 557,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(auth)/sign-in/sign-in-form.tsx": {
+            "lines": 22,
+            "tokens": 177,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(auth)/sign-in/page.tsx": {
+            "lines": 0,
+            "tokens": 16,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/tooltip.tsx": {
+            "lines": 32,
+            "tokens": 189,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/toggle.tsx": {
+            "lines": 0,
+            "tokens": 15,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/toggle-group.tsx": {
+            "lines": 41,
+            "tokens": 236,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/textarea.tsx": {
+            "lines": 3,
+            "tokens": 9,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/tabs.tsx": {
+            "lines": 68,
+            "tokens": 337,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/table.tsx": {
+            "lines": 86,
+            "tokens": 467,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/sonner.tsx": {
+            "lines": 16,
+            "tokens": 130,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/skeleton.tsx": {
+            "lines": 0,
+            "tokens": 8,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/sidebar.tsx": {
+            "lines": 564,
+            "tokens": 3191,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/sheet.tsx": {
+            "lines": 90,
+            "tokens": 511,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/separator.tsx": {
+            "lines": 5,
+            "tokens": 21,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/select.tsx": {
+            "lines": 151,
+            "tokens": 794,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/pagination.tsx": {
+            "lines": 98,
+            "tokens": 609,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/label.tsx": {
+            "lines": 3,
+            "tokens": 9,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/input.tsx": {
+            "lines": 5,
+            "tokens": 21,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/input-group.tsx": {
+            "lines": 127,
+            "tokens": 678,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/field.tsx": {
+            "lines": 205,
+            "tokens": 1121,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/dropdown-menu.tsx": {
+            "lines": 203,
+            "tokens": 1008,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/drawer.tsx": {
+            "lines": 79,
+            "tokens": 403,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/combobox.tsx": {
+            "lines": 242,
+            "tokens": 1363,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/checkbox.tsx": {
+            "lines": 3,
+            "tokens": 9,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/chart.tsx": {
+            "lines": 247,
+            "tokens": 1659,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/card.tsx": {
+            "lines": 76,
+            "tokens": 403,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/button.tsx": {
+            "lines": 2,
+            "tokens": 27,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/breadcrumb.tsx": {
+            "lines": 77,
+            "tokens": 436,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/badge.tsx": {
+            "lines": 1,
+            "tokens": 19,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/avatar.tsx": {
+            "lines": 78,
+            "tokens": 358,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/alert-dialog.tsx": {
+            "lines": 141,
+            "tokens": 715,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/providers/query-provider.tsx": {
+            "lines": 0,
+            "tokens": 3,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/dashboard/page.tsx": {
+            "lines": 17,
+            "tokens": 119,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/table-select-column.tsx": {
+            "lines": 13,
+            "tokens": 116,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 13,
+            "duplicatedTokens": 116,
+            "percentage": 100,
+            "percentageTokens": 100,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/site-header-logo.tsx": {
+            "lines": 1,
+            "tokens": 9,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/role-guard.tsx": {
+            "lines": 16,
+            "tokens": 156,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/nav-user.tsx": {
+            "lines": 21,
+            "tokens": 205,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/nav-secondary.tsx": {
+            "lines": 2,
+            "tokens": 25,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/nav-main.tsx": {
+            "lines": 66,
+            "tokens": 559,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/nav-documents.tsx": {
+            "lines": 20,
+            "tokens": 150,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/login-form.tsx": {
+            "lines": 1,
+            "tokens": 24,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/example.tsx": {
+            "lines": 39,
+            "tokens": 175,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/data-table.tsx": {
+            "lines": 656,
+            "tokens": 5433,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 73,
+            "duplicatedTokens": 621,
+            "percentage": 11.13,
+            "percentageTokens": 11.43,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/component-example.tsx": {
+            "lines": 218,
+            "tokens": 1156,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/chart-area-interactive.tsx": {
+            "lines": 63,
+            "tokens": 497,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/auth-layout.tsx": {
+            "lines": 16,
+            "tokens": 110,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/app-sidebar.tsx": {
+            "lines": 9,
+            "tokens": 112,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/layout.tsx": {
+            "lines": 2,
+            "tokens": 36,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 5117,
+          "tokens": 33692,
+          "sources": 83,
+          "clones": 2,
+          "duplicatedLines": 73,
+          "duplicatedTokens": 621,
+          "percentage": 1.43,
+          "percentageTokens": 1.84,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "tsx": {
+        "sources": {
+          "src/app/(project)/project/units/[id]/page.tsx": {
+            "lines": 106,
+            "tokens": 873,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(project)/project/projects/[id]/page.tsx": {
+            "lines": 46,
+            "tokens": 374,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/team/[id]/page.tsx": {
+            "lines": 68,
+            "tokens": 512,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/persons/[id]/page.tsx": {
+            "lines": 221,
+            "tokens": 1757,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 14,
+            "duplicatedTokens": 111,
+            "percentage": 6.33,
+            "percentageTokens": 6.32,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/lifecycle/[id]/page.tsx": {
+            "lines": 81,
+            "tokens": 592,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/leads/[id]/page.tsx": {
+            "lines": 100,
+            "tokens": 781,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/deals/[id]/page.tsx": {
+            "lines": 9,
+            "tokens": 96,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/deals/[id]/deal-detail-client.tsx": {
+            "lines": 188,
+            "tokens": 1357,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/customers/[id]/page.tsx": {
+            "lines": 13,
+            "tokens": 94,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/common/status-badge.tsx": {
+            "lines": 138,
+            "tokens": 945,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/common/entity-action-menu.tsx": {
+            "lines": 113,
+            "tokens": 801,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(project)/project/units/page.tsx": {
+            "lines": 25,
+            "tokens": 176,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(project)/project/projects/page.tsx": {
+            "lines": 25,
+            "tokens": 176,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/team/page.tsx": {
+            "lines": 12,
+            "tokens": 100,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/persons/page.tsx": {
+            "lines": 25,
+            "tokens": 176,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/lifecycle/page.tsx": {
+            "lines": 12,
+            "tokens": 100,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/leads/page.tsx": {
+            "lines": 15,
+            "tokens": 132,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/deals/page.tsx": {
+            "lines": 4,
+            "tokens": 35,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/deals/deals-list-client.tsx": {
+            "lines": 40,
+            "tokens": 317,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/customers/page.tsx": {
+            "lines": 4,
+            "tokens": 33,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/contacts/page.tsx": {
+            "lines": 4,
+            "tokens": 33,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/companies/page.tsx": {
+            "lines": 13,
+            "tokens": 102,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/activities/page.tsx": {
+            "lines": 25,
+            "tokens": 176,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/project/components/unit-table.tsx": {
+            "lines": 88,
+            "tokens": 720,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/project/components/unit-card.tsx": {
+            "lines": 97,
+            "tokens": 743,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/project/components/project-table.tsx": {
+            "lines": 89,
+            "tokens": 690,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 13,
+            "duplicatedTokens": 102,
+            "percentage": 14.61,
+            "percentageTokens": 14.78,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/project/components/project-page-layout.tsx": {
+            "lines": 24,
+            "tokens": 135,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/project/components/project-layout.tsx": {
+            "lines": 11,
+            "tokens": 77,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/project/components/project-card.tsx": {
+            "lines": 63,
+            "tokens": 467,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/project/components/project-breadcrumbs.tsx": {
+            "lines": 117,
+            "tokens": 877,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 36,
+            "duplicatedTokens": 261,
+            "percentage": 30.77,
+            "percentageTokens": 29.76,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/team-table.tsx": {
+            "lines": 67,
+            "tokens": 517,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 13,
+            "duplicatedTokens": 95,
+            "percentage": 19.4,
+            "percentageTokens": 18.38,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/person-table.tsx": {
+            "lines": 68,
+            "tokens": 522,
+            "sources": 1,
+            "clones": 3,
+            "duplicatedLines": 41,
+            "duplicatedTokens": 319,
+            "percentage": 60.29,
+            "percentageTokens": 61.11,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/person-card.tsx": {
+            "lines": 44,
+            "tokens": 323,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/payment-plan-form.tsx": {
+            "lines": 206,
+            "tokens": 1726,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/overview-chart.tsx": {
+            "lines": 281,
+            "tokens": 3439,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 12,
+            "duplicatedTokens": 76,
+            "percentage": 4.27,
+            "percentageTokens": 2.21,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/lifecycle-table.tsx": {
+            "lines": 76,
+            "tokens": 558,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/lead-table.tsx": {
+            "lines": 97,
+            "tokens": 816,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 29,
+            "duplicatedTokens": 238,
+            "percentage": 29.9,
+            "percentageTokens": 29.17,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/deal-table.tsx": {
+            "lines": 112,
+            "tokens": 919,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 14,
+            "duplicatedTokens": 116,
+            "percentage": 12.5,
+            "percentageTokens": 12.62,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/deal-payment-plan-card.tsx": {
+            "lines": 138,
+            "tokens": 1000,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/deal-edit-form.tsx": {
+            "lines": 164,
+            "tokens": 1434,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/data-table-shell.tsx": {
+            "lines": 252,
+            "tokens": 1879,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/crm-page-layout.tsx": {
+            "lines": 21,
+            "tokens": 132,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/crm-layout.tsx": {
+            "lines": 11,
+            "tokens": 77,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/crm-breadcrumbs.tsx": {
+            "lines": 154,
+            "tokens": 1142,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 36,
+            "duplicatedTokens": 261,
+            "percentage": 23.38,
+            "percentageTokens": 22.85,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/convert-lead-button.tsx": {
+            "lines": 106,
+            "tokens": 816,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/activity-table.tsx": {
+            "lines": 111,
+            "tokens": 889,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(project)/project/page.tsx": {
+            "lines": 98,
+            "tokens": 923,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(project)/project/layout.tsx": {
+            "lines": 8,
+            "tokens": 61,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/page.tsx": {
+            "lines": 178,
+            "tokens": 1577,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 14,
+            "duplicatedTokens": 111,
+            "percentage": 7.87,
+            "percentageTokens": 7.04,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(crm)/crm/layout.tsx": {
+            "lines": 8,
+            "tokens": 61,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(auth)/sign-up/page.tsx": {
+            "lines": 4,
+            "tokens": 33,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(auth)/sign-in/sign-in-form.tsx": {
+            "lines": 78,
+            "tokens": 702,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/(auth)/sign-in/page.tsx": {
+            "lines": 17,
+            "tokens": 131,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/query/query-boundary.tsx": {
+            "lines": 38,
+            "tokens": 258,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/tooltip.tsx": {
+            "lines": 56,
+            "tokens": 340,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/toggle.tsx": {
+            "lines": 46,
+            "tokens": 276,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/toggle-group.tsx": {
+            "lines": 82,
+            "tokens": 492,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/textarea.tsx": {
+            "lines": 17,
+            "tokens": 97,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/tabs.tsx": {
+            "lines": 90,
+            "tokens": 485,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/table.tsx": {
+            "lines": 115,
+            "tokens": 606,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/sonner.tsx": {
+            "lines": 39,
+            "tokens": 270,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/skeleton.tsx": {
+            "lines": 12,
+            "tokens": 83,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/sidebar.tsx": {
+            "lines": 724,
+            "tokens": 4321,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/sheet.tsx": {
+            "lines": 142,
+            "tokens": 851,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/separator.tsx": {
+            "lines": 27,
+            "tokens": 148,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/select.tsx": {
+            "lines": 192,
+            "tokens": 1019,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/pagination.tsx": {
+            "lines": 128,
+            "tokens": 793,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/label.tsx": {
+            "lines": 23,
+            "tokens": 120,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/input.tsx": {
+            "lines": 18,
+            "tokens": 106,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/input-group.tsx": {
+            "lines": 155,
+            "tokens": 850,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/field.tsx": {
+            "lines": 237,
+            "tokens": 1301,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/dropdown-menu.tsx": {
+            "lines": 268,
+            "tokens": 1366,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/drawer.tsx": {
+            "lines": 134,
+            "tokens": 740,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/combobox.tsx": {
+            "lines": 298,
+            "tokens": 1675,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/collapsible.tsx": {
+            "lines": 32,
+            "tokens": 185,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/checkbox.tsx": {
+            "lines": 31,
+            "tokens": 172,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/chart.tsx": {
+            "lines": 356,
+            "tokens": 2413,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/card.tsx": {
+            "lines": 102,
+            "tokens": 543,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/button.tsx": {
+            "lines": 66,
+            "tokens": 398,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/breadcrumb.tsx": {
+            "lines": 108,
+            "tokens": 659,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/badge.tsx": {
+            "lines": 48,
+            "tokens": 304,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/avatar.tsx": {
+            "lines": 108,
+            "tokens": 520,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/ui/alert-dialog.tsx": {
+            "lines": 198,
+            "tokens": 1042,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/providers/query-provider.tsx": {
+            "lines": 12,
+            "tokens": 100,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/dashboard/page.tsx": {
+            "lines": 36,
+            "tokens": 258,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/user-role-display.tsx": {
+            "lines": 28,
+            "tokens": 243,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/under-construction.tsx": {
+            "lines": 10,
+            "tokens": 76,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/table-select-column.tsx": {
+            "lines": 36,
+            "tokens": 251,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/site-header.tsx": {
+            "lines": 31,
+            "tokens": 236,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/site-header-logo.tsx": {
+            "lines": 21,
+            "tokens": 108,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/sidebar-page-layout.tsx": {
+            "lines": 27,
+            "tokens": 192,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/section-cards.tsx": {
+            "lines": 110,
+            "tokens": 790,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/role-guard.tsx": {
+            "lines": 53,
+            "tokens": 466,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/nav-user.tsx": {
+            "lines": 105,
+            "tokens": 674,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 22,
+            "duplicatedTokens": 228,
+            "percentage": 20.95,
+            "percentageTokens": 33.83,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/nav-secondary.tsx": {
+            "lines": 41,
+            "tokens": 256,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/nav-main.tsx": {
+            "lines": 104,
+            "tokens": 788,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/nav-documents.tsx": {
+            "lines": 91,
+            "tokens": 545,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/login-form.tsx": {
+            "lines": 49,
+            "tokens": 398,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/example.tsx": {
+            "lines": 54,
+            "tokens": 274,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/data-table.tsx": {
+            "lines": 812,
+            "tokens": 6476,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 26,
+            "duplicatedTokens": 274,
+            "percentage": 3.2,
+            "percentageTokens": 4.23,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/component-example.tsx": {
+            "lines": 494,
+            "tokens": 2853,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/chart-area-interactive.tsx": {
+            "lines": 290,
+            "tokens": 3475,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 12,
+            "duplicatedTokens": 76,
+            "percentage": 4.14,
+            "percentageTokens": 2.19,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/auth-layout.tsx": {
+            "lines": 76,
+            "tokens": 511,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/components/app-sidebar.tsx": {
+            "lines": 193,
+            "tokens": 1211,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/page.tsx": {
+            "lines": 4,
+            "tokens": 33,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/not-found.tsx": {
+            "lines": 22,
+            "tokens": 190,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/app/layout.tsx": {
+            "lines": 46,
+            "tokens": 345,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 10710,
+          "tokens": 76306,
+          "sources": 107,
+          "clones": 10,
+          "duplicatedLines": 141,
+          "duplicatedTokens": 1134,
+          "percentage": 1.32,
+          "percentageTokens": 1.49,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "typescript": {
+        "sources": {
+          "src/app/api/auth/[...all]/route.ts": {
+            "lines": 3,
+            "tokens": 46,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/project/components/index.ts": {
+            "lines": 6,
+            "tokens": 92,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/components/index.ts": {
+            "lines": 23,
+            "tokens": 215,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/generated/prisma/internal/prismaNamespaceBrowser.ts": {
+            "lines": 302,
+            "tokens": 1916,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/generated/prisma/internal/class.ts": {
+            "lines": 312,
+            "tokens": 1530,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/project/unit-labels.ts": {
+            "lines": 13,
+            "tokens": 114,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/project/types.ts": {
+            "lines": 6,
+            "tokens": 43,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/project/services.ts": {
+            "lines": 108,
+            "tokens": 1123,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/project/schemas.ts": {
+            "lines": 56,
+            "tokens": 570,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/types.ts": {
+            "lines": 34,
+            "tokens": 177,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/services.ts": {
+            "lines": 474,
+            "tokens": 4777,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/schemas.ts": {
+            "lines": 168,
+            "tokens": 1649,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/modules/crm/hooks.ts": {
+            "lines": 360,
+            "tokens": 2983,
+            "sources": 1,
+            "clones": 4,
+            "duplicatedLines": 36,
+            "duplicatedTokens": 394,
+            "percentage": 10,
+            "percentageTokens": 13.21,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/query/keys.ts": {
+            "lines": 22,
+            "tokens": 403,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/query/client.ts": {
+            "lines": 22,
+            "tokens": 148,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/generated/prisma/models.ts": {
+            "lines": 21,
+            "tokens": 138,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/generated/prisma/enums.ts": {
+            "lines": 81,
+            "tokens": 504,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/generated/prisma/commonInputTypes.ts": {
+            "lines": 866,
+            "tokens": 13289,
+            "sources": 1,
+            "clones": 90,
+            "duplicatedLines": 948,
+            "duplicatedTokens": 16136,
+            "percentage": 109.47,
+            "percentageTokens": 121.42,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/generated/prisma/client.ts": {
+            "lines": 101,
+            "tokens": 407,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 59,
+            "duplicatedTokens": 166,
+            "percentage": 58.42,
+            "percentageTokens": 40.79,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/generated/prisma/browser.ts": {
+            "lines": 77,
+            "tokens": 218,
+            "sources": 1,
+            "clones": 1,
+            "duplicatedLines": 59,
+            "duplicatedTokens": 166,
+            "percentage": 76.62,
+            "percentageTokens": 76.15,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/utils.ts": {
+            "lines": 17,
+            "tokens": 223,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/prisma.ts": {
+            "lines": 39,
+            "tokens": 376,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/feature-flags.ts": {
+            "lines": 23,
+            "tokens": 138,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/currency.ts": {
+            "lines": 29,
+            "tokens": 161,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/auth.ts": {
+            "lines": 71,
+            "tokens": 559,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/lib/auth-client.ts": {
+            "lines": 29,
+            "tokens": 182,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          },
+          "src/hooks/use-mobile.ts": {
+            "lines": 18,
+            "tokens": 179,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 3281,
+          "tokens": 32160,
+          "sources": 27,
+          "clones": 48,
+          "duplicatedLines": 551,
+          "duplicatedTokens": 8431,
+          "percentage": 16.79,
+          "percentageTokens": 26.22,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "json": {
+        "sources": {
+          "src/app/dashboard/data.json": {
+            "lines": 613,
+            "tokens": 3741,
+            "sources": 1,
+            "clones": 0,
+            "duplicatedLines": 0,
+            "duplicatedTokens": 0,
+            "percentage": 0,
+            "percentageTokens": 0,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 613,
+          "tokens": 3741,
+          "sources": 1,
+          "clones": 0,
+          "duplicatedLines": 0,
+          "duplicatedTokens": 0,
+          "percentage": 0,
+          "percentageTokens": 0,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      },
+      "css": {
+        "sources": {
+          "src/app/globals.css": {
+            "lines": 125,
+            "tokens": 1411,
+            "sources": 1,
+            "clones": 2,
+            "duplicatedLines": 12,
+            "duplicatedTokens": 164,
+            "percentage": 9.6,
+            "percentageTokens": 11.62,
+            "newDuplicatedLines": 0,
+            "newClones": 0
+          }
+        },
+        "total": {
+          "lines": 125,
+          "tokens": 1411,
+          "sources": 1,
+          "clones": 1,
+          "duplicatedLines": 6,
+          "duplicatedTokens": 82,
+          "percentage": 4.8,
+          "percentageTokens": 5.81,
+          "newDuplicatedLines": 0,
+          "newClones": 0
+        }
+      }
+    },
+    "total": {
+      "lines": 19846,
+      "tokens": 147310,
+      "sources": 219,
+      "clones": 61,
+      "duplicatedLines": 771,
+      "duplicatedTokens": 10268,
+      "percentage": 3.88,
+      "percentageTokens": 6.97,
+      "newDuplicatedLines": 0,
+      "newClones": 0
+    }
+  },
+  "duplicates": [
+    {
+      "format": "tsx",
+      "lines": 14,
+      "fragment": ">(),\n  {\n    accessorKey: \"name\",\n    header: \"Ad\",\n    cell: ({ row }) => (\n      <span className=\"font-medium\">{row.original.name}</span>\n    ),\n  },\n  {\n    accessorKey: \"email\",\n    header: \"E-posta\",\n  },\n  {\n    accessorKey: \"phone\"",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/modules/crm/components/person-table.tsx",
+        "start": 19,
+        "end": 32,
+        "startLoc": {
+          "line": 19,
+          "column": 7,
+          "position": 158
+        },
+        "endLoc": {
+          "line": 32,
+          "column": 8,
+          "position": 253
+        }
+      },
+      "secondFile": {
+        "name": "src/modules/crm/components/team-table.tsx",
+        "start": 19,
+        "end": 32,
+        "startLoc": {
+          "line": 19,
+          "column": 5,
+          "position": 158
+        },
+        "endLoc": {
+          "line": 32,
+          "column": 7,
+          "position": 253
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 14,
+      "fragment": "\"-\",\n  },\n  {\n    accessorKey: \"createdAt\",\n    header: \"Oluşturulma\",\n    cell: ({ row }) =>\n      new Date(row.original.createdAt).toLocaleDateString(),\n  },\n  {\n    id: \"actions\",\n    cell: ({ row }) => (\n      <EntityActionMenu\n        entityId={row.original.id}\n        basePath=\"/crm/persons",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/modules/crm/components/person-table.tsx",
+        "start": 34,
+        "end": 47,
+        "startLoc": {
+          "line": 34,
+          "column": 2,
+          "position": 286
+        },
+        "endLoc": {
+          "line": 47,
+          "column": 13,
+          "position": 388
+        }
+      },
+      "secondFile": {
+        "name": "src/modules/project/components/project-table.tsx",
+        "start": 55,
+        "end": 68,
+        "startLoc": {
+          "line": 55,
+          "column": 2,
+          "position": 454
+        },
+        "endLoc": {
+          "line": 68,
+          "column": 18,
+          "position": 556
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 16,
+      "fragment": ",\n    cell: ({ row }) => (\n      <span className=\"font-medium\">{row.original.name}</span>\n    ),\n  },\n  {\n    accessorKey: \"email\",\n    header: \"E-posta\",\n  },\n  {\n    accessorKey: \"phone\",\n    header: \"Telefon\",\n    cell: ({ row }) => row.original.phone ?? \"-\",\n  },\n  {\n    accessorKey: \"source\"",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/modules/crm/components/lead-table.tsx",
+        "start": 30,
+        "end": 45,
+        "startLoc": {
+          "line": 30,
+          "column": 11,
+          "position": 276
+        },
+        "endLoc": {
+          "line": 45,
+          "column": 9,
+          "position": 398
+        }
+      },
+      "secondFile": {
+        "name": "src/modules/crm/components/person-table.tsx",
+        "start": 22,
+        "end": 37,
+        "startLoc": {
+          "line": 22,
+          "column": 5,
+          "position": 178
+        },
+        "endLoc": {
+          "line": 37,
+          "column": 12,
+          "position": 300
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 15,
+      "fragment": "\" />\n    ),\n  },\n  {\n    id: \"lifecycle\",\n    header: \"Yaşam döngüsü\",\n    cell: ({ row }) => {\n      const lifecycleId = row.original.lifecycleId;\n      if (!lifecycleId) return \"-\";\n      const lifecycle = lifecycleById?.get(lifecycleId);\n      return lifecycle ? lifecycle.name : lifecycleId;\n    },\n  },\n  {\n    accessorKey",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/modules/crm/components/deal-table.tsx",
+        "start": 46,
+        "end": 60,
+        "startLoc": {
+          "line": 46,
+          "column": 5,
+          "position": 440
+        },
+        "endLoc": {
+          "line": 60,
+          "column": 12,
+          "position": 556
+        }
+      },
+      "secondFile": {
+        "name": "src/modules/crm/components/lead-table.tsx",
+        "start": 53,
+        "end": 67,
+        "startLoc": {
+          "line": 53,
+          "column": 5,
+          "position": 489
+        },
+        "endLoc": {
+          "line": 67,
+          "column": 3,
+          "position": 605
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 21,
+      "fragment": "(currentPathname);\n\n  if (breadcrumbItems.length === 0) {\n    return null;\n  }\n\n  return (\n    <Breadcrumb className=\"py-1\" suppressHydrationWarning>\n      <BreadcrumbList className=\"text-base font-medium text-foreground/90 sm:gap-3 [&>li[data-slot=breadcrumb-separator]>svg]:size-4\">\n        {breadcrumbItems.map((breadcrumbItem, index) => {\n          const isLastItem = index === breadcrumbItems.length - 1;\n\n          return (\n            <React.Fragment key={`${breadcrumbItem.href}-${index}`}>\n              <BreadcrumbItem>\n                {isLastItem ? (\n                  <BreadcrumbPage className=\"font-semibold text-foreground\">\n                    {breadcrumbItem.label}\n                  </BreadcrumbPage>\n                ) : (\n                  <BreadcrumbLink ",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/modules/crm/components/crm-breadcrumbs.tsx",
+        "start": 119,
+        "end": 139,
+        "startLoc": {
+          "line": 119,
+          "column": 24,
+          "position": 870
+        },
+        "endLoc": {
+          "line": 139,
+          "column": 2,
+          "position": 1040
+        }
+      },
+      "secondFile": {
+        "name": "src/modules/project/components/project-breadcrumbs.tsx",
+        "start": 79,
+        "end": 100,
+        "startLoc": {
+          "line": 79,
+          "column": 28,
+          "position": 604
+        },
+        "endLoc": {
+          "line": 100,
+          "column": 21,
+          "position": 774
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 17,
+      "fragment": ">\n                    <Link href={breadcrumbItem.href} suppressHydrationWarning>\n                      {breadcrumbItem.label}\n                    </Link>\n                  </BreadcrumbLink>\n                )}\n              </BreadcrumbItem>\n              {!isLastItem && <BreadcrumbSeparator />}\n            </React.Fragment>\n          );\n        })}\n      </BreadcrumbList>\n    </Breadcrumb>\n  );\n}\n\nexport { buildCrmBreadcrumbItems",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/modules/crm/components/crm-breadcrumbs.tsx",
+        "start": 139,
+        "end": 155,
+        "startLoc": {
+          "line": 139,
+          "column": 2,
+          "position": 1048
+        },
+        "endLoc": {
+          "line": 155,
+          "column": 24,
+          "position": 1139
+        }
+      },
+      "secondFile": {
+        "name": "src/modules/project/components/project-breadcrumbs.tsx",
+        "start": 102,
+        "end": 118,
+        "startLoc": {
+          "line": 102,
+          "column": 19,
+          "position": 783
+        },
+        "endLoc": {
+          "line": 118,
+          "column": 28,
+          "position": 874
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 15,
+      "fragment": " className=\"font-medium\">\n                    {event.type === \"note\"\n                      ? \"Not\"\n                      : event.type === \"call\"\n                        ? \"Arama\"\n                        : event.type === \"meeting\"\n                          ? \"Toplantı\"\n                          : event.type === \"email\"\n                            ? \"E-posta\"\n                            : event.type === \"status_change\"\n                              ? \"Durum değişikliği\"\n                              : event.type === \"deal_created\"\n                                ? \"Fırsat oluşturuldu\"\n                                : \"Aşama değişti\"}\n                  </div",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/app/(crm)/crm/page.tsx",
+        "start": 150,
+        "end": 164,
+        "startLoc": {
+          "line": 150,
+          "column": 4,
+          "position": 1357
+        },
+        "endLoc": {
+          "line": 164,
+          "column": 4,
+          "position": 1468
+        }
+      },
+      "secondFile": {
+        "name": "src/app/(crm)/crm/persons/[id]/page.tsx",
+        "start": 181,
+        "end": 195,
+        "startLoc": {
+          "line": 181,
+          "column": 2,
+          "position": 1462
+        },
+        "endLoc": {
+          "line": 195,
+          "column": 2,
+          "position": 1573
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 7,
+      "fragment": "await queryClient.cancelQueries({ queryKey: queryKeys.crm.deal(dealId) });\n      await queryClient.cancelQueries({ queryKey: queryKeys.crm.deals() });\n\n      const previousDeal = queryClient.getQueryData<Deal>(\n        queryKeys.crm.deal(dealId)\n      );\n      const previousPaymentPlan",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/modules/crm/hooks.ts",
+        "start": 262,
+        "end": 268,
+        "startLoc": {
+          "line": 262,
+          "column": 7,
+          "position": 2110
+        },
+        "endLoc": {
+          "line": 268,
+          "column": 20,
+          "position": 2191
+        }
+      },
+      "secondFile": {
+        "name": "src/modules/crm/hooks.ts",
+        "start": 186,
+        "end": 192,
+        "startLoc": {
+          "line": 186,
+          "column": 7,
+          "position": 1402
+        },
+        "endLoc": {
+          "line": 192,
+          "column": 14,
+          "position": 1483
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 13,
+      "fragment": "if (context?.previousDeal) {\n        queryClient.setQueryData(\n          queryKeys.crm.deal(dealId),\n          context.previousDeal\n        );\n      }\n      if (context?.previousDeals) {\n        queryClient.setQueryData(queryKeys.crm.deals(), context.previousDeals);\n      }\n    },\n    onSettled: (_data, _error, { dealId }) => {\n      queryClient.invalidateQueries({\n        queryKey: queryKeys.crm.paymentPlan",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/modules/crm/hooks.ts",
+        "start": 322,
+        "end": 334,
+        "startLoc": {
+          "line": 322,
+          "column": 7,
+          "position": 2650
+        },
+        "endLoc": {
+          "line": 334,
+          "column": 12,
+          "position": 2766
+        }
+      },
+      "secondFile": {
+        "name": "src/modules/crm/hooks.ts",
+        "start": 225,
+        "end": 236,
+        "startLoc": {
+          "line": 225,
+          "column": 7,
+          "position": 1788
+        },
+        "endLoc": {
+          "line": 236,
+          "column": 5,
+          "position": 1903
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 9,
+      "fragment": "lt?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  lte?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  gt?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  gte?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  contains?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  startsWith?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  endsWith?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  mode?: Prisma.QueryMode\n  not?: Prisma.NestedStringNullableFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 41,
+        "end": 49,
+        "startLoc": {
+          "line": 41,
+          "column": 3,
+          "position": 397
+        },
+        "endLoc": {
+          "line": 49,
+          "column": 27,
+          "position": 524
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 21,
+        "end": 29,
+        "startLoc": {
+          "line": 21,
+          "column": 3,
+          "position": 124
+        },
+        "endLoc": {
+          "line": 29,
+          "column": 19,
+          "position": 251
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 13,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>\n  notIn?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>\n  lt?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  lte?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  gt?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  gte?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  contains?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  startsWith?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  endsWith?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  mode?: Prisma.QueryMode\n  not?: Prisma.NestedStringWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 68,
+        "end": 80,
+        "startLoc": {
+          "line": 68,
+          "column": 27,
+          "position": 763
+        },
+        "endLoc": {
+          "line": 80,
+          "column": 33,
+          "position": 955
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 17,
+        "end": 29,
+        "startLoc": {
+          "line": 17,
+          "column": 13,
+          "position": 59
+        },
+        "endLoc": {
+          "line": 29,
+          "column": 19,
+          "position": 251
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 13,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: string | Prisma.StringFieldRefInput<$PrismaModel> | null\n  in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null\n  notIn?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null\n  lt?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  lte?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  gt?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  gte?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  contains?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  startsWith?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  endsWith?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  mode?: Prisma.QueryMode\n  not?: Prisma.NestedStringNullableWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 94,
+        "end": 106,
+        "startLoc": {
+          "line": 94,
+          "column": 35,
+          "position": 1096
+        },
+        "endLoc": {
+          "line": 106,
+          "column": 41,
+          "position": 1300
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 37,
+        "end": 29,
+        "startLoc": {
+          "line": 37,
+          "column": 21,
+          "position": 320
+        },
+        "endLoc": {
+          "line": 29,
+          "column": 19,
+          "position": 251
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 9,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel>\n  notIn?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel>\n  lt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  lte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  gt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  gte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedDateTimeWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 112,
+        "end": 120,
+        "startLoc": {
+          "line": 112,
+          "column": 29,
+          "position": 1357
+        },
+        "endLoc": {
+          "line": 120,
+          "column": 35,
+          "position": 1524
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 52,
+        "end": 60,
+        "startLoc": {
+          "line": 52,
+          "column": 15,
+          "position": 545
+        },
+        "endLoc": {
+          "line": 60,
+          "column": 21,
+          "position": 712
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 9,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel> | null\n  in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null\n  notIn?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null\n  lt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  lte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  gt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  gte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedDateTimeNullableWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 137,
+        "end": 145,
+        "startLoc": {
+          "line": 137,
+          "column": 37,
+          "position": 1785
+        },
+        "endLoc": {
+          "line": 145,
+          "column": 43,
+          "position": 1964
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 126,
+        "end": 60,
+        "startLoc": {
+          "line": 126,
+          "column": 23,
+          "position": 1581
+        },
+        "endLoc": {
+          "line": 60,
+          "column": 21,
+          "position": 712
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 9,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>\n  notIn?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>\n  lt?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  lte?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  gt?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  gte?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedIntWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 162,
+        "end": 170,
+        "startLoc": {
+          "line": 162,
+          "column": 24,
+          "position": 2177
+        },
+        "endLoc": {
+          "line": 170,
+          "column": 30,
+          "position": 2312
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 151,
+        "end": 159,
+        "startLoc": {
+          "line": 151,
+          "column": 10,
+          "position": 2025
+        },
+        "endLoc": {
+          "line": 159,
+          "column": 16,
+          "position": 2160
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 9,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  in?: runtime.Decimal[] | runtime.DecimalJsLike[] | number[] | string[] | Prisma.ListDecimalFieldRefInput<$PrismaModel>\n  notIn?: runtime.Decimal[] | runtime.DecimalJsLike[] | number[] | string[] | Prisma.ListDecimalFieldRefInput<$PrismaModel>\n  lt?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  lte?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  gt?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  gte?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedDecimalWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 213,
+        "end": 221,
+        "startLoc": {
+          "line": 213,
+          "column": 28,
+          "position": 3005
+        },
+        "endLoc": {
+          "line": 221,
+          "column": 34,
+          "position": 3264
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 195,
+        "end": 203,
+        "startLoc": {
+          "line": 195,
+          "column": 14,
+          "position": 2617
+        },
+        "endLoc": {
+          "line": 203,
+          "column": 20,
+          "position": 2876
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 9,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: number | Prisma.IntFieldRefInput<$PrismaModel> | null\n  in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel> | null\n  notIn?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel> | null\n  lt?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  lte?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  gt?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  gte?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedIntNullableWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 250,
+        "end": 258,
+        "startLoc": {
+          "line": 250,
+          "column": 32,
+          "position": 3657
+        },
+        "endLoc": {
+          "line": 258,
+          "column": 38,
+          "position": 3804
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 239,
+        "end": 247,
+        "startLoc": {
+          "line": 239,
+          "column": 18,
+          "position": 3489
+        },
+        "endLoc": {
+          "line": 247,
+          "column": 24,
+          "position": 3636
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 16,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter\n  path?: string[]\n  mode?: Prisma.QueryMode | Prisma.EnumQueryModeFieldRefInput<$PrismaModel>\n  string_contains?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  string_starts_with?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  string_ends_with?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  array_starts_with?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | null\n  array_ends_with?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | null\n  array_contains?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | null\n  lt?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>\n  lte?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>\n  gt?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>\n  gte?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>\n  not?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter\n  _count",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 331,
+        "end": 346,
+        "startLoc": {
+          "line": 331,
+          "column": 37,
+          "position": 4786
+        },
+        "endLoc": {
+          "line": 346,
+          "column": 7,
+          "position": 5060
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 287,
+        "end": 302,
+        "startLoc": {
+          "line": 287,
+          "column": 23,
+          "position": 4159
+        },
+        "endLoc": {
+          "line": 302,
+          "column": 2,
+          "position": 4432
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 9,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: number | Prisma.FloatFieldRefInput<$PrismaModel>\n  in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>\n  notIn?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>\n  lt?: number | Prisma.FloatFieldRefInput<$PrismaModel>\n  lte?: number | Prisma.FloatFieldRefInput<$PrismaModel>\n  gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>\n  gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedFloatWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 414,
+        "end": 422,
+        "startLoc": {
+          "line": 414,
+          "column": 26,
+          "position": 6115
+        },
+        "endLoc": {
+          "line": 422,
+          "column": 32,
+          "position": 6250
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 375,
+        "end": 383,
+        "startLoc": {
+          "line": 375,
+          "column": 12,
+          "position": 5427
+        },
+        "endLoc": {
+          "line": 383,
+          "column": 18,
+          "position": 5562
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 9,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel> | null\n  in?: runtime.Decimal[] | runtime.DecimalJsLike[] | number[] | string[] | Prisma.ListDecimalFieldRefInput<$PrismaModel> | null\n  notIn?: runtime.Decimal[] | runtime.DecimalJsLike[] | number[] | string[] | Prisma.ListDecimalFieldRefInput<$PrismaModel> | null\n  lt?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  lte?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  gt?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  gte?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedDecimalNullableWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 430,
+        "end": 438,
+        "startLoc": {
+          "line": 430,
+          "column": 36,
+          "position": 6327
+        },
+        "endLoc": {
+          "line": 438,
+          "column": 42,
+          "position": 6598
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 386,
+        "end": 203,
+        "startLoc": {
+          "line": 386,
+          "column": 22,
+          "position": 5579
+        },
+        "endLoc": {
+          "line": 203,
+          "column": 20,
+          "position": 2876
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 12,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>\n  notIn?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>\n  lt?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  lte?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  gt?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  gte?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  contains?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  startsWith?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  endsWith?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  not",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 456,
+        "end": 467,
+        "startLoc": {
+          "line": 456,
+          "column": 19,
+          "position": 6827
+        },
+        "endLoc": {
+          "line": 467,
+          "column": 4,
+          "position": 7004
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 17,
+        "end": 28,
+        "startLoc": {
+          "line": 17,
+          "column": 13,
+          "position": 59
+        },
+        "endLoc": {
+          "line": 28,
+          "column": 5,
+          "position": 236
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 12,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: string | Prisma.StringFieldRefInput<$PrismaModel> | null\n  in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null\n  notIn?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null\n  lt?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  lte?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  gt?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  gte?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  contains?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  startsWith?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  endsWith?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedStringNullableFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 475,
+        "end": 486,
+        "startLoc": {
+          "line": 475,
+          "column": 27,
+          "position": 7079
+        },
+        "endLoc": {
+          "line": 486,
+          "column": 27,
+          "position": 7274
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 37,
+        "end": 467,
+        "startLoc": {
+          "line": 37,
+          "column": 21,
+          "position": 320
+        },
+        "endLoc": {
+          "line": 467,
+          "column": 19,
+          "position": 7010
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 12,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel>\n  notIn?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel>\n  lt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  lte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  gt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  gte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedDateTimeFilter<$PrismaModel> | Date | string\n}\n\nexport type NestedStringWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 489,
+        "end": 500,
+        "startLoc": {
+          "line": 489,
+          "column": 21,
+          "position": 7295
+        },
+        "endLoc": {
+          "line": 500,
+          "column": 33,
+          "position": 7482
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 52,
+        "end": 63,
+        "startLoc": {
+          "line": 52,
+          "column": 15,
+          "position": 545
+        },
+        "endLoc": {
+          "line": 63,
+          "column": 15,
+          "position": 732
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 12,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>\n  notIn?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>\n  lt?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  lte?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  gt?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  gte?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  contains?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  startsWith?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  endsWith?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedStringWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 500,
+        "end": 511,
+        "startLoc": {
+          "line": 500,
+          "column": 33,
+          "position": 7483
+        },
+        "endLoc": {
+          "line": 511,
+          "column": 33,
+          "position": 7666
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 17,
+        "end": 467,
+        "startLoc": {
+          "line": 17,
+          "column": 13,
+          "position": 59
+        },
+        "endLoc": {
+          "line": 467,
+          "column": 19,
+          "position": 7010
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 12,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>\n  notIn?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>\n  lt?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  lte?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  gt?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  gte?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedIntFilter<$PrismaModel> | number\n}\n\nexport type NestedBoolWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 517,
+        "end": 528,
+        "startLoc": {
+          "line": 517,
+          "column": 16,
+          "position": 7719
+        },
+        "endLoc": {
+          "line": 528,
+          "column": 31,
+          "position": 7870
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 151,
+        "end": 162,
+        "startLoc": {
+          "line": 151,
+          "column": 10,
+          "position": 2025
+        },
+        "endLoc": {
+          "line": 162,
+          "column": 24,
+          "position": 2176
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 9,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: boolean | Prisma.BooleanFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedBoolWithAggregatesFilter<$PrismaModel> | boolean\n  _count?: Prisma.NestedIntFilter<$PrismaModel>\n  _min?: Prisma.NestedBoolFilter<$PrismaModel>\n  _max?: Prisma.NestedBoolFilter<$PrismaModel>\n}\n\nexport type NestedStringNullableWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 528,
+        "end": 536,
+        "startLoc": {
+          "line": 528,
+          "column": 31,
+          "position": 7871
+        },
+        "endLoc": {
+          "line": 536,
+          "column": 41,
+          "position": 7958
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 86,
+        "end": 94,
+        "startLoc": {
+          "line": 86,
+          "column": 25,
+          "position": 1008
+        },
+        "endLoc": {
+          "line": 94,
+          "column": 35,
+          "position": 1095
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 12,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: string | Prisma.StringFieldRefInput<$PrismaModel> | null\n  in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null\n  notIn?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null\n  lt?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  lte?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  gt?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  gte?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  contains?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  startsWith?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  endsWith?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedStringNullableWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 536,
+        "end": 547,
+        "startLoc": {
+          "line": 536,
+          "column": 41,
+          "position": 7959
+        },
+        "endLoc": {
+          "line": 547,
+          "column": 41,
+          "position": 8154
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 37,
+        "end": 467,
+        "startLoc": {
+          "line": 37,
+          "column": 21,
+          "position": 320
+        },
+        "endLoc": {
+          "line": 467,
+          "column": 19,
+          "position": 7010
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 12,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: number | Prisma.IntFieldRefInput<$PrismaModel> | null\n  in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel> | null\n  notIn?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel> | null\n  lt?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  lte?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  gt?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  gte?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedIntNullableFilter<$PrismaModel> | number | null\n}\n\nexport type NestedDateTimeWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 553,
+        "end": 564,
+        "startLoc": {
+          "line": 553,
+          "column": 24,
+          "position": 8211
+        },
+        "endLoc": {
+          "line": 564,
+          "column": 35,
+          "position": 8378
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 239,
+        "end": 250,
+        "startLoc": {
+          "line": 239,
+          "column": 18,
+          "position": 3489
+        },
+        "endLoc": {
+          "line": 250,
+          "column": 32,
+          "position": 3656
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 15,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel>\n  notIn?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel>\n  lt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  lte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  gt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  gte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string\n  _count?: Prisma.NestedIntFilter<$PrismaModel>\n  _min?: Prisma.NestedDateTimeFilter<$PrismaModel>\n  _max?: Prisma.NestedDateTimeFilter<$PrismaModel>\n}\n\nexport type NestedDateTimeNullableFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 564,
+        "end": 578,
+        "startLoc": {
+          "line": 564,
+          "column": 35,
+          "position": 8379
+        },
+        "endLoc": {
+          "line": 578,
+          "column": 29,
+          "position": 8602
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 52,
+        "end": 126,
+        "startLoc": {
+          "line": 52,
+          "column": 15,
+          "position": 545
+        },
+        "endLoc": {
+          "line": 126,
+          "column": 23,
+          "position": 1580
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 12,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel> | null\n  in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null\n  notIn?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null\n  lt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  lte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  gt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  gte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null\n}\n\nexport type NestedDateTimeNullableWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 578,
+        "end": 589,
+        "startLoc": {
+          "line": 578,
+          "column": 29,
+          "position": 8603
+        },
+        "endLoc": {
+          "line": 589,
+          "column": 43,
+          "position": 8806
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 126,
+        "end": 137,
+        "startLoc": {
+          "line": 126,
+          "column": 23,
+          "position": 1581
+        },
+        "endLoc": {
+          "line": 137,
+          "column": 37,
+          "position": 1784
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 15,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel> | null\n  in?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null\n  notIn?: Date[] | string[] | Prisma.ListDateTimeFieldRefInput<$PrismaModel> | null\n  lt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  lte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  gt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  gte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null\n  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>\n  _min?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>\n  _max?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>\n}\n\nexport type NestedIntWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 589,
+        "end": 603,
+        "startLoc": {
+          "line": 589,
+          "column": 43,
+          "position": 8807
+        },
+        "endLoc": {
+          "line": 603,
+          "column": 30,
+          "position": 9046
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 126,
+        "end": 151,
+        "startLoc": {
+          "line": 126,
+          "column": 23,
+          "position": 1581
+        },
+        "endLoc": {
+          "line": 151,
+          "column": 10,
+          "position": 2024
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 17,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>\n  notIn?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>\n  lt?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  lte?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  gt?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  gte?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedIntWithAggregatesFilter<$PrismaModel> | number\n  _count?: Prisma.NestedIntFilter<$PrismaModel>\n  _avg?: Prisma.NestedFloatFilter<$PrismaModel>\n  _sum?: Prisma.NestedIntFilter<$PrismaModel>\n  _min?: Prisma.NestedIntFilter<$PrismaModel>\n  _max?: Prisma.NestedIntFilter<$PrismaModel>\n}\n\nexport type NestedFloatFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 603,
+        "end": 619,
+        "startLoc": {
+          "line": 603,
+          "column": 30,
+          "position": 9047
+        },
+        "endLoc": {
+          "line": 619,
+          "column": 18,
+          "position": 9258
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 151,
+        "end": 178,
+        "startLoc": {
+          "line": 151,
+          "column": 10,
+          "position": 2025
+        },
+        "endLoc": {
+          "line": 178,
+          "column": 21,
+          "position": 2388
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 12,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: number | Prisma.FloatFieldRefInput<$PrismaModel>\n  in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>\n  notIn?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>\n  lt?: number | Prisma.FloatFieldRefInput<$PrismaModel>\n  lte?: number | Prisma.FloatFieldRefInput<$PrismaModel>\n  gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>\n  gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedFloatFilter<$PrismaModel> | number\n}\n\nexport type NestedEnumLeadStatusFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 619,
+        "end": 630,
+        "startLoc": {
+          "line": 619,
+          "column": 18,
+          "position": 9259
+        },
+        "endLoc": {
+          "line": 630,
+          "column": 27,
+          "position": 9410
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 375,
+        "end": 386,
+        "startLoc": {
+          "line": 375,
+          "column": 12,
+          "position": 5427
+        },
+        "endLoc": {
+          "line": 386,
+          "column": 22,
+          "position": 5578
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 8,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: $Enums.LeadStatus | Prisma.EnumLeadStatusFieldRefInput<$PrismaModel>\n  in?: $Enums.LeadStatus[] | Prisma.ListEnumLeadStatusFieldRefInput<$PrismaModel>\n  notIn?: $Enums.LeadStatus[] | Prisma.ListEnumLeadStatusFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedEnumLeadStatusFilter<$PrismaModel> | $Enums.LeadStatus\n}\n\nexport type NestedEnumLeadStatusWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 630,
+        "end": 637,
+        "startLoc": {
+          "line": 630,
+          "column": 27,
+          "position": 9411
+        },
+        "endLoc": {
+          "line": 637,
+          "column": 41,
+          "position": 9506
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 178,
+        "end": 185,
+        "startLoc": {
+          "line": 178,
+          "column": 21,
+          "position": 2389
+        },
+        "endLoc": {
+          "line": 185,
+          "column": 35,
+          "position": 2484
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 11,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: $Enums.LeadStatus | Prisma.EnumLeadStatusFieldRefInput<$PrismaModel>\n  in?: $Enums.LeadStatus[] | Prisma.ListEnumLeadStatusFieldRefInput<$PrismaModel>\n  notIn?: $Enums.LeadStatus[] | Prisma.ListEnumLeadStatusFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedEnumLeadStatusWithAggregatesFilter<$PrismaModel> | $Enums.LeadStatus\n  _count?: Prisma.NestedIntFilter<$PrismaModel>\n  _min?: Prisma.NestedEnumLeadStatusFilter<$PrismaModel>\n  _max?: Prisma.NestedEnumLeadStatusFilter<$PrismaModel>\n}\n\nexport type NestedDecimalFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 637,
+        "end": 647,
+        "startLoc": {
+          "line": 637,
+          "column": 41,
+          "position": 9507
+        },
+        "endLoc": {
+          "line": 647,
+          "column": 20,
+          "position": 9638
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 178,
+        "end": 195,
+        "startLoc": {
+          "line": 178,
+          "column": 21,
+          "position": 2389
+        },
+        "endLoc": {
+          "line": 195,
+          "column": 14,
+          "position": 2616
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 12,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  in?: runtime.Decimal[] | runtime.DecimalJsLike[] | number[] | string[] | Prisma.ListDecimalFieldRefInput<$PrismaModel>\n  notIn?: runtime.Decimal[] | runtime.DecimalJsLike[] | number[] | string[] | Prisma.ListDecimalFieldRefInput<$PrismaModel>\n  lt?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  lte?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  gt?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  gte?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedDecimalFilter<$PrismaModel> | runtime.Decimal | runtime.DecimalJsLike | number | string\n}\n\nexport type NestedEnumDealStageFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 647,
+        "end": 658,
+        "startLoc": {
+          "line": 647,
+          "column": 20,
+          "position": 9639
+        },
+        "endLoc": {
+          "line": 658,
+          "column": 26,
+          "position": 9930
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 195,
+        "end": 206,
+        "startLoc": {
+          "line": 195,
+          "column": 14,
+          "position": 2617
+        },
+        "endLoc": {
+          "line": 206,
+          "column": 20,
+          "position": 2908
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 8,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: $Enums.DealStage | Prisma.EnumDealStageFieldRefInput<$PrismaModel>\n  in?: $Enums.DealStage[] | Prisma.ListEnumDealStageFieldRefInput<$PrismaModel>\n  notIn?: $Enums.DealStage[] | Prisma.ListEnumDealStageFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedEnumDealStageFilter<$PrismaModel> | $Enums.DealStage\n}\n\nexport type NestedDecimalWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 658,
+        "end": 665,
+        "startLoc": {
+          "line": 658,
+          "column": 26,
+          "position": 9931
+        },
+        "endLoc": {
+          "line": 665,
+          "column": 34,
+          "position": 10026
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 206,
+        "end": 213,
+        "startLoc": {
+          "line": 206,
+          "column": 20,
+          "position": 2909
+        },
+        "endLoc": {
+          "line": 213,
+          "column": 28,
+          "position": 3004
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 17,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  in?: runtime.Decimal[] | runtime.DecimalJsLike[] | number[] | string[] | Prisma.ListDecimalFieldRefInput<$PrismaModel>\n  notIn?: runtime.Decimal[] | runtime.DecimalJsLike[] | number[] | string[] | Prisma.ListDecimalFieldRefInput<$PrismaModel>\n  lt?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  lte?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  gt?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  gte?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedDecimalWithAggregatesFilter<$PrismaModel> | runtime.Decimal | runtime.DecimalJsLike | number | string\n  _count?: Prisma.NestedIntFilter<$PrismaModel>\n  _avg?: Prisma.NestedDecimalFilter<$PrismaModel>\n  _sum?: Prisma.NestedDecimalFilter<$PrismaModel>\n  _min?: Prisma.NestedDecimalFilter<$PrismaModel>\n  _max?: Prisma.NestedDecimalFilter<$PrismaModel>\n}\n\nexport type NestedEnumDealStageWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 665,
+        "end": 681,
+        "startLoc": {
+          "line": 665,
+          "column": 34,
+          "position": 10027
+        },
+        "endLoc": {
+          "line": 681,
+          "column": 40,
+          "position": 10378
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 195,
+        "end": 229,
+        "startLoc": {
+          "line": 195,
+          "column": 14,
+          "position": 2617
+        },
+        "endLoc": {
+          "line": 229,
+          "column": 34,
+          "position": 3356
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 11,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: $Enums.DealStage | Prisma.EnumDealStageFieldRefInput<$PrismaModel>\n  in?: $Enums.DealStage[] | Prisma.ListEnumDealStageFieldRefInput<$PrismaModel>\n  notIn?: $Enums.DealStage[] | Prisma.ListEnumDealStageFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedEnumDealStageWithAggregatesFilter<$PrismaModel> | $Enums.DealStage\n  _count?: Prisma.NestedIntFilter<$PrismaModel>\n  _min?: Prisma.NestedEnumDealStageFilter<$PrismaModel>\n  _max?: Prisma.NestedEnumDealStageFilter<$PrismaModel>\n}\n\nexport type NestedIntNullableWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 681,
+        "end": 691,
+        "startLoc": {
+          "line": 681,
+          "column": 40,
+          "position": 10379
+        },
+        "endLoc": {
+          "line": 691,
+          "column": 38,
+          "position": 10510
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 206,
+        "end": 239,
+        "startLoc": {
+          "line": 206,
+          "column": 20,
+          "position": 2909
+        },
+        "endLoc": {
+          "line": 239,
+          "column": 18,
+          "position": 3488
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 17,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: number | Prisma.IntFieldRefInput<$PrismaModel> | null\n  in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel> | null\n  notIn?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel> | null\n  lt?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  lte?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  gt?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  gte?: number | Prisma.IntFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null\n  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>\n  _avg?: Prisma.NestedFloatNullableFilter<$PrismaModel>\n  _sum?: Prisma.NestedIntNullableFilter<$PrismaModel>\n  _min?: Prisma.NestedIntNullableFilter<$PrismaModel>\n  _max?: Prisma.NestedIntNullableFilter<$PrismaModel>\n}\n\nexport type NestedFloatNullableFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 691,
+        "end": 707,
+        "startLoc": {
+          "line": 691,
+          "column": 38,
+          "position": 10511
+        },
+        "endLoc": {
+          "line": 707,
+          "column": 26,
+          "position": 10738
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 239,
+        "end": 266,
+        "startLoc": {
+          "line": 239,
+          "column": 18,
+          "position": 3489
+        },
+        "endLoc": {
+          "line": 266,
+          "column": 34,
+          "position": 3884
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 8,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: $Enums.TimelineEventEntityType | Prisma.EnumTimelineEventEntityTypeFieldRefInput<$PrismaModel>\n  in?: $Enums.TimelineEventEntityType[] | Prisma.ListEnumTimelineEventEntityTypeFieldRefInput<$PrismaModel>\n  notIn?: $Enums.TimelineEventEntityType[] | Prisma.ListEnumTimelineEventEntityTypeFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedEnumTimelineEventEntityTypeFilter<$PrismaModel> | $Enums.TimelineEventEntityType\n}\n\nexport type NestedEnumTimelineEventTypeFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 718,
+        "end": 725,
+        "startLoc": {
+          "line": 718,
+          "column": 40,
+          "position": 10907
+        },
+        "endLoc": {
+          "line": 725,
+          "column": 34,
+          "position": 11002
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 266,
+        "end": 273,
+        "startLoc": {
+          "line": 266,
+          "column": 34,
+          "position": 3885
+        },
+        "endLoc": {
+          "line": 273,
+          "column": 28,
+          "position": 3980
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 8,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: $Enums.TimelineEventType | Prisma.EnumTimelineEventTypeFieldRefInput<$PrismaModel>\n  in?: $Enums.TimelineEventType[] | Prisma.ListEnumTimelineEventTypeFieldRefInput<$PrismaModel>\n  notIn?: $Enums.TimelineEventType[] | Prisma.ListEnumTimelineEventTypeFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedEnumTimelineEventTypeFilter<$PrismaModel> | $Enums.TimelineEventType\n}\n\nexport type NestedEnumTimelineEventEntityTypeWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 725,
+        "end": 732,
+        "startLoc": {
+          "line": 725,
+          "column": 34,
+          "position": 11003
+        },
+        "endLoc": {
+          "line": 732,
+          "column": 54,
+          "position": 11098
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 273,
+        "end": 280,
+        "startLoc": {
+          "line": 273,
+          "column": 28,
+          "position": 3981
+        },
+        "endLoc": {
+          "line": 280,
+          "column": 19,
+          "position": 4076
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 11,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: $Enums.TimelineEventEntityType | Prisma.EnumTimelineEventEntityTypeFieldRefInput<$PrismaModel>\n  in?: $Enums.TimelineEventEntityType[] | Prisma.ListEnumTimelineEventEntityTypeFieldRefInput<$PrismaModel>\n  notIn?: $Enums.TimelineEventEntityType[] | Prisma.ListEnumTimelineEventEntityTypeFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedEnumTimelineEventEntityTypeWithAggregatesFilter<$PrismaModel> | $Enums.TimelineEventEntityType\n  _count?: Prisma.NestedIntFilter<$PrismaModel>\n  _min?: Prisma.NestedEnumTimelineEventEntityTypeFilter<$PrismaModel>\n  _max?: Prisma.NestedEnumTimelineEventEntityTypeFilter<$PrismaModel>\n}\n\nexport type NestedEnumTimelineEventTypeWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 732,
+        "end": 742,
+        "startLoc": {
+          "line": 732,
+          "column": 54,
+          "position": 11099
+        },
+        "endLoc": {
+          "line": 742,
+          "column": 48,
+          "position": 11230
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 266,
+        "end": 314,
+        "startLoc": {
+          "line": 266,
+          "column": 34,
+          "position": 3885
+        },
+        "endLoc": {
+          "line": 314,
+          "column": 42,
+          "position": 4571
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 11,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: $Enums.TimelineEventType | Prisma.EnumTimelineEventTypeFieldRefInput<$PrismaModel>\n  in?: $Enums.TimelineEventType[] | Prisma.ListEnumTimelineEventTypeFieldRefInput<$PrismaModel>\n  notIn?: $Enums.TimelineEventType[] | Prisma.ListEnumTimelineEventTypeFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedEnumTimelineEventTypeWithAggregatesFilter<$PrismaModel> | $Enums.TimelineEventType\n  _count?: Prisma.NestedIntFilter<$PrismaModel>\n  _min?: Prisma.NestedEnumTimelineEventTypeFilter<$PrismaModel>\n  _max?: Prisma.NestedEnumTimelineEventTypeFilter<$PrismaModel>\n}\n\nexport type NestedJsonNullableFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 742,
+        "end": 752,
+        "startLoc": {
+          "line": 742,
+          "column": 48,
+          "position": 11231
+        },
+        "endLoc": {
+          "line": 752,
+          "column": 25,
+          "position": 11362
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 273,
+        "end": 324,
+        "startLoc": {
+          "line": 273,
+          "column": 28,
+          "position": 3981
+        },
+        "endLoc": {
+          "line": 324,
+          "column": 33,
+          "position": 4703
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 18,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter\n  path?: string[]\n  mode?: Prisma.QueryMode | Prisma.EnumQueryModeFieldRefInput<$PrismaModel>\n  string_contains?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  string_starts_with?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  string_ends_with?: string | Prisma.StringFieldRefInput<$PrismaModel>\n  array_starts_with?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | null\n  array_ends_with?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | null\n  array_contains?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | null\n  lt?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>\n  lte?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>\n  gt?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>\n  gte?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel>\n  not?: runtime.InputJsonValue | Prisma.JsonFieldRefInput<$PrismaModel> | Prisma.JsonNullValueFilter\n}\n\nexport type NestedEnumProjectStatusFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 759,
+        "end": 776,
+        "startLoc": {
+          "line": 759,
+          "column": 29,
+          "position": 11445
+        },
+        "endLoc": {
+          "line": 776,
+          "column": 30,
+          "position": 11725
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 287,
+        "end": 304,
+        "startLoc": {
+          "line": 287,
+          "column": 23,
+          "position": 4159
+        },
+        "endLoc": {
+          "line": 304,
+          "column": 48,
+          "position": 4439
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 8,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: $Enums.ProjectStatus | Prisma.EnumProjectStatusFieldRefInput<$PrismaModel>\n  in?: $Enums.ProjectStatus[] | Prisma.ListEnumProjectStatusFieldRefInput<$PrismaModel>\n  notIn?: $Enums.ProjectStatus[] | Prisma.ListEnumProjectStatusFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedEnumProjectStatusFilter<$PrismaModel> | $Enums.ProjectStatus\n}\n\nexport type NestedEnumProjectStatusWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 776,
+        "end": 783,
+        "startLoc": {
+          "line": 776,
+          "column": 30,
+          "position": 11726
+        },
+        "endLoc": {
+          "line": 783,
+          "column": 44,
+          "position": 11821
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 351,
+        "end": 358,
+        "startLoc": {
+          "line": 351,
+          "column": 24,
+          "position": 5103
+        },
+        "endLoc": {
+          "line": 358,
+          "column": 38,
+          "position": 5198
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 11,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: $Enums.ProjectStatus | Prisma.EnumProjectStatusFieldRefInput<$PrismaModel>\n  in?: $Enums.ProjectStatus[] | Prisma.ListEnumProjectStatusFieldRefInput<$PrismaModel>\n  notIn?: $Enums.ProjectStatus[] | Prisma.ListEnumProjectStatusFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedEnumProjectStatusWithAggregatesFilter<$PrismaModel> | $Enums.ProjectStatus\n  _count?: Prisma.NestedIntFilter<$PrismaModel>\n  _min?: Prisma.NestedEnumProjectStatusFilter<$PrismaModel>\n  _max?: Prisma.NestedEnumProjectStatusFilter<$PrismaModel>\n}\n\nexport type NestedEnumUnitTypeFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 783,
+        "end": 793,
+        "startLoc": {
+          "line": 783,
+          "column": 44,
+          "position": 11822
+        },
+        "endLoc": {
+          "line": 793,
+          "column": 25,
+          "position": 11953
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 351,
+        "end": 368,
+        "startLoc": {
+          "line": 351,
+          "column": 24,
+          "position": 5103
+        },
+        "endLoc": {
+          "line": 368,
+          "column": 19,
+          "position": 5330
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 8,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: $Enums.UnitType | Prisma.EnumUnitTypeFieldRefInput<$PrismaModel>\n  in?: $Enums.UnitType[] | Prisma.ListEnumUnitTypeFieldRefInput<$PrismaModel>\n  notIn?: $Enums.UnitType[] | Prisma.ListEnumUnitTypeFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedEnumUnitTypeFilter<$PrismaModel> | $Enums.UnitType\n}\n\nexport type NestedDecimalNullableFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 793,
+        "end": 800,
+        "startLoc": {
+          "line": 793,
+          "column": 25,
+          "position": 11954
+        },
+        "endLoc": {
+          "line": 800,
+          "column": 28,
+          "position": 12049
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 368,
+        "end": 375,
+        "startLoc": {
+          "line": 368,
+          "column": 19,
+          "position": 5331
+        },
+        "endLoc": {
+          "line": 375,
+          "column": 12,
+          "position": 5426
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 12,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel> | null\n  in?: runtime.Decimal[] | runtime.DecimalJsLike[] | number[] | string[] | Prisma.ListDecimalFieldRefInput<$PrismaModel> | null\n  notIn?: runtime.Decimal[] | runtime.DecimalJsLike[] | number[] | string[] | Prisma.ListDecimalFieldRefInput<$PrismaModel> | null\n  lt?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  lte?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  gt?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  gte?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedDecimalNullableFilter<$PrismaModel> | runtime.Decimal | runtime.DecimalJsLike | number | string | null\n}\n\nexport type NestedEnumUnitStatusFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 800,
+        "end": 811,
+        "startLoc": {
+          "line": 800,
+          "column": 28,
+          "position": 12050
+        },
+        "endLoc": {
+          "line": 811,
+          "column": 27,
+          "position": 12357
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 386,
+        "end": 397,
+        "startLoc": {
+          "line": 386,
+          "column": 22,
+          "position": 5579
+        },
+        "endLoc": {
+          "line": 397,
+          "column": 21,
+          "position": 5886
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 8,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: $Enums.UnitStatus | Prisma.EnumUnitStatusFieldRefInput<$PrismaModel>\n  in?: $Enums.UnitStatus[] | Prisma.ListEnumUnitStatusFieldRefInput<$PrismaModel>\n  notIn?: $Enums.UnitStatus[] | Prisma.ListEnumUnitStatusFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedEnumUnitStatusFilter<$PrismaModel> | $Enums.UnitStatus\n}\n\nexport type NestedEnumUnitTypeWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 811,
+        "end": 818,
+        "startLoc": {
+          "line": 811,
+          "column": 27,
+          "position": 12358
+        },
+        "endLoc": {
+          "line": 818,
+          "column": 39,
+          "position": 12453
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 397,
+        "end": 404,
+        "startLoc": {
+          "line": 397,
+          "column": 21,
+          "position": 5887
+        },
+        "endLoc": {
+          "line": 404,
+          "column": 33,
+          "position": 5982
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 11,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: $Enums.UnitType | Prisma.EnumUnitTypeFieldRefInput<$PrismaModel>\n  in?: $Enums.UnitType[] | Prisma.ListEnumUnitTypeFieldRefInput<$PrismaModel>\n  notIn?: $Enums.UnitType[] | Prisma.ListEnumUnitTypeFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedEnumUnitTypeWithAggregatesFilter<$PrismaModel> | $Enums.UnitType\n  _count?: Prisma.NestedIntFilter<$PrismaModel>\n  _min?: Prisma.NestedEnumUnitTypeFilter<$PrismaModel>\n  _max?: Prisma.NestedEnumUnitTypeFilter<$PrismaModel>\n}\n\nexport type NestedFloatWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 818,
+        "end": 828,
+        "startLoc": {
+          "line": 818,
+          "column": 39,
+          "position": 12454
+        },
+        "endLoc": {
+          "line": 828,
+          "column": 32,
+          "position": 12585
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 368,
+        "end": 414,
+        "startLoc": {
+          "line": 368,
+          "column": 19,
+          "position": 5331
+        },
+        "endLoc": {
+          "line": 414,
+          "column": 26,
+          "position": 6114
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 17,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: number | Prisma.FloatFieldRefInput<$PrismaModel>\n  in?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>\n  notIn?: number[] | Prisma.ListFloatFieldRefInput<$PrismaModel>\n  lt?: number | Prisma.FloatFieldRefInput<$PrismaModel>\n  lte?: number | Prisma.FloatFieldRefInput<$PrismaModel>\n  gt?: number | Prisma.FloatFieldRefInput<$PrismaModel>\n  gte?: number | Prisma.FloatFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedFloatWithAggregatesFilter<$PrismaModel> | number\n  _count?: Prisma.NestedIntFilter<$PrismaModel>\n  _avg?: Prisma.NestedFloatFilter<$PrismaModel>\n  _sum?: Prisma.NestedFloatFilter<$PrismaModel>\n  _min?: Prisma.NestedFloatFilter<$PrismaModel>\n  _max?: Prisma.NestedFloatFilter<$PrismaModel>\n}\n\nexport type NestedDecimalNullableWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 828,
+        "end": 844,
+        "startLoc": {
+          "line": 828,
+          "column": 32,
+          "position": 12586
+        },
+        "endLoc": {
+          "line": 844,
+          "column": 42,
+          "position": 12797
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 375,
+        "end": 430,
+        "startLoc": {
+          "line": 375,
+          "column": 12,
+          "position": 5427
+        },
+        "endLoc": {
+          "line": 430,
+          "column": 36,
+          "position": 6326
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 17,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel> | null\n  in?: runtime.Decimal[] | runtime.DecimalJsLike[] | number[] | string[] | Prisma.ListDecimalFieldRefInput<$PrismaModel> | null\n  notIn?: runtime.Decimal[] | runtime.DecimalJsLike[] | number[] | string[] | Prisma.ListDecimalFieldRefInput<$PrismaModel> | null\n  lt?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  lte?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  gt?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  gte?: runtime.Decimal | runtime.DecimalJsLike | number | string | Prisma.DecimalFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | runtime.Decimal | runtime.DecimalJsLike | number | string | null\n  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>\n  _avg?: Prisma.NestedDecimalNullableFilter<$PrismaModel>\n  _sum?: Prisma.NestedDecimalNullableFilter<$PrismaModel>\n  _min?: Prisma.NestedDecimalNullableFilter<$PrismaModel>\n  _max?: Prisma.NestedDecimalNullableFilter<$PrismaModel>\n}\n\nexport type NestedEnumUnitStatusWithAggregatesFilter",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 844,
+        "end": 860,
+        "startLoc": {
+          "line": 844,
+          "column": 42,
+          "position": 12798
+        },
+        "endLoc": {
+          "line": 860,
+          "column": 41,
+          "position": 13165
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 386,
+        "end": 446,
+        "startLoc": {
+          "line": 386,
+          "column": 22,
+          "position": 5579
+        },
+        "endLoc": {
+          "line": 446,
+          "column": 35,
+          "position": 6694
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 9,
+      "fragment": "<$PrismaModel = never> = {\n  equals?: $Enums.UnitStatus | Prisma.EnumUnitStatusFieldRefInput<$PrismaModel>\n  in?: $Enums.UnitStatus[] | Prisma.ListEnumUnitStatusFieldRefInput<$PrismaModel>\n  notIn?: $Enums.UnitStatus[] | Prisma.ListEnumUnitStatusFieldRefInput<$PrismaModel>\n  not?: Prisma.NestedEnumUnitStatusWithAggregatesFilter<$PrismaModel> | $Enums.UnitStatus\n  _count?: Prisma.NestedIntFilter<$PrismaModel>\n  _min?: Prisma.NestedEnumUnitStatusFilter<$PrismaModel>\n  _max?: Prisma.NestedEnumUnitStatusFilter<$PrismaModel>\n}",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 860,
+        "end": 868,
+        "startLoc": {
+          "line": 860,
+          "column": 41,
+          "position": 13166
+        },
+        "endLoc": {
+          "line": 868,
+          "column": 2,
+          "position": 13290
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/commonInputTypes.ts",
+        "start": 397,
+        "end": 454,
+        "startLoc": {
+          "line": 397,
+          "column": 21,
+          "position": 5887
+        },
+        "endLoc": {
+          "line": 454,
+          "column": 2,
+          "position": 6819
+        }
+      }
+    },
+    {
+      "format": "typescript",
+      "lines": 60,
+      "fragment": "/**\n * Model User\n * \n */\nexport type User = Prisma.UserModel\n/**\n * Model Session\n * \n */\nexport type Session = Prisma.SessionModel\n/**\n * Model Account\n * \n */\nexport type Account = Prisma.AccountModel\n/**\n * Model Verification\n * \n */\nexport type Verification = Prisma.VerificationModel\n/**\n * Model Lifecycle\n * \n */\nexport type Lifecycle = Prisma.LifecycleModel\n/**\n * Model Lead\n * \n */\nexport type Lead = Prisma.LeadModel\n/**\n * Model Person\n * \n */\nexport type Person = Prisma.PersonModel\n/**\n * Model Deal\n * \n */\nexport type Deal = Prisma.DealModel\n/**\n * Model PaymentPlan\n * \n */\nexport type PaymentPlan = Prisma.PaymentPlanModel\n/**\n * Model TimelineEvent\n * \n */\nexport type TimelineEvent = Prisma.TimelineEventModel\n/**\n * Model Project\n * \n */\nexport type Project = Prisma.ProjectModel\n/**\n * Model Unit\n * \n */\nexport type Unit = Prisma.UnitModel",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/generated/prisma/browser.ts",
+        "start": 20,
+        "end": 79,
+        "startLoc": {
+          "line": 20,
+          "column": 1,
+          "position": 53
+        },
+        "endLoc": {
+          "line": 79,
+          "column": 10,
+          "position": 219
+        }
+      },
+      "secondFile": {
+        "name": "src/generated/prisma/client.ts",
+        "start": 44,
+        "end": 103,
+        "startLoc": {
+          "line": 44,
+          "column": 1,
+          "position": 242
+        },
+        "endLoc": {
+          "line": 103,
+          "column": 10,
+          "position": 408
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 12,
+      "fragment": ">\n                <Avatar className=\"h-8 w-8 rounded-lg\">\n                  <AvatarImage src={user.avatar} alt={user.name} />\n                  <AvatarFallback className=\"rounded-lg\">CN</AvatarFallback>\n                </Avatar>\n                <div className=\"grid flex-1 text-left text-sm leading-tight\">\n                  <span className=\"truncate font-medium\">{user.name}</span>\n                  <span className=\"text-muted-foreground truncate text-xs\">\n                    {user.email}\n                  </span>\n                </div>\n              </",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/components/nav-user.tsx",
+        "start": 68,
+        "end": 79,
+        "startLoc": {
+          "line": 68,
+          "column": 2,
+          "position": 427
+        },
+        "endLoc": {
+          "line": 79,
+          "column": 3,
+          "position": 541
+        }
+      },
+      "secondFile": {
+        "name": "src/components/nav-user.tsx",
+        "start": 47,
+        "end": 58,
+        "startLoc": {
+          "line": 47,
+          "column": 13,
+          "position": 235
+        },
+        "endLoc": {
+          "line": 58,
+          "column": 2,
+          "position": 349
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 14,
+      "fragment": "={\n            table.getIsAllPageRowsSelected() ||\n            (table.getIsSomePageRowsSelected() && \"indeterminate\")\n          }\n          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}\n          aria-label=\"Select all\"\n        />\n      </div>\n    ),\n    cell: ({ row }) => (\n      <div className=\"flex items-center justify-center\">\n        <Checkbox\n          checked={row.getIsSelected()}\n          onCheckedChange={(value) => row.toggleSelected(!!value)}",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/components/data-table.tsx",
+        "start": 138,
+        "end": 151,
+        "startLoc": {
+          "line": 138,
+          "column": 8,
+          "position": 910
+        },
+        "endLoc": {
+          "line": 151,
+          "column": 2,
+          "position": 1026
+        }
+      },
+      "secondFile": {
+        "name": "src/components/table-select-column.tsx",
+        "start": 16,
+        "end": 29,
+        "startLoc": {
+          "line": 16,
+          "column": 8,
+          "position": 98
+        },
+        "endLoc": {
+          "line": 29,
+          "column": 2,
+          "position": 214
+        }
+      }
+    },
+    {
+      "format": "javascript",
+      "lines": 61,
+      "fragment": "}}\n              >\n                <SelectTrigger size=\"sm\" className=\"w-20\" id=\"rows-per-page\">\n                  <SelectValue\n                    placeholder={table.getState().pagination.pageSize}\n                  />\n                </SelectTrigger>\n                <SelectContent side=\"top\">\n                  <SelectGroup>\n                    {[10, 20, 30, 40, 50].map((pageSize) => (\n                      <SelectItem key={pageSize} value={`${pageSize}`}>\n                        {pageSize}\n                      </SelectItem>\n                    ))}\n                  </SelectGroup>\n                </SelectContent>\n              </Select>\n            </div>\n            <div className=\"flex w-fit items-center justify-center text-sm font-medium\">\n              Page {table.getState().pagination.pageIndex + 1} of{\" \"}\n              {table.getPageCount()}\n            </div>\n            <div className=\"ml-auto flex items-center gap-2 lg:ml-0\">\n              <Button\n                variant=\"outline\"\n                className=\"hidden h-8 w-8 p-0 lg:flex\"\n                onClick={() => table.setPageIndex(0)}\n                disabled={!table.getCanPreviousPage()}\n              >\n                <span className=\"sr-only\">Go to first page</span>\n                <ChevronsLeftIcon\n                />\n              </Button>\n              <Button\n                variant=\"outline\"\n                className=\"size-8\"\n                size=\"icon\"\n                onClick={() => table.previousPage()}\n                disabled={!table.getCanPreviousPage()}\n              >\n                <span className=\"sr-only\">Go to previous page</span>\n                <ChevronLeftIcon\n                />\n              </Button>\n              <Button\n                variant=\"outline\"\n                className=\"size-8\"\n                size=\"icon\"\n                onClick={() => table.nextPage()}\n                disabled={!table.getCanNextPage()}\n              >\n                <span className=\"sr-only\">Go to next page</span>\n                <ChevronRightIcon\n                />\n              </Button>\n              <Button\n                variant=\"outline\"\n                className=\"hidden size-8 lg:flex\"\n                size=\"icon\"\n                onClick={() => table.setPageIndex(table.getPageCount() - 1)}\n                disabled={!table.getCanNextPage()}",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/components/data-table.tsx",
+        "start": 541,
+        "end": 601,
+        "startLoc": {
+          "line": 541,
+          "column": 17,
+          "position": 4182
+        },
+        "endLoc": {
+          "line": 601,
+          "column": 2,
+          "position": 4687
+        }
+      },
+      "secondFile": {
+        "name": "src/modules/crm/components/data-table-shell.tsx",
+        "start": 188,
+        "end": 243,
+        "startLoc": {
+          "line": 188,
+          "column": 15,
+          "position": 1332
+        },
+        "endLoc": {
+          "line": 243,
+          "column": 2,
+          "position": 1821
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 14,
+      "fragment": "</div>,\n    cell: ({ row }) => (\n      <form\n        onSubmit={(e) => {\n          e.preventDefault()\n          toast.promise(new Promise((resolve) => setTimeout(resolve, 1000)), {\n            loading: `Saving ${row.original.header}`,\n            success: \"Done\",\n            error: \"Error\",\n          })\n        }}\n      >\n        <Label htmlFor={`${row.original.id}-limit`} className=\"sr-only\">\n          Limit",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/components/data-table.tsx",
+        "start": 220,
+        "end": 233,
+        "startLoc": {
+          "line": 220,
+          "column": 6,
+          "position": 1583
+        },
+        "endLoc": {
+          "line": 233,
+          "column": 6,
+          "position": 1720
+        }
+      },
+      "secondFile": {
+        "name": "src/components/data-table.tsx",
+        "start": 195,
+        "end": 208,
+        "startLoc": {
+          "line": 195,
+          "column": 7,
+          "position": 1361
+        },
+        "endLoc": {
+          "line": 208,
+          "column": 7,
+          "position": 1498
+        }
+      }
+    },
+    {
+      "format": "tsx",
+      "lines": 13,
+      "fragment": "</SelectItem>\n            </SelectContent>\n          </Select>\n        </CardAction>\n      </CardHeader>\n      <CardContent className=\"px-2 pt-4 sm:px-6 sm:pt-6\">\n        <ChartContainer\n          config={chartConfig}\n          className=\"aspect-auto h-[250px] w-full\"\n        >\n          <AreaChart data={filteredData}>\n            <defs>\n              <linearGradient id=\"fillDesktop",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/components/chart-area-interactive.tsx",
+        "start": 206,
+        "end": 218,
+        "startLoc": {
+          "line": 206,
+          "column": 15,
+          "position": 2930
+        },
+        "endLoc": {
+          "line": 218,
+          "column": 12,
+          "position": 3006
+        }
+      },
+      "secondFile": {
+        "name": "src/modules/crm/components/overview-chart.tsx",
+        "start": 208,
+        "end": 220,
+        "startLoc": {
+          "line": 208,
+          "column": 15,
+          "position": 3004
+        },
+        "endLoc": {
+          "line": 220,
+          "column": 10,
+          "position": 3080
+        }
+      }
+    },
+    {
+      "format": "css",
+      "lines": 7,
+      "fragment": "0 0);\n  --chart-1: oklch(0.809 0.105 251.813);\n  --chart-2: oklch(0.623 0.214 259.815);\n  --chart-3: oklch(0.546 0.245 262.881);\n  --chart-4: oklch(0.488 0.243 264.376);\n  --chart-5: oklch(0.424 0.199 265.638);\n  --sidebar: oklch(0.205",
+      "tokens": 0,
+      "firstFile": {
+        "name": "src/app/globals.css",
+        "start": 103,
+        "end": 109,
+        "startLoc": {
+          "line": 103,
+          "column": 2,
+          "position": 1185
+        },
+        "endLoc": {
+          "line": 109,
+          "column": 6,
+          "position": 1267
+        }
+      },
+      "secondFile": {
+        "name": "src/app/globals.css",
+        "start": 67,
+        "end": 73,
+        "startLoc": {
+          "line": 67,
+          "column": 2,
+          "position": 708
+        },
+        "endLoc": {
+          "line": 73,
+          "column": 6,
+          "position": 790
+        }
+      }
+    }
+  ]
+}

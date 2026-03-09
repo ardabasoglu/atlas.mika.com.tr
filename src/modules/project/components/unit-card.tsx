@@ -9,19 +9,7 @@ import {
 import { Building2, Maximize2, Banknote, Layers, FileText, User } from "lucide-react";
 import { formatMoney } from "@/lib/currency";
 import { Unit } from "../types";
-
-const unitTypeLabels: Record<Unit["type"], string> = {
-  apartment: "Daire",
-  commercial: "Ticari",
-  parking: "Otopark",
-  other: "Diğer",
-};
-
-const unitStatusLabels: Record<Unit["status"], string> = {
-  available: "Müsait",
-  reserved: "Rezerve",
-  sold: "Satıldı",
-};
+import { unitTypeLabels, unitStatusLabels } from "../unit-labels";
 
 interface UnitCardProps {
   unit: Unit;

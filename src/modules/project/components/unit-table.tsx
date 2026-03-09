@@ -2,26 +2,14 @@
 
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { Checkbox } from "@/components/ui/checkbox";
 import { type ColumnDef } from "@tanstack/react-table";
+import { createSelectColumn } from "@/components/table-select-column";
 import { Unit } from "../types";
+import { unitTypeLabels, unitStatusLabels } from "../unit-labels";
 import { formatMoney } from "@/lib/currency";
 import { DataTableShell } from "@/modules/crm/components/data-table-shell";
 import { EntityActionMenu } from "@/modules/crm/components/common/entity-action-menu";
 import { useEntityTable } from "@/modules/crm/hooks";
-
-const unitTypeLabels: Record<Unit["type"], string> = {
-  apartment: "Daire",
-  commercial: "Ticari",
-  parking: "Otopark",
-  other: "Diğer",
-};
-
-const unitStatusLabels: Record<Unit["status"], string> = {
-  available: "Müsait",
-  reserved: "Rezerve",
-  sold: "Satıldı",
-};
 
 interface UnitTableProps {
   units: Unit[];
@@ -29,32 +17,7 @@ interface UnitTableProps {
 }
 
 const columns: ColumnDef<Unit>[] = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <div className="flex items-center justify-center">
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Tümünü seç"
-        />
-      </div>
-    ),
-    cell: ({ row }) => (
-      <div className="flex items-center justify-center">
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Satırı seç"
-        />
-      </div>
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
+  createSelectColumn<Unit>(),
   {
     accessorKey: "code",
     header: "Kod",

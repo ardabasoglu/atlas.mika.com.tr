@@ -2,8 +2,8 @@
 
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { Checkbox } from "@/components/ui/checkbox";
 import { type ColumnDef } from "@tanstack/react-table";
+import { createSelectColumn } from "@/components/table-select-column";
 import { Lifecycle } from "../types";
 import { DataTableShell } from "./data-table-shell";
 import { EntityActionMenu } from "./common/entity-action-menu";
@@ -16,32 +16,7 @@ interface LifecycleTableProps {
 }
 
 const columns: ColumnDef<Lifecycle>[] = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <div className="flex items-center justify-center">
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Tümünü seç"
-        />
-      </div>
-    ),
-    cell: ({ row }) => (
-      <div className="flex items-center justify-center">
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Satırı seç"
-        />
-      </div>
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
+  createSelectColumn<Lifecycle>(),
   {
     accessorKey: "order",
     header: "Sıra",

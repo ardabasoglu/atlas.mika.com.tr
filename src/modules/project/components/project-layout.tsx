@@ -1,28 +1,12 @@
 "use client";
 
 import React from "react";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "@/components/app-sidebar";
-import { SiteHeader } from "@/components/site-header";
+import { SidebarPageLayout } from "@/components/sidebar-page-layout";
 
 interface ProjectLayoutProps {
   children: React.ReactNode;
 }
 
 export function ProjectLayout({ children }: ProjectLayoutProps) {
-  return (
-    <SidebarProvider>
-      <AppSidebar variant="inset" />
-      <SidebarInset>
-        <SiteHeader />
-        <div className="flex flex-1 flex-col">
-          <div className="@container/main flex flex-1 flex-col gap-2">
-            <div className="flex flex-col gap-4 px-4 py-4 md:gap-6 md:py-6 lg:px-6">
-              {children}
-            </div>
-          </div>
-        </div>
-      </SidebarInset>
-    </SidebarProvider>
-  );
+  return <SidebarPageLayout>{children}</SidebarPageLayout>;
 }
