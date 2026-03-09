@@ -2,6 +2,7 @@ import { CRMPageLayout } from "@/modules/crm/components/crm-page-layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Building2, DollarSign, Calendar } from "lucide-react";
 import { getPersons, getDeals, getTimelineEvents } from "@/modules/crm/services";
+import { EVENT_TYPE_LABELS } from "@/modules/crm/constants";
 import { formatMoneyCompact } from "@/lib/currency";
 import { PersonTable } from "@/modules/crm/components/person-table";
 import { OverviewChart } from "@/modules/crm/components/overview-chart";
@@ -148,19 +149,7 @@ export default async function CRMDashboardPage() {
                   className="border-b pb-3 last:border-0 last:pb-0"
                 >
                   <div className="font-medium">
-                    {event.type === "note"
-                      ? "Not"
-                      : event.type === "call"
-                        ? "Arama"
-                        : event.type === "meeting"
-                          ? "Toplantı"
-                          : event.type === "email"
-                            ? "E-posta"
-                            : event.type === "status_change"
-                              ? "Durum değişikliği"
-                              : event.type === "deal_created"
-                                ? "Fırsat oluşturuldu"
-                                : "Aşama değişti"}
+                    {EVENT_TYPE_LABELS[event.type]}
                   </div>
                   <div className="text-sm text-muted-foreground">
                     {event.title ?? event.description ?? "-"}

@@ -4,20 +4,11 @@ import type { ReactNode } from "react";
 import { type ColumnDef } from "@tanstack/react-table";
 import { createSelectColumn } from "@/components/table-select-column";
 import { TimelineEvent } from "../types";
+import { EVENT_TYPE_LABELS } from "../constants";
 import { DataTableShell } from "./data-table-shell";
 import { EntityActionMenu } from "./common/entity-action-menu";
 import { useEntityTable } from "../hooks";
 import Link from "next/link";
-
-const EVENT_TYPE_LABELS: Record<TimelineEvent["type"], string> = {
-  note: "Not",
-  call: "Arama",
-  meeting: "Toplantı",
-  email: "E-posta",
-  status_change: "Durum değişikliği",
-  deal_created: "Fırsat oluşturuldu",
-  deal_stage_changed: "Aşama değişti",
-};
 
 function getEntityHref(event: TimelineEvent): { href: string; label: string } | null {
   switch (event.entityType) {

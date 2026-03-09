@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { getPersonById, getDealsByPersonId, getTimelineEvents } from "@/modules/crm/services";
 import { formatMoney } from "@/lib/currency";
 import { StatusBadge } from "@/modules/crm/components/common/status-badge";
+import { EVENT_TYPE_LABELS } from "@/modules/crm/constants";
 
 interface PersonDetailPageProps {
   params: Promise<{
@@ -179,19 +180,7 @@ export default async function PersonDetailPage({
                         >
                           <div>
                             <p className="font-medium">
-                              {event.type === "note"
-                                ? "Not"
-                                : event.type === "call"
-                                  ? "Arama"
-                                  : event.type === "meeting"
-                                    ? "Toplantı"
-                                    : event.type === "email"
-                                      ? "E-posta"
-                                      : event.type === "status_change"
-                                        ? "Durum değişikliği"
-                                        : event.type === "deal_created"
-                                          ? "Fırsat oluşturuldu"
-                                          : "Aşama değişti"}
+                              {EVENT_TYPE_LABELS[event.type]}
                             </p>
                             <p className="text-sm text-muted-foreground">
                               {event.title ?? event.description ?? "-"}

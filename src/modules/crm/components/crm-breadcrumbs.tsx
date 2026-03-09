@@ -1,17 +1,7 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-import {
-  Breadcrumb,
-  BreadcrumbList,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+import { BreadcrumbNav } from "@/components/breadcrumb-nav";
 
 interface CrmBreadcrumbItem {
   href: string;
@@ -117,39 +107,7 @@ function buildCrmBreadcrumbItems(pathname: string): CrmBreadcrumbItem[] {
 export function CrmBreadcrumbs() {
   const currentPathname = usePathname();
   const breadcrumbItems = buildCrmBreadcrumbItems(currentPathname);
-
-  if (breadcrumbItems.length === 0) {
-    return null;
-  }
-
-  return (
-    <Breadcrumb className="py-1" suppressHydrationWarning>
-      <BreadcrumbList className="text-base font-medium text-foreground/90 sm:gap-3 [&>li[data-slot=breadcrumb-separator]>svg]:size-4">
-        {breadcrumbItems.map((breadcrumbItem, index) => {
-          const isLastItem = index === breadcrumbItems.length - 1;
-
-          return (
-            <React.Fragment key={`${breadcrumbItem.href}-${index}`}>
-              <BreadcrumbItem>
-                {isLastItem ? (
-                  <BreadcrumbPage className="font-semibold text-foreground">
-                    {breadcrumbItem.label}
-                  </BreadcrumbPage>
-                ) : (
-                  <BreadcrumbLink asChild className="text-foreground/70 hover:text-foreground">
-                    <Link href={breadcrumbItem.href} suppressHydrationWarning>
-                      {breadcrumbItem.label}
-                    </Link>
-                  </BreadcrumbLink>
-                )}
-              </BreadcrumbItem>
-              {!isLastItem && <BreadcrumbSeparator />}
-            </React.Fragment>
-          );
-        })}
-      </BreadcrumbList>
-    </Breadcrumb>
-  );
+  return <BreadcrumbNav items={breadcrumbItems} />;
 }
 
 export { buildCrmBreadcrumbItems };
