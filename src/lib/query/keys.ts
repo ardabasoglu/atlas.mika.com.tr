@@ -8,8 +8,6 @@ export const queryKeys = {
     dealWithPaymentPlan: (id: string) =>
       [...queryKeys.crm.deal(id), "withPaymentPlan"] as const,
     person: (id: string) => [...queryKeys.crm.all, "person", id] as const,
-    personDeals: (personId: string) =>
-      [...queryKeys.crm.all, "person", personId, "deals"] as const,
     paymentPlan: (dealId: string) =>
       [...queryKeys.crm.all, "paymentPlan", dealId] as const,
     lifecycles: () => [...queryKeys.crm.all, "lifecycles"] as const,
@@ -21,6 +19,5 @@ export const queryKeys = {
     units: (projectId: string) =>
       [...queryKeys.project.all, "units", projectId] as const,
     unit: (id: string) => [...queryKeys.project.all, "unit", id] as const,
-    unitsAll: () => [...queryKeys.project.all, "units"] as const,
   },
 };

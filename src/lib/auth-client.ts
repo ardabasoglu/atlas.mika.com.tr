@@ -28,5 +28,3 @@ export function useSession() {
 export const signIn = {
   magicLink: authClient.signIn.magicLink,
 };
-
-export const signOut = authClient.signOut;

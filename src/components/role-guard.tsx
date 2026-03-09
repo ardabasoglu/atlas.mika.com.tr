@@ -1,7 +1,6 @@
 'use client';
 
 import { useSession } from '@/lib/auth-client';
-import { RoleGuard } from '@/lib/auth-middleware';
 
 type Role = 'SYSTEM_ADMIN' | 'ADMIN' | 'MEMBER' | 'GUEST';
 
