@@ -5,7 +5,6 @@ export { CrmBreadcrumbs, buildCrmBreadcrumbItems } from "./crm-breadcrumbs";
 
 // Table components
 export { DataTableShell } from "./data-table-shell";
-export { TablePagination, TABLE_PAGE_SIZE } from "./table-pagination";
 
 // Entity tables
 export { LeadTable } from "./lead-table";
@@ -18,7 +17,6 @@ export { TeamTable } from "./team-table";
 // Common components
 export { StatusBadge } from "./common/status-badge";
 export { EntityActionMenu, type ActionMenuItem } from "./common/entity-action-menu";
-export { EmptyState } from "./common/empty-state";
 
 // Feature components
 export { ConvertLeadButton } from "./convert-lead-button";

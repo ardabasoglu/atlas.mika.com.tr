@@ -326,13 +326,6 @@ export async function getTimelineEvents(): Promise<TimelineEvent[]> {
   return events.map(mapPrismaTimelineEvent);
 }
 
-export async function getTimelineEventById(id: string): Promise<TimelineEvent | undefined> {
-  const event = await prisma.timelineEvent.findUnique({
-    where: { id },
-  });
-  return event ? mapPrismaTimelineEvent(event) : undefined;
-}
-
 export async function getLeads(): Promise<Lead[]> {
   const leads = await prisma.lead.findMany({
     orderBy: { createdAt: "desc" },

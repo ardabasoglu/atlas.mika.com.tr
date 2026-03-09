@@ -29,7 +29,6 @@ import {
   getDealWithUnit, 
   getDealWithPaymentPlan, 
   getPersonById, 
-  getDealsByPersonId, 
   getPaymentPlanByDealId, 
   getLifecycles 
 } from "./services";
@@ -150,22 +149,6 @@ export function usePerson(personId: string) {
     queryKey: queryKeys.crm.person(personId),
     queryFn: () => getPersonById(personId),
     enabled: !!personId,
-  });
-}
-
-export function usePersonDeals(personId: string) {
-  return useQuery({
-    queryKey: queryKeys.crm.personDeals(personId),
-    queryFn: () => getDealsByPersonId(personId),
-    enabled: !!personId,
-  });
-}
-
-export function usePaymentPlan(dealId: string) {
-  return useQuery({
-    queryKey: queryKeys.crm.paymentPlan(dealId),
-    queryFn: () => getPaymentPlanByDealId(dealId),
-    enabled: !!dealId,
   });
 }
 
