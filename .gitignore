@@ -53,3 +53,6 @@ docs/
 .cursor/
 
 .agents/
+
+.agent/
+.jscpd.json
