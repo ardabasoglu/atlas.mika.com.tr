@@ -4,9 +4,9 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { type ColumnDef } from "@tanstack/react-table";
 import { createSelectColumn } from "@/components/table-select-column";
+import { createTextColumn, createDateColumn, createActionsColumn } from "@/components/table-column-factory";
 import { Project } from "../types";
 import { DataTableShell } from "@/modules/crm/components/data-table-shell";
-import { EntityActionMenu } from "@/modules/crm/components/common/entity-action-menu";
 import { useEntityTable } from "@/modules/crm/hooks";
 
 const projectStatusLabels: Record<Project["status"], string> = {
@@ -41,36 +41,10 @@ const columns: ColumnDef<Project>[] = [
     cell: ({ row }) =>
       projectStatusLabels[row.original.status] ?? row.original.status,
   },
-  {
-    accessorKey: "address",
-    header: "Adres",
-    cell: ({ row }) => row.original.address ?? "-",
-  },
-  {
-    accessorKey: "startDate",
-    header: "Başlangıç",
-    cell: ({ row }) =>
-      row.original.startDate
-        ? new Date(row.original.startDate).toLocaleDateString()
-        : "-",
-  },
-  {
-    accessorKey: "createdAt",
-    header: "Oluşturulma",
-    cell: ({ row }) =>
-      new Date(row.original.createdAt).toLocaleDateString(),
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => (
-      <EntityActionMenu
-        entityId={row.original.id}
-        basePath="/project/projects"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
+  createTextColumn<Project>("address", "Adres", { placeholder: "-" }),
+  createDateColumn<Project>("startDate", "Başlangıç", { placeholder: "-" }),
+  createDateColumn<Project>("createdAt", "Oluşturulma"),
+  createActionsColumn<Project>("/project/projects"),
 ];
 
 export function ProjectTable({ projects, toolbar }: ProjectTableProps) {

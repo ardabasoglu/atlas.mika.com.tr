@@ -1,12 +1,11 @@
 "use client";
 
 import type { ReactNode } from "react";
-import Link from "next/link";
 import { type ColumnDef } from "@tanstack/react-table";
 import { createSelectColumn } from "@/components/table-select-column";
+import { createTextColumn, createDateColumn, createActionsColumn } from "@/components/table-column-factory";
 import { Person } from "../types";
 import { DataTableShell } from "./data-table-shell";
-import { EntityActionMenu } from "./common/entity-action-menu";
 import { useEntityTable } from "../hooks";
 
 interface PersonTableProps {
@@ -17,39 +16,11 @@ interface PersonTableProps {
 
 const columns: ColumnDef<Person>[] = [
   createSelectColumn<Person>(),
-  {
-    accessorKey: "name",
-    header: "Ad",
-    cell: ({ row }) => (
-      <span className="font-medium">{row.original.name}</span>
-    ),
-  },
-  {
-    accessorKey: "email",
-    header: "E-posta",
-  },
-  {
-    accessorKey: "phone",
-    header: "Telefon",
-    cell: ({ row }) => row.original.phone ?? "-",
-  },
-  {
-    accessorKey: "createdAt",
-    header: "Oluşturulma",
-    cell: ({ row }) =>
-      new Date(row.original.createdAt).toLocaleDateString(),
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => (
-      <EntityActionMenu
-        entityId={row.original.id}
-        basePath="/crm/persons"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
+  createTextColumn<Person>("name", "Ad", { cellClassName: "font-medium" }),
+  createTextColumn<Person>("email", "E-posta"),
+  createTextColumn<Person>("phone", "Telefon", { placeholder: "-" }),
+  createDateColumn<Person>("createdAt", "Oluşturulma"),
+  createActionsColumn<Person>("/crm/persons"),
 ];
 
 export function PersonTable({ persons, toolbar }: PersonTableProps) {

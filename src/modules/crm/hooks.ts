@@ -20,18 +20,19 @@ import {
 import type { Deal, PaymentPlan } from "./types";
 import { getPaymentPlanTotal } from "./types";
 import { queryKeys } from "@/lib/query/keys";
-import { 
-  updateDeal, 
-  savePaymentPlan, 
+import {
+  updateDeal,
+  savePaymentPlan,
   convertLead,
-  getDeals, 
-  getDealById, 
-  getDealWithUnit, 
-  getDealWithPaymentPlan, 
-  getPersonById, 
-  getPaymentPlanByDealId, 
-  getLifecycles 
+  getDeals,
+  getDealById,
+  getDealWithUnit,
+  getDealWithPaymentPlan,
+  getPersonById,
+  getPaymentPlanByDealId,
+  getLifecycles
 } from "./services";
+import { createOptimisticMutation, type OptimisticContext } from "@/lib/mutation-factory";
 
 // --- Table Hooks ---
 
@@ -172,70 +173,17 @@ export type UpdateDealPayload = {
 };
 
 export function useUpdateDeal() {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: ({
-      dealId,
-      payload,
-    }: {
-      dealId: string;
-      payload: UpdateDealPayload;
-    }) => updateDeal(dealId, payload),
-    onMutate: async ({ dealId, payload }) => {
-      await queryClient.cancelQueries({ queryKey: queryKeys.crm.deal(dealId) });
-      await queryClient.cancelQueries({ queryKey: queryKeys.crm.deals() });
-
-      const previousDeal = queryClient.getQueryData<Deal>(
-        queryKeys.crm.deal(dealId)
-      );
-      const previousDeals = queryClient.getQueryData<Deal[]>(
-        queryKeys.crm.deals()
-      );
-
-      if (previousDeal) {
-        const optimistic: Deal = {
-          ...previousDeal,
-          ...payload,
-          unitId: payload.unitId ?? undefined,
-          lifecycleId: payload.lifecycleId ?? undefined,
-          expectedCloseDate: payload.expectedCloseDate ?? undefined,
-        };
-        queryClient.setQueryData<Deal>(queryKeys.crm.deal(dealId), optimistic);
-      }
-
-      if (previousDeals) {
-        const updated = previousDeals.map((dealItem): Deal =>
-          dealItem.id === dealId
-            ? {
-                ...dealItem,
-                ...payload,
-                unitId: payload.unitId ?? undefined,
-                lifecycleId: payload.lifecycleId ?? undefined,
-                expectedCloseDate: payload.expectedCloseDate ?? undefined,
-              }
-            : dealItem
-        );
-        queryClient.setQueryData<Deal[]>(queryKeys.crm.deals(), updated);
-      }
-
-      return { previousDeal, previousDeals };
-    },
-    onError: (_error, { dealId }, context) => {
-      if (context?.previousDeal) {
-        queryClient.setQueryData(
-          queryKeys.crm.deal(dealId),
-          context.previousDeal
-        );
-      }
-      if (context?.previousDeals) {
-        queryClient.setQueryData(queryKeys.crm.deals(), context.previousDeals);
-      }
-    },
-    onSettled: (_data, _error, { dealId }) => {
-      queryClient.invalidateQueries({ queryKey: queryKeys.crm.deal(dealId) });
-      queryClient.invalidateQueries({ queryKey: queryKeys.crm.deals() });
-    },
+  return createOptimisticMutation<Deal, { dealId: string; payload: UpdateDealPayload }>({
+    mutationFn: ({ dealId, payload }) => updateDeal(dealId, payload),
+    getItemQueryKey: ({ dealId }) => queryKeys.crm.deal(dealId),
+    getListQueryKey: () => queryKeys.crm.deals(),
+    getOptimisticUpdate: (previousDeal, { payload }) => ({
+      ...previousDeal,
+      ...payload,
+      unitId: payload.unitId ?? undefined,
+      lifecycleId: payload.lifecycleId ?? undefined,
+      expectedCloseDate: payload.expectedCloseDate ?? undefined,
+    }),
   });
 }
 
@@ -298,7 +246,7 @@ export function useSavePaymentPlan() {
         });
       }
       if (previousDeals) {
-        const updated = previousDeals.map((dealItem): Deal =>
+        const updated = previousDeals.map((dealItem: Deal): Deal =>
           dealItem.id === dealId
             ? { ...dealItem, value: newValue, updatedAt: now }
             : dealItem

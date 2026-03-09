@@ -2,13 +2,12 @@
 
 import * as React from "react";
 import type { ReactNode } from "react";
-import Link from "next/link";
 import { type ColumnDef } from "@tanstack/react-table";
 import { createSelectColumn } from "@/components/table-select-column";
+import { createTextColumn, createLifecycleColumn, createActionsColumn } from "@/components/table-column-factory";
 import { Lead, Lifecycle } from "../types";
 import { DataTableShell } from "./data-table-shell";
 import { StatusBadge } from "./common/status-badge";
-import { EntityActionMenu } from "./common/entity-action-menu";
 import { useEntityTable } from "../hooks";
 
 interface LeadTableProps {
@@ -25,27 +24,10 @@ function buildColumns(lifecycles: Lifecycle[] | undefined): ColumnDef<Lead>[] {
 
   return [
   createSelectColumn<Lead>(),
-  {
-    accessorKey: "name",
-    header: "Ad Soyad",
-    cell: ({ row }) => (
-      <span className="font-medium">{row.original.name}</span>
-    ),
-  },
-  {
-    accessorKey: "email",
-    header: "E-posta",
-  },
-  {
-    accessorKey: "phone",
-    header: "Telefon",
-    cell: ({ row }) => row.original.phone ?? "-",
-  },
-  {
-    accessorKey: "source",
-    header: "Kaynak",
-    cell: ({ row }) => row.original.source ?? "-",
-  },
+  createTextColumn<Lead>("name", "Ad Soyad", { cellClassName: "font-medium" }),
+  createTextColumn<Lead>("email", "E-posta"),
+  createTextColumn<Lead>("phone", "Telefon", { placeholder: "-" }),
+  createTextColumn<Lead>("source", "Kaynak", { placeholder: "-" }),
   {
     accessorKey: "status",
     header: "Durum",
@@ -53,27 +35,8 @@ function buildColumns(lifecycles: Lifecycle[] | undefined): ColumnDef<Lead>[] {
       <StatusBadge status={row.original.status} type="lead" />
     ),
   },
-  {
-    id: "lifecycle",
-    header: "Yaşam döngüsü",
-    cell: ({ row }) => {
-      const lifecycleId = row.original.lifecycleId;
-      if (!lifecycleId) return "-";
-      const lifecycle = lifecycleById?.get(lifecycleId);
-      return lifecycle ? lifecycle.name : lifecycleId;
-    },
-  },
-  {
-    id: "actions",
-    cell: ({ row }) => (
-      <EntityActionMenu
-        entityId={row.original.id}
-        basePath="/crm/leads"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
+  createLifecycleColumn<Lead>(lifecycleById),
+  createActionsColumn<Lead>("/crm/leads"),
 ];
 }
 

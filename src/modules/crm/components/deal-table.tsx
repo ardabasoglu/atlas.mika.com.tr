@@ -5,11 +5,11 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { type ColumnDef } from "@tanstack/react-table";
 import { createSelectColumn } from "@/components/table-select-column";
+import { createLifecycleColumn, createActionsColumn } from "@/components/table-column-factory";
 import { Deal, Lifecycle } from "../types";
 import { formatMoney } from "@/lib/currency";
 import { DataTableShell } from "./data-table-shell";
 import { StatusBadge } from "./common/status-badge";
-import { EntityActionMenu } from "./common/entity-action-menu";
 import { useEntityTable } from "../hooks";
 
 interface DealTableProps {
@@ -46,16 +46,7 @@ function buildColumns(lifecycles: Lifecycle[] | undefined): ColumnDef<Deal>[] {
       <StatusBadge status={row.original.stage} type="deal" />
     ),
   },
-  {
-    id: "lifecycle",
-    header: "Yaşam döngüsü",
-    cell: ({ row }) => {
-      const lifecycleId = row.original.lifecycleId;
-      if (!lifecycleId) return "-";
-      const lifecycle = lifecycleById?.get(lifecycleId);
-      return lifecycle ? lifecycle.name : lifecycleId;
-    },
-  },
+  createLifecycleColumn<Deal>(lifecycleById),
   {
     accessorKey: "expectedCloseDate",
     header: "Tahmini Kapanış",
@@ -78,17 +69,7 @@ function buildColumns(lifecycles: Lifecycle[] | undefined): ColumnDef<Deal>[] {
       </Link>
     ),
   },
-  {
-    id: "actions",
-    cell: ({ row }) => (
-      <EntityActionMenu
-        entityId={row.original.id}
-        basePath="/crm/deals"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
+  createActionsColumn<Deal>("/crm/deals"),
 ];
 }
 
