@@ -12,6 +12,7 @@ export { PersonTable } from "./person-table";
 export { DealTable } from "./deal-table";
 export { ActivityTable } from "./activity-table";
 export { LifecycleTable } from "./lifecycle-table";
+export { LeadSourceTable } from "./lead-source-table";
 export { TeamTable } from "./team-table";
 
 // Common components
@@ -22,3 +23,4 @@ export { EntityActionMenu, type ActionMenuItem } from "./common/entity-action-me
 export { ConvertLeadButton } from "./convert-lead-button";
 export { PersonCard } from "./person-card";
 export { OverviewChart } from "./overview-chart";
+export { LeadCreateForm } from "./lead-create-form";

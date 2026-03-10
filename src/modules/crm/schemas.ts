@@ -11,17 +11,50 @@ const leadStatusEnum = z.enum([
   "converted",
 ]);
 
+const leadSourceTypeEnum = z.enum([
+  "paid_search",
+  "paid_social",
+  "organic",
+  "referral",
+  "direct",
+  "other",
+]);
+
+const leadSourcePlatformEnum = z.enum([
+  "google_ads",
+  "meta_ads",
+  "linkedin_ads",
+  "tiktok_ads",
+  "website_form",
+  "phone_call",
+  "other",
+]);
+
 export const leadSchema = z.object({
   id: z.string(),
   name: z.string(),
   phone: z.string().optional(),
   email: emailLike,
-  source: z.string().optional(),
+  sourceId: z.string().optional(),
   status: leadStatusEnum,
   lifecycleId: z.string().optional(),
   notes: z.string().optional(),
   createdAt: z.string(),
   updatedAt: z.string(),
+
+  archivedAt: z.string().optional(),
+
+  sourceType: leadSourceTypeEnum.optional(),
+  sourcePlatform: leadSourcePlatformEnum.optional(),
+  utmSource: z.string().optional(),
+  utmMedium: z.string().optional(),
+  utmCampaign: z.string().optional(),
+
+  gclid: z.string().optional(),
+  fbclid: z.string().optional(),
+
+  consentMarketing: z.boolean().optional(),
+  consentMarketingSource: z.string().optional(),
 });
 
 export const personSchema = z.object({
@@ -104,6 +137,16 @@ export const lifecycleSchema = z.object({
   updatedAt: z.string(),
 });
 
+export const leadSourceSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  description: z.string().optional(),
+  order: z.number(),
+  color: z.string().optional(),
+  createdAt: z.string(),
+  updatedAt: z.string(),
+});
+
 export const teamSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -120,6 +163,7 @@ export const dealArraySchema = z.array(dealSchema);
 export const paymentPlanArraySchema = z.array(paymentPlanSchema);
 export const timelineEventArraySchema = z.array(timelineEventSchema);
 export const lifecycleArraySchema = z.array(lifecycleSchema);
+export const leadSourceArraySchema = z.array(leadSourceSchema);
 export const teamArraySchema = z.array(teamSchema);
 
 // --- Server action input schemas (for .safeParse() at boundaries) ---
@@ -150,6 +194,80 @@ export const updateLeadPayloadSchema = z
   .object({
     status: leadStatusEnum.optional(),
     lifecycleId: z.string().nullable().optional(),
+    sourceId: z.string().nullable().optional(),
+  })
+  .strict();
+
+export const createLeadPayloadSchema = z
+  .object({
+    name: z.string().min(1, "Ad Soyad zorunludur"),
+    email: z
+      .string()
+      .min(1, "E-posta zorunludur")
+      .email("Geçerli bir e-posta adresi girin"),
+    phone: z.string().optional(),
+    sourceId: z.string().nullable().optional(),
+    status: leadStatusEnum.default("new"),
+    lifecycleId: z.string().nullable().optional(),
+    notes: z.string().optional(),
+
+    sourceType: leadSourceTypeEnum.optional(),
+    sourcePlatform: leadSourcePlatformEnum.optional(),
+    utmSource: z.string().optional(),
+    utmMedium: z.string().optional(),
+    utmCampaign: z.string().optional(),
+
+    gclid: z.string().optional(),
+    fbclid: z.string().optional(),
+
+    consentMarketing: z.boolean().optional(),
+    consentMarketingSource: z.string().optional(),
+  })
+  .strict();
+
+export const updateLeadDetailsPayloadSchema = z
+  .object({
+    name: z.string().min(1, "Ad Soyad zorunludur").optional(),
+    email: z
+      .string()
+      .min(1, "E-posta zorunludur")
+      .email("Geçerli bir e-posta adresi girin")
+      .optional(),
+    phone: z.string().optional(),
+    sourceId: z.string().nullable().optional(),
+    status: leadStatusEnum.optional(),
+    lifecycleId: z.string().nullable().optional(),
+    notes: z.string().optional(),
+
+    sourceType: leadSourceTypeEnum.optional(),
+    sourcePlatform: leadSourcePlatformEnum.optional(),
+    utmSource: z.string().optional(),
+    utmMedium: z.string().optional(),
+    utmCampaign: z.string().optional(),
+
+    gclid: z.string().optional(),
+    fbclid: z.string().optional(),
+
+    consentMarketing: z.boolean().optional(),
+    consentMarketingSource: z.string().optional(),
+  })
+  .strict();
+
+export const createLeadSourcePayloadSchema = z
+  .object({
+    name: z.string().min(1, "Ad zorunludur"),
+    description: z.string().optional(),
+    order: z.number(),
+    color: z.string().optional(),
+  })
+  .strict();
+
+export const updateLeadSourcePayloadSchema = z
+  .object({
+    name: z.string().min(1, "Ad zorunludur").optional(),
+    description: z.string().nullable().optional(),
+    order: z.number().optional(),
+    color: z.string().nullable().optional(),
   })
   .strict();
 
@@ -166,4 +284,5 @@ export type PaymentPlan = z.infer<typeof paymentPlanSchema>;
 export type Deal = z.infer<typeof dealSchema>;
 export type TimelineEvent = z.infer<typeof timelineEventSchema>;
 export type Lifecycle = z.infer<typeof lifecycleSchema>;
+export type LeadSource = z.infer<typeof leadSourceSchema>;
 export type Team = z.infer<typeof teamSchema>;

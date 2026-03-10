@@ -5,6 +5,7 @@ export type {
   PaymentPlan,
   TimelineEvent,
   Lifecycle,
+  LeadSource,
   Team,
 } from "./schemas";
 export {
@@ -14,6 +15,7 @@ export {
   paymentPlanSchema,
   timelineEventSchema,
   lifecycleSchema,
+  leadSourceSchema,
   teamSchema,
   leadArraySchema,
   personArraySchema,
@@ -21,6 +23,7 @@ export {
   paymentPlanArraySchema,
   timelineEventArraySchema,
   lifecycleArraySchema,
+  leadSourceArraySchema,
   teamArraySchema,
 } from "./schemas";
 import type { PaymentPlan } from "./schemas";

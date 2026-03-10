@@ -8,12 +8,17 @@ import {
   updateDealPayloadSchema,
   updateLeadPayloadSchema,
   convertLeadOptionsSchema,
+  createLeadPayloadSchema,
+  createLeadSourcePayloadSchema,
+  updateLeadSourcePayloadSchema,
+  updateLeadDetailsPayloadSchema,
 } from "./schemas";
 import {
   Deal,
   TimelineEvent,
   Lead,
   Lifecycle,
+  LeadSource,
   Team,
   Person,
   PaymentPlan,
@@ -25,6 +30,7 @@ import {
   Deal as PrismaDeal,
   Lead as PrismaLead,
   Lifecycle as PrismaLifecycle,
+  LeadSource as PrismaLeadSource,
   PaymentPlan as PrismaPaymentPlan,
   TimelineEvent as PrismaTimelineEvent,
   DealStage,
@@ -83,12 +89,38 @@ function mapPrismaLead(l: PrismaLead): Lead {
     name: l.name,
     email: l.email,
     phone: l.phone ?? undefined,
-    source: l.source ?? undefined,
+    sourceId: l.sourceId ?? undefined,
     status: l.status as Lead["status"],
     lifecycleId: l.lifecycleId ?? undefined,
     notes: l.notes ?? undefined,
     createdAt: l.createdAt.toISOString(),
     updatedAt: l.updatedAt.toISOString(),
+
+    archivedAt: l.archivedAt?.toISOString(),
+
+    sourceType: l.sourceType ?? undefined,
+    sourcePlatform: l.sourcePlatform ?? undefined,
+    utmSource: l.utmSource ?? undefined,
+    utmMedium: l.utmMedium ?? undefined,
+    utmCampaign: l.utmCampaign ?? undefined,
+
+    gclid: l.gclid ?? undefined,
+    fbclid: l.fbclid ?? undefined,
+
+    consentMarketing: l.consentMarketing ?? undefined,
+    consentMarketingSource: l.consentMarketingSource ?? undefined,
+  };
+}
+
+function mapPrismaLeadSource(s: PrismaLeadSource): LeadSource {
+  return {
+    id: s.id,
+    name: s.name,
+    description: s.description ?? undefined,
+    order: s.order,
+    color: s.color ?? undefined,
+    createdAt: s.createdAt.toISOString(),
+    updatedAt: s.updatedAt.toISOString(),
   };
 }
 
@@ -328,9 +360,46 @@ export async function getTimelineEvents(): Promise<TimelineEvent[]> {
 
 export async function getLeads(): Promise<Lead[]> {
   const leads = await prisma.lead.findMany({
+    where: { archivedAt: null },
     orderBy: { createdAt: "desc" },
   });
   return leads.map(mapPrismaLead);
+}
+
+export async function createLead(
+  payload: Parameters<typeof createLeadPayloadSchema.parse>[0],
+): Promise<Lead> {
+  const payloadResult = createLeadPayloadSchema.safeParse(payload);
+  if (!payloadResult.success) {
+    throw new Error(formatZodError(payloadResult.error));
+  }
+  const validatedPayload = payloadResult.data;
+
+  const lead = await prisma.lead.create({
+    data: {
+      name: validatedPayload.name,
+      email: validatedPayload.email,
+      phone: validatedPayload.phone,
+      sourceId: validatedPayload.sourceId ?? undefined,
+      status: validatedPayload.status,
+      lifecycleId: validatedPayload.lifecycleId ?? undefined,
+      notes: validatedPayload.notes,
+
+      sourceType: validatedPayload.sourceType,
+      sourcePlatform: validatedPayload.sourcePlatform,
+      utmSource: validatedPayload.utmSource,
+      utmMedium: validatedPayload.utmMedium,
+      utmCampaign: validatedPayload.utmCampaign,
+
+      gclid: validatedPayload.gclid,
+      fbclid: validatedPayload.fbclid,
+
+      consentMarketing: validatedPayload.consentMarketing,
+      consentMarketingSource: validatedPayload.consentMarketingSource,
+    },
+  });
+
+  return mapPrismaLead(lead);
 }
 
 export async function getLeadById(id: string): Promise<Lead | undefined> {
@@ -345,6 +414,7 @@ export async function updateLead(
   payload: {
     status?: Lead["status"];
     lifecycleId?: string | null;
+    sourceId?: string | null;
   }
 ): Promise<Lead | undefined> {
   const leadIdResult = idParamSchema.safeParse(leadId);
@@ -362,9 +432,92 @@ export async function updateLead(
     data: {
       ...(validatedPayload.status !== undefined && { status: validatedPayload.status as LeadStatus }),
       ...(validatedPayload.lifecycleId !== undefined && { lifecycleId: validatedPayload.lifecycleId }),
+      ...(validatedPayload.sourceId !== undefined && { sourceId: validatedPayload.sourceId }),
     },
   });
   return mapPrismaLead(lead);
+}
+
+export async function updateLeadDetails(
+  leadId: string,
+  payload: Parameters<typeof updateLeadDetailsPayloadSchema.parse>[0],
+): Promise<Lead | undefined> {
+  const leadIdResult = idParamSchema.safeParse(leadId);
+  if (!leadIdResult.success) {
+    throw new Error(formatZodError(leadIdResult.error));
+  }
+  const payloadResult = updateLeadDetailsPayloadSchema.safeParse(payload);
+  if (!payloadResult.success) {
+    throw new Error(formatZodError(payloadResult.error));
+  }
+  const validatedPayload = payloadResult.data;
+
+  const lead = await prisma.lead.update({
+    where: { id: leadIdResult.data },
+    data: {
+      ...(validatedPayload.name !== undefined && { name: validatedPayload.name }),
+      ...(validatedPayload.email !== undefined && { email: validatedPayload.email }),
+      ...(validatedPayload.phone !== undefined && { phone: validatedPayload.phone }),
+      ...(validatedPayload.sourceId !== undefined && { sourceId: validatedPayload.sourceId }),
+      ...(validatedPayload.status !== undefined && {
+        status: validatedPayload.status as LeadStatus,
+      }),
+      ...(validatedPayload.lifecycleId !== undefined && {
+        lifecycleId: validatedPayload.lifecycleId,
+      }),
+      ...(validatedPayload.notes !== undefined && { notes: validatedPayload.notes }),
+
+      ...(validatedPayload.sourceType !== undefined && {
+        sourceType: validatedPayload.sourceType,
+      }),
+      ...(validatedPayload.sourcePlatform !== undefined && {
+        sourcePlatform: validatedPayload.sourcePlatform,
+      }),
+      ...(validatedPayload.utmSource !== undefined && {
+        utmSource: validatedPayload.utmSource,
+      }),
+      ...(validatedPayload.utmMedium !== undefined && {
+        utmMedium: validatedPayload.utmMedium,
+      }),
+      ...(validatedPayload.utmCampaign !== undefined && {
+        utmCampaign: validatedPayload.utmCampaign,
+      }),
+
+      ...(validatedPayload.gclid !== undefined && { gclid: validatedPayload.gclid }),
+      ...(validatedPayload.fbclid !== undefined && { fbclid: validatedPayload.fbclid }),
+
+      ...(validatedPayload.consentMarketing !== undefined && {
+        consentMarketing: validatedPayload.consentMarketing,
+      }),
+      ...(validatedPayload.consentMarketingSource !== undefined && {
+        consentMarketingSource: validatedPayload.consentMarketingSource,
+      }),
+    },
+  });
+
+  return mapPrismaLead(lead);
+}
+
+export async function archiveLead(leadId: string): Promise<void> {
+  const leadIdResult = idParamSchema.safeParse(leadId);
+  if (!leadIdResult.success) {
+    throw new Error(formatZodError(leadIdResult.error));
+  }
+
+  const lead = await prisma.lead.findUnique({
+    where: { id: leadIdResult.data },
+  });
+  if (!lead) {
+    throw new Error("Lead not found");
+  }
+  if (lead.status === "converted") {
+    throw new Error("Dönüştürülmüş adaylar arşivlenemez.");
+  }
+
+  await prisma.lead.update({
+    where: { id: leadIdResult.data },
+    data: { archivedAt: new Date() },
+  });
 }
 
 export async function getLifecycles(): Promise<Lifecycle[]> {
@@ -379,6 +532,74 @@ export async function getLifecycleById(id: string): Promise<Lifecycle | undefine
     where: { id },
   });
   return lifecycle ? mapPrismaLifecycle(lifecycle) : undefined;
+}
+
+export async function getLeadSources(): Promise<LeadSource[]> {
+  const sources = await prisma.leadSource.findMany({
+    orderBy: { order: "asc" },
+  });
+  return sources.map(mapPrismaLeadSource);
+}
+
+export async function getLeadSourceById(id: string): Promise<LeadSource | undefined> {
+  const source = await prisma.leadSource.findUnique({
+    where: { id },
+  });
+  return source ? mapPrismaLeadSource(source) : undefined;
+}
+
+export async function createLeadSource(
+  payload: Parameters<typeof createLeadSourcePayloadSchema.parse>[0],
+): Promise<LeadSource> {
+  const payloadResult = createLeadSourcePayloadSchema.safeParse(payload);
+  if (!payloadResult.success) {
+    throw new Error(formatZodError(payloadResult.error));
+  }
+  const validatedPayload = payloadResult.data;
+  const source = await prisma.leadSource.create({
+    data: {
+      name: validatedPayload.name,
+      description: validatedPayload.description,
+      order: validatedPayload.order,
+      color: validatedPayload.color,
+    },
+  });
+  return mapPrismaLeadSource(source);
+}
+
+export async function updateLeadSource(
+  id: string,
+  payload: Parameters<typeof updateLeadSourcePayloadSchema.parse>[0],
+): Promise<LeadSource | undefined> {
+  const idResult = idParamSchema.safeParse(id);
+  if (!idResult.success) {
+    throw new Error(formatZodError(idResult.error));
+  }
+  const payloadResult = updateLeadSourcePayloadSchema.safeParse(payload);
+  if (!payloadResult.success) {
+    throw new Error(formatZodError(payloadResult.error));
+  }
+  const validatedPayload = payloadResult.data;
+  const source = await prisma.leadSource.update({
+    where: { id: idResult.data },
+    data: {
+      ...(validatedPayload.name !== undefined && { name: validatedPayload.name }),
+      ...(validatedPayload.description !== undefined && { description: validatedPayload.description }),
+      ...(validatedPayload.order !== undefined && { order: validatedPayload.order }),
+      ...(validatedPayload.color !== undefined && { color: validatedPayload.color }),
+    },
+  });
+  return mapPrismaLeadSource(source);
+}
+
+export async function deleteLeadSource(id: string): Promise<void> {
+  const idResult = idParamSchema.safeParse(id);
+  if (!idResult.success) {
+    throw new Error(formatZodError(idResult.error));
+  }
+  await prisma.leadSource.delete({
+    where: { id: idResult.data },
+  });
 }
 
 export async function getTeams(): Promise<Team[]> {
