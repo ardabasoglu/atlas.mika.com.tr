@@ -16,6 +16,7 @@ import {
   IconReport,
   IconSearch,
   IconSettings,
+  IconLink,
   IconUserCircle,
   IconUserSearch,
   IconUsersGroup,
@@ -78,6 +79,12 @@ const data = {
       url: "/crm/lifecycle",
       icon: IconRefresh,
       featureKey: "lifecycle",
+    },
+    {
+      title: "Aday Kaynakları",
+      url: "/crm/lead-sources",
+      icon: IconLink,
+      featureKey: "leadSources",
     },
     {
       title: "Takım",

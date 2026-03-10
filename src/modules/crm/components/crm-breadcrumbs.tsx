@@ -49,6 +49,9 @@ function buildCrmBreadcrumbItems(pathname: string): CrmBreadcrumbItem[] {
           case "lifecycle":
             label = "Yaşam Döngüsü";
             break;
+          case "lead-sources":
+            label = "Aday Kaynakları";
+            break;
           case "team":
             label = "Takım";
             break;
@@ -67,9 +70,19 @@ function buildCrmBreadcrumbItems(pathname: string): CrmBreadcrumbItem[] {
         (pathSegments[1] === "persons" ||
           pathSegments[1] === "leads" ||
           pathSegments[1] === "lifecycle" ||
+          pathSegments[1] === "lead-sources" ||
           pathSegments[1] === "team")
       ) {
-        label = "Detaylar";
+        label =
+          pathSegments[1] === "lead-sources" && pathSegment === "new"
+            ? "Yeni kaynak"
+            : "Detaylar";
+      } else if (
+        pathSegmentIndex === 3 &&
+        pathSegments[1] === "lead-sources" &&
+        pathSegment === "edit"
+      ) {
+        label = "Düzenle";
       } else {
         label = pathSegment.charAt(0).toUpperCase() + pathSegment.slice(1);
       }
