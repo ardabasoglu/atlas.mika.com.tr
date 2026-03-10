@@ -144,6 +144,29 @@ enum UnitStatus {
   @@map("unit_status")
 }
 
+enum LeadSourceType {
+  paid_search
+  paid_social
+  organic
+  referral
+  direct
+  other
+
+  @@map("lead_source_type")
+}
+
+enum LeadSourcePlatform {
+  google_ads
+  meta_ads
+  linkedin_ads
+  tiktok_ads
+  website_form
+  phone_call
+  other
+
+  @@map("lead_source_platform")
+}
+
 // ---------------------------------------------------------------------------
 // Lifecycle (referenced by Lead and Deal via lifecycleId)
 // ---------------------------------------------------------------------------
@@ -164,6 +187,24 @@ model Lifecycle {
 }
 
 // ---------------------------------------------------------------------------
+// LeadSource (user-managed lookup for Lead.source)
+// ---------------------------------------------------------------------------
+
+model LeadSource {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  order       Int      @map("sort_order")
+  color       String?
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  leads Lead[]
+
+  @@map("lead_sources")
+}
+
+// ---------------------------------------------------------------------------
 // CRM: Lead → Person (1:1 on conversion), Deal, TimelineEvent
 // ---------------------------------------------------------------------------
 
@@ -172,14 +213,30 @@ model Lead {
   name        String
   phone       String?
   email       String
-  source      String?
+  sourceId    String?    @map("source_id")
   status      LeadStatus
   lifecycleId String?    @map("lifecycle_id")
   notes       String?
   createdAt   DateTime   @default(now()) @map("created_at")
   updatedAt   DateTime   @updatedAt @map("updated_at")
 
-  lifecycle Lifecycle? @relation(fields: [lifecycleId], references: [id])
+  archivedAt DateTime? @map("archived_at")
+
+  sourceType     LeadSourceType?     @map("source_type")
+  sourcePlatform LeadSourcePlatform? @map("source_platform")
+
+  utmSource   String? @map("utm_source")
+  utmMedium   String? @map("utm_medium")
+  utmCampaign String? @map("utm_campaign")
+
+  gclid  String? @map("gclid")
+  fbclid String? @map("fbclid")
+
+  consentMarketing       Boolean? @map("consent_marketing")
+  consentMarketingSource String?  @map("consent_marketing_source")
+
+  lifecycle Lifecycle?   @relation(fields: [lifecycleId], references: [id])
+  source    LeadSource? @relation(fields: [sourceId], references: [id])
   person    Person?
 
   @@map("leads")
