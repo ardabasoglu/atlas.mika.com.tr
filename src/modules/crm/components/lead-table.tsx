@@ -5,7 +5,7 @@ import type { ReactNode } from "react";
 import { type ColumnDef } from "@tanstack/react-table";
 import { createSelectColumn } from "@/components/table-select-column";
 import { createTextColumn, createLifecycleColumn, createActionsColumn } from "@/components/table-column-factory";
-import { Lead, Lifecycle } from "../types";
+import { Lead, Lifecycle, LeadSource } from "../types";
 import { DataTableShell } from "./data-table-shell";
 import { StatusBadge } from "./common/status-badge";
 import { useEntityTable } from "../hooks";
@@ -13,13 +13,20 @@ import { useEntityTable } from "../hooks";
 interface LeadTableProps {
   leads: Lead[];
   lifecycles?: Lifecycle[];
+  leadSources?: LeadSource[];
   /** Rendered in the table toolbar row (e.g. "Add" button), to the left of Sütunları Özelleştir */
   toolbar?: ReactNode;
 }
 
-function buildColumns(lifecycles: Lifecycle[] | undefined): ColumnDef<Lead>[] {
+function buildColumns(
+  lifecycles: Lifecycle[] | undefined,
+  leadSources: LeadSource[] | undefined,
+): ColumnDef<Lead>[] {
   const lifecycleById = lifecycles
     ? new Map(lifecycles.map((lifecycle) => [lifecycle.id, lifecycle]))
+    : null;
+  const sourceById = leadSources
+    ? new Map(leadSources.map((source) => [source.id, source]))
     : null;
 
   return [
@@ -27,7 +34,16 @@ function buildColumns(lifecycles: Lifecycle[] | undefined): ColumnDef<Lead>[] {
   createTextColumn<Lead>("name", "Ad Soyad", { cellClassName: "font-medium" }),
   createTextColumn<Lead>("email", "E-posta"),
   createTextColumn<Lead>("phone", "Telefon", { placeholder: "-" }),
-  createTextColumn<Lead>("source", "Kaynak", { placeholder: "-" }),
+  {
+    accessorKey: "sourceId",
+    header: "Kaynak",
+    cell: ({ row }) => {
+      const sourceId = row.original.sourceId;
+      if (!sourceId) return <span className="text-muted-foreground">-</span>;
+      const source = sourceById?.get(sourceId);
+      return source ? source.name : sourceId;
+    },
+  },
   {
     accessorKey: "status",
     header: "Durum",
@@ -40,10 +56,10 @@ function buildColumns(lifecycles: Lifecycle[] | undefined): ColumnDef<Lead>[] {
 ];
 }
 
-export function LeadTable({ leads, lifecycles, toolbar }: LeadTableProps) {
+export function LeadTable({ leads, lifecycles, leadSources, toolbar }: LeadTableProps) {
   const columns = React.useMemo(
-    () => buildColumns(lifecycles),
-    [lifecycles]
+    () => buildColumns(lifecycles, leadSources),
+    [lifecycles, leadSources]
   );
   const { table } = useEntityTable({
     data: leads,
