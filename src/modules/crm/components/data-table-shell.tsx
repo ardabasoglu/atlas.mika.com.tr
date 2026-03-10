@@ -47,6 +47,12 @@ export function DataTableShell<TData>({
   columnCount,
   toolbar,
 }: DataTableShellProps<TData>) {
+  const meta = table.options.meta as
+    | {
+        onRowClick?: (row: TData) => void;
+      }
+    | undefined;
+
   const hideableColumns = table
     .getAllColumns()
     .filter(
@@ -132,6 +138,10 @@ export function DataTableShell<TData>({
                   <TableRow
                     key={row.id}
                     data-state={row.getIsSelected() && "selected"}
+                    onClick={
+                      meta?.onRowClick ? () => meta.onRowClick?.(row.original) : undefined
+                    }
+                    className={meta?.onRowClick ? "cursor-pointer" : undefined}
                   >
                     {row.getVisibleCells().map((cell, cellIndex) => {
                       const isFirst = cellIndex === 0;
