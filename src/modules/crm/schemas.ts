@@ -205,7 +205,13 @@ export const createLeadPayloadSchema = z
       .string()
       .min(1, "E-posta zorunludur")
       .email("Geçerli bir e-posta adresi girin"),
-    phone: z.string().optional(),
+    phone: z
+      .string()
+      .regex(
+        /^\+[1-9]\d{1,14}$/,
+        "Geçerli bir uluslararası telefon numarası girin (örn. +905551112233)",
+      )
+      .optional(),
     sourceId: z.string().nullable().optional(),
     status: leadStatusEnum.default("new"),
     lifecycleId: z.string().nullable().optional(),
@@ -233,7 +239,13 @@ export const updateLeadDetailsPayloadSchema = z
       .min(1, "E-posta zorunludur")
       .email("Geçerli bir e-posta adresi girin")
       .optional(),
-    phone: z.string().optional(),
+    phone: z
+      .string()
+      .regex(
+        /^\+[1-9]\d{1,14}$/,
+        "Geçerli bir uluslararası telefon numarası girin (örn. +905551112233)",
+      )
+      .optional(),
     sourceId: z.string().nullable().optional(),
     status: leadStatusEnum.optional(),
     lifecycleId: z.string().nullable().optional(),

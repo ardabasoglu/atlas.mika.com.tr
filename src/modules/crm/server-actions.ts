@@ -25,6 +25,7 @@ type UpdateLeadDetailsActionInput = z.input<typeof updateLeadDetailsPayloadSchem
 interface CreateLeadActionErrorFields {
   name?: string;
   email?: string;
+  phone?: string;
 }
 
 interface CreateLeadActionResult {
@@ -37,6 +38,7 @@ interface CreateLeadActionResult {
 interface UpdateLeadDetailsActionErrorFields {
   name?: string;
   email?: string;
+  phone?: string;
 }
 
 interface UpdateLeadDetailsActionResult {
@@ -59,6 +61,9 @@ export async function createLeadAction(
       }
       if (issue.path[0] === "email" && !fieldErrors.email) {
         fieldErrors.email = issue.message;
+      }
+      if (issue.path[0] === "phone" && !fieldErrors.phone) {
+        fieldErrors.phone = issue.message;
       }
     }
 
@@ -102,6 +107,9 @@ export async function updateLeadDetailsAction(
       }
       if (issue.path[0] === "email" && !fieldErrors.email) {
         fieldErrors.email = issue.message;
+      }
+      if (issue.path[0] === "phone" && !fieldErrors.phone) {
+        fieldErrors.phone = issue.message;
       }
     }
 

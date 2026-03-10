@@ -77,6 +77,7 @@ interface LeadFormState {
 interface LeadFormErrors {
   name?: string;
   email?: string;
+  phone?: string;
   general?: string;
 }
 
@@ -213,6 +214,9 @@ function LeadForm({ mode, lifecycles, leadSources, initialLead, leadId }: LeadFo
         if (result.fieldErrors?.email) {
           newErrors.email = result.fieldErrors.email;
         }
+        if (result.fieldErrors?.phone) {
+          newErrors.phone = result.fieldErrors.phone;
+        }
         if (result.message) {
           generalError = result.message;
         }
@@ -233,6 +237,9 @@ function LeadForm({ mode, lifecycles, leadSources, initialLead, leadId }: LeadFo
         }
         if (result.fieldErrors?.email) {
           newErrors.email = result.fieldErrors.email;
+        }
+        if (result.fieldErrors?.phone) {
+          newErrors.phone = result.fieldErrors.phone;
         }
         if (result.message) {
           generalError = result.message;
@@ -308,6 +315,9 @@ function LeadForm({ mode, lifecycles, leadSources, initialLead, leadId }: LeadFo
                 onChange={handleChange("phone")}
                 placeholder="+90 ..."
               />
+              {errors.phone && (
+                <p className="text-xs text-destructive">{errors.phone}</p>
+              )}
             </div>
 
             <div className="space-y-2">
