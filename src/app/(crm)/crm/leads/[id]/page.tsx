@@ -1,9 +1,15 @@
 import { CRMPageLayout } from "@/modules/crm/components/crm-page-layout";
 import { ConvertLeadButton } from "@/modules/crm/components/convert-lead-button";
+import { LeadCampaignDetailsCard } from "@/modules/crm/components/lead-campaign-details-card";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StatusBadge } from "@/modules/crm/components/common/status-badge";
 import { notFound } from "next/navigation";
-import { getLeadById, getLifecycleById } from "@/modules/crm/services";
+import {
+  getLeadById,
+  getLifecycleById,
+  getLeadSourceById,
+} from "@/modules/crm/services";
+import { LeadDetailActions } from "./lead-detail-actions";
 
 interface LeadDetailPageProps {
   params: Promise<{ id: string }>;
@@ -17,12 +23,35 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
     notFound();
   }
 
-  const lifecycle = lead.lifecycleId
-    ? await getLifecycleById(lead.lifecycleId)
-    : undefined;
+  const [lifecycle, leadSource] = await Promise.all([
+    lead.lifecycleId ? getLifecycleById(lead.lifecycleId) : undefined,
+    lead.sourceId ? getLeadSourceById(lead.sourceId) : undefined,
+  ]);
+
+  const hasCampaignDetails =
+    !!lead.sourceType ||
+    !!lead.sourcePlatform ||
+    !!lead.utmSource ||
+    !!lead.utmMedium ||
+    !!lead.utmCampaign ||
+    !!lead.gclid ||
+    !!lead.fbclid ||
+    lead.consentMarketing !== undefined ||
+    !!lead.consentMarketingSource;
 
   return (
-    <CRMPageLayout actions={<ConvertLeadButton lead={lead} />}>
+    <CRMPageLayout
+      actions={
+        <div className="flex gap-2">
+          <ConvertLeadButton lead={lead} />
+          <LeadDetailActions
+            leadId={lead.id}
+            status={lead.status}
+            archivedAt={lead.archivedAt}
+          />
+        </div>
+      }
+    >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
@@ -79,12 +108,12 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
                 <p>{lifecycle.name}</p>
               </div>
             )}
-            {lead.source && (
+            {leadSource && (
               <div>
                 <h4 className="text-sm font-medium text-muted-foreground">
                   Kaynak
                 </h4>
-                <p>{lead.source}</p>
+                <p>{leadSource.name}</p>
               </div>
             )}
             <div>
@@ -95,6 +124,8 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
             </div>
           </CardContent>
         </Card>
+
+        {hasCampaignDetails && <LeadCampaignDetailsCard lead={lead} />}
       </div>
     </CRMPageLayout>
   );
