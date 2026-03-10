@@ -7,7 +7,7 @@
  * - Set: comma-separated list of enabled feature keys. Only those are shown.
  *
  * Main nav keys: crm, leads, persons, contacts, deals, activities,
- *   lifecycle, analytics, project, projects, units, team
+ *   lifecycle, leadSources, analytics, project, projects, units, team
  * Group: documents (Belgeler)
  */
 
