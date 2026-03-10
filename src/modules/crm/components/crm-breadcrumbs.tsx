@@ -70,12 +70,8 @@ function buildCrmBreadcrumbItems(pathname: string): CrmBreadcrumbItem[] {
         label =
           pathSegments[1] === "lead-sources" && pathSegment === "new"
             ? "Yeni kaynak"
-            : "Detaylar";
-      } else if (
-        pathSegmentIndex === 3 &&
-        pathSegments[1] === "lead-sources" &&
-        pathSegment === "edit"
-      ) {
+            : "Detay";
+      } else if (pathSegment === "edit") {
         label = "Düzenle";
       } else {
         label = pathSegment.charAt(0).toUpperCase() + pathSegment.slice(1);

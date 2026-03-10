@@ -62,20 +62,20 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
               <h4 className="text-sm font-medium text-muted-foreground">
                 Ad Soyad
               </h4>
-              <p>{lead.name}</p>
+              <p className="font-semibold">{lead.name}</p>
             </div>
             <div>
               <h4 className="text-sm font-medium text-muted-foreground">
                 E-posta
               </h4>
-              <p>{lead.email}</p>
+              <p className="font-semibold">{lead.email}</p>
             </div>
             {lead.phone && (
               <div>
                 <h4 className="text-sm font-medium text-muted-foreground">
                   Telefon
                 </h4>
-                <p>{lead.phone}</p>
+                <p className="font-semibold">{lead.phone}</p>
               </div>
             )}
             {lead.notes && (
@@ -83,7 +83,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
                 <h4 className="text-sm font-medium text-muted-foreground">
                   Notlar
                 </h4>
-                <p>{lead.notes}</p>
+                <p className="font-semibold">{lead.notes}</p>
               </div>
             )}
           </CardContent>
@@ -105,7 +105,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
                 <h4 className="text-sm font-medium text-muted-foreground">
                   Yaşam döngüsü
                 </h4>
-                <p>{lifecycle.name}</p>
+                <p className="font-semibold">{lifecycle.name}</p>
               </div>
             )}
             {leadSource && (
@@ -113,14 +113,16 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
                 <h4 className="text-sm font-medium text-muted-foreground">
                   Kaynak
                 </h4>
-                <p>{leadSource.name}</p>
+                <p className="font-semibold">{leadSource.name}</p>
               </div>
             )}
             <div>
               <h4 className="text-sm font-medium text-muted-foreground">
                 Oluşturulma
               </h4>
-              <p>{new Date(lead.createdAt).toLocaleDateString("tr-TR")}</p>
+              <p className="font-semibold">
+                {new Date(lead.createdAt).toLocaleDateString("tr-TR")}
+              </p>
             </div>
           </CardContent>
         </Card>
