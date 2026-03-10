@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -102,6 +103,7 @@ const initialFormState: LeadFormState = {
 };
 
 function LeadForm({ mode, lifecycles, leadSources, initialLead, leadId }: LeadFormProps) {
+  const router = useRouter();
   const [formState, setFormState] = useState<LeadFormState>(() => {
     if (!initialLead) {
       return initialFormState;
@@ -534,13 +536,23 @@ function LeadForm({ mode, lifecycles, leadSources, initialLead, leadId }: LeadFo
             </CollapsibleContent>
           </Collapsible>
 
-          <Button type="submit" disabled={isSubmitting}>
-            {isSubmitting
-              ? "Kaydediliyor…"
-              : mode === "create"
-                ? "Adayı kaydet"
-                : "Değişiklikleri kaydet"}
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting
+                ? "Kaydediliyor…"
+                : mode === "create"
+                  ? "Adayı kaydet"
+                  : "Değişiklikleri kaydet"}
+            </Button>
+            <Button
+              type="button"
+              variant="outline"
+              disabled={isSubmitting}
+              onClick={() => router.back()}
+            >
+              İptal
+            </Button>
+          </div>
         </form>
       </CardContent>
     </Card>

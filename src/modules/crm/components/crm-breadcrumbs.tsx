@@ -29,12 +29,9 @@ function buildCrmBreadcrumbItems(pathname: string): CrmBreadcrumbItem[] {
       } else if (pathSegmentIndex === 1) {
         switch (pathSegment) {
           case "dashboard":
-            label = "Pano";
+            label = "Örnek Pano";
             break;
           case "persons":
-            label = "Kişiler";
-            break;
-          case "contacts":
             label = "Kişiler";
             break;
           case "activities":
@@ -47,16 +44,13 @@ function buildCrmBreadcrumbItems(pathname: string): CrmBreadcrumbItem[] {
             label = "Adaylar";
             break;
           case "lifecycle":
-            label = "Yaşam Döngüsü";
+            label = "Aşamalar";
             break;
           case "lead-sources":
             label = "Aday Kaynakları";
             break;
           case "team":
             label = "Takım";
-            break;
-          case "companies":
-            label = "Şirketler";
             break;
           case "customers":
             label = "Kişiler";
