@@ -44,6 +44,7 @@ export const leadSchema = z.object({
 
   archivedAt: z.string().optional(),
   personId: z.string().optional(),
+  duplicateOfLeadId: z.string().optional(),
 
   sourceType: leadSourceTypeEnum.optional(),
   sourcePlatform: leadSourcePlatformEnum.optional(),

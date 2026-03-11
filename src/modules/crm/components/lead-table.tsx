@@ -2,9 +2,11 @@
 
 import * as React from "react";
 import type { ReactNode } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type ColumnDef } from "@tanstack/react-table";
 import { createTextColumn, createLifecycleColumn } from "@/components/table-column-factory";
+import { Badge } from "@/components/ui/badge";
 import { Lead, Lifecycle, LeadSource } from "../types";
 import { DataTableShell } from "./data-table-shell";
 import { StatusBadge } from "./common/status-badge";
@@ -54,6 +56,25 @@ function buildColumns(
       cell: ({ row }) => (
         <StatusBadge status={row.original.status} type="lead" />
       ),
+    },
+    {
+      accessorKey: "duplicateOfLeadId",
+      header: "Yinelenen",
+      cell: ({ row }) => {
+        const duplicateOfLeadId = row.original.duplicateOfLeadId;
+        if (!duplicateOfLeadId) return <span className="text-muted-foreground">-</span>;
+        return (
+          <Link
+            href={`/crm/leads/${duplicateOfLeadId}`}
+            className="inline-flex"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <Badge variant="secondary" className="font-normal">
+              Yinelenen
+            </Badge>
+          </Link>
+        );
+      },
     },
     createLifecycleColumn<Lead>(lifecycleById),
     {

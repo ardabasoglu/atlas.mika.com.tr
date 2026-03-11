@@ -8,7 +8,9 @@ import {
   getLeadById,
   getLifecycleById,
   getLeadSourceById,
+  getDuplicatesOfLead,
 } from "@/modules/crm/services";
+import Link from "next/link";
 import { LeadDetailActions } from "./lead-detail-actions";
 
 interface LeadDetailPageProps {
@@ -23,9 +25,11 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
     notFound();
   }
 
-  const [lifecycle, leadSource] = await Promise.all([
+  const [lifecycle, leadSource, duplicates, canonicalLead] = await Promise.all([
     lead.lifecycleId ? getLifecycleById(lead.lifecycleId) : undefined,
     lead.sourceId ? getLeadSourceById(lead.sourceId) : undefined,
+    getDuplicatesOfLead(lead.id),
+    lead.duplicateOfLeadId ? getLeadById(lead.duplicateOfLeadId) : undefined,
   ]);
 
   const hasCampaignDetails =
@@ -52,6 +56,17 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
         </div>
       }
     >
+      {canonicalLead && (
+        <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-200">
+          Bu aday yinelenen bir kayıttır. Asıl aday:{" "}
+          <Link
+            href={`/crm/leads/${canonicalLead.id}`}
+            className="font-medium underline underline-offset-2 hover:no-underline"
+          >
+            {canonicalLead.name}
+          </Link>
+        </div>
+      )}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
@@ -128,6 +143,34 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
         </Card>
 
         {hasCampaignDetails && <LeadCampaignDetailsCard lead={lead} />}
+
+        {duplicates.length > 0 && (
+          <Card className="lg:col-span-2">
+            <CardHeader>
+              <CardTitle>İlgili yinelenenler</CardTitle>
+              <p className="text-sm text-muted-foreground">
+                Bu adayla eşleşen diğer kayıtlar.
+              </p>
+            </CardHeader>
+            <CardContent>
+              <ul className="space-y-2">
+                {duplicates.map((duplicate) => (
+                  <li key={duplicate.id}>
+                    <Link
+                      href={`/crm/leads/${duplicate.id}`}
+                      className="text-primary font-medium underline underline-offset-2 hover:no-underline"
+                    >
+                      {duplicate.name} — {duplicate.email}
+                    </Link>
+                    <span className="ml-2 text-muted-foreground text-sm">
+                      {new Date(duplicate.createdAt).toLocaleDateString("tr-TR")}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+        )}
       </div>
     </CRMPageLayout>
   );

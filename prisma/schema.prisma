@@ -235,10 +235,17 @@ model Lead {
   consentMarketing       Boolean? @map("consent_marketing")
   consentMarketingSource String?  @map("consent_marketing_source")
 
-  lifecycle Lifecycle?   @relation(fields: [lifecycleId], references: [id])
-  source    LeadSource? @relation(fields: [sourceId], references: [id])
-  person    Person?
+  duplicateOfLeadId String? @map("duplicate_of_lead_id")
 
+  lifecycle    Lifecycle?   @relation(fields: [lifecycleId], references: [id])
+  source       LeadSource?  @relation(fields: [sourceId], references: [id])
+  person       Person?
+  duplicateOf  Lead?        @relation("LeadDuplicates", fields: [duplicateOfLeadId], references: [id])
+  duplicates   Lead[]       @relation("LeadDuplicates")
+
+  @@index([email])
+  @@index([phone])
+  @@index([duplicateOfLeadId])
   @@map("leads")
 }
 

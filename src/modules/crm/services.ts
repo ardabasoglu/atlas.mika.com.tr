@@ -98,6 +98,7 @@ function mapPrismaLead(l: PrismaLead & { person?: { id: string } | null }): Lead
 
     archivedAt: l.archivedAt?.toISOString(),
     personId: l.person?.id ?? undefined,
+    duplicateOfLeadId: l.duplicateOfLeadId ?? undefined,
 
     sourceType: l.sourceType ?? undefined,
     sourcePlatform: l.sourcePlatform ?? undefined,
@@ -368,6 +369,31 @@ export async function getLeads(): Promise<Lead[]> {
   return leads.map(mapPrismaLead);
 }
 
+function normalizeEmail(email: string): string {
+  return email.trim().toLowerCase();
+}
+
+/** Returns the id of the canonical (oldest) non-archived lead matching the given email or phone, or null. */
+async function findCanonicalDuplicateLeadId(
+  email: string,
+  phone: string,
+): Promise<string | null> {
+  const normalizedEmail = normalizeEmail(email);
+  const candidates = await prisma.lead.findMany({
+    where: {
+      archivedAt: null,
+      OR: [
+        { email: { equals: normalizedEmail, mode: "insensitive" } },
+        { phone },
+      ],
+    },
+    orderBy: { createdAt: "asc" },
+    take: 1,
+    select: { id: true },
+  });
+  return candidates[0]?.id ?? null;
+}
+
 export async function createLead(
   payload: Parameters<typeof createLeadPayloadSchema.parse>[0],
 ): Promise<Lead> {
@@ -376,6 +402,11 @@ export async function createLead(
     throw new Error(formatZodError(payloadResult.error));
   }
   const validatedPayload = payloadResult.data;
+
+  const canonicalLeadId = await findCanonicalDuplicateLeadId(
+    validatedPayload.email,
+    validatedPayload.phone,
+  );
 
   const lead = await prisma.lead.create({
     data: {
@@ -398,8 +429,22 @@ export async function createLead(
 
       consentMarketing: validatedPayload.consentMarketing,
       consentMarketingSource: validatedPayload.consentMarketingSource,
+
+      duplicateOfLeadId: canonicalLeadId ?? undefined,
     },
   });
+
+  if (canonicalLeadId) {
+    await prisma.timelineEvent.create({
+      data: {
+        entityType: "lead",
+        entityId: lead.id,
+        type: "note",
+        title: "Yinelenen aday",
+        description: `Mevcut adayla eşleşti (kayıt: ${canonicalLeadId}).`,
+      },
+    });
+  }
 
   return mapPrismaLead(lead);
 }
@@ -410,6 +455,16 @@ export async function getLeadById(id: string): Promise<Lead | undefined> {
     include: { person: { select: { id: true } } },
   });
   return lead ? mapPrismaLead(lead) : undefined;
+}
+
+/** Returns leads that are marked as duplicates of the given lead (canonical). */
+export async function getDuplicatesOfLead(leadId: string): Promise<Lead[]> {
+  const leads = await prisma.lead.findMany({
+    where: { duplicateOfLeadId: leadId, archivedAt: null },
+    include: { person: { select: { id: true } } },
+    orderBy: { createdAt: "desc" },
+  });
+  return leads.map(mapPrismaLead);
 }
 
 export async function updateLead(
