@@ -25,6 +25,11 @@ import type { z } from "zod";
 import type { Lifecycle, Lead, LeadSource } from "../types";
 import { createLeadPayloadSchema } from "../schemas";
 import { createLeadAction, updateLeadDetailsAction } from "../server-actions";
+import {
+  formatTurkeyLocalPhone,
+  normalizePhoneToE164,
+  splitPhoneForState,
+} from "../phone-utils";
 
 const LEAD_SOURCE_TYPES = [
   { value: "paid_search", label: "Ücretli arama" },
@@ -58,7 +63,8 @@ interface LeadFormProps {
 interface LeadFormState {
   name: string;
   email: string;
-  phone: string;
+  phoneCountryCode: string;
+  phoneLocalPart: string;
   sourceId: string;
   status: Lead["status"];
   lifecycleId: string;
@@ -85,7 +91,8 @@ interface LeadFormErrors {
 const initialFormState: LeadFormState = {
   name: "",
   email: "",
-  phone: "",
+  phoneCountryCode: "+90",
+  phoneLocalPart: "",
   sourceId: "",
   status: "new",
   lifecycleId: "",
@@ -111,7 +118,7 @@ function LeadForm({ mode, lifecycles, leadSources, initialLead, leadId }: LeadFo
     return {
       name: initialLead.name,
       email: initialLead.email,
-      phone: initialLead.phone ?? "",
+      ...splitPhoneForState(initialLead.phone ?? ""),
       sourceId: initialLead.sourceId ?? "",
       status: initialLead.status,
       lifecycleId: initialLead.lifecycleId ?? "",
@@ -175,10 +182,30 @@ function LeadForm({ mode, lifecycles, leadSources, initialLead, leadId }: LeadFo
     setErrors({});
 
     try {
+      const trimmedCountryCode = formState.phoneCountryCode.trim();
+      if (!trimmedCountryCode || !/^\+[1-9]\d{0,2}$/.test(trimmedCountryCode)) {
+        setErrors({
+          phone: "Geçerli bir ülke kodu girin (örn. +90, +44, +1)",
+        });
+        return;
+      }
+
+      const normalizedPhone = normalizePhoneToE164(
+        formState.phoneCountryCode,
+        formState.phoneLocalPart,
+      );
+      if (!normalizedPhone) {
+        setErrors({
+          phone:
+            "Geçerli bir telefon numarası girin (örn. +905327778899 veya +447911123456)",
+        });
+        return;
+      }
+
       const payload: z.input<typeof createLeadPayloadSchema> = {
         name: formState.name,
         email: formState.email,
-        phone: formState.phone,
+        phone: normalizedPhone,
         sourceId: formState.sourceId || null,
         status: formState.status,
         lifecycleId: formState.lifecycleId || null,
@@ -313,13 +340,65 @@ function LeadForm({ mode, lifecycles, leadSources, initialLead, leadId }: LeadFo
 
             <div className="space-y-2">
               <Label htmlFor="phone">Telefon</Label>
-              <Input
-                id="phone"
-                value={formState.phone}
-                onChange={handleChange("phone")}
-                placeholder="+90 ..."
-                required
-              />
+              <div className="flex">
+                <Input
+                  id="phoneCountryCode"
+                  className="w-24 rounded-r-none"
+                  value={formState.phoneCountryCode}
+                  onChange={(event) => {
+                    let value = event.target.value.replace(/[^0-9+]/g, "");
+                    if (!value.startsWith("+")) {
+                      value = `+${value.replace(/\+/g, "")}`;
+                    } else {
+                      value = `+${value.slice(1).replace(/\+/g, "")}`;
+                    }
+                    if (value.length > 4) {
+                      value = value.slice(0, 4);
+                    }
+                    setFormState((previous) => ({
+                      ...previous,
+                      phoneCountryCode: value,
+                    }));
+                    if (errors.phone) {
+                      setErrors((previous) => ({
+                        ...previous,
+                        phone: undefined,
+                      }));
+                    }
+                  }}
+                  placeholder="+90"
+                  required
+                />
+                <Input
+                  id="phoneLocalPart"
+                  className="flex-1 rounded-l-none"
+                  value={formState.phoneLocalPart}
+                  onChange={(event) => {
+                    const rawValue = event.target.value;
+                    const digitsOnly = rawValue.replace(/\D/g, "");
+                    const limitedDigits =
+                      formState.phoneCountryCode === "+90"
+                        ? digitsOnly.slice(0, 10)
+                        : digitsOnly;
+                    const formattedValue =
+                      formState.phoneCountryCode === "+90"
+                        ? formatTurkeyLocalPhone(limitedDigits)
+                        : limitedDigits;
+                    setFormState((previous) => ({
+                      ...previous,
+                      phoneLocalPart: formattedValue,
+                    }));
+                    if (errors.phone) {
+                      setErrors((previous) => ({
+                        ...previous,
+                        phone: undefined,
+                      }));
+                    }
+                  }}
+                  placeholder="532 777 88 99"
+                  required
+                />
+              </div>
               {errors.phone && (
                 <p className="text-xs text-destructive">{errors.phone}</p>
               )}
