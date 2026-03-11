@@ -33,15 +33,18 @@ export function createTextColumn<T extends { id: string }>(
 
 /**
  * Creates a date column that formats dates using toLocaleDateString.
+ * Use locale "tr-TR" for DD.MM.YYYY format (e.g. 11.03.2026).
  */
 export function createDateColumn<T extends { id: string }>(
   accessorKey: keyof T,
   header: string,
   options?: {
     placeholder?: string;
+    /** Locale for formatting (e.g. "tr-TR" for DD.MM.YYYY). */
+    locale?: string;
   }
 ): ColumnDef<T> {
-  const { placeholder = "-" } = options ?? {};
+  const { placeholder = "-", locale } = options ?? {};
 
   return {
     accessorKey,
@@ -52,7 +55,7 @@ export function createDateColumn<T extends { id: string }>(
 
       const dateValue = value as Date | string | null;
       if (dateValue instanceof Date || typeof dateValue === "string") {
-        return new Date(dateValue).toLocaleDateString();
+        return new Date(dateValue).toLocaleDateString(locale ?? undefined);
       }
 
       return placeholder;
