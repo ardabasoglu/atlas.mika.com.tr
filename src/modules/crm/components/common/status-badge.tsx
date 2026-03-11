@@ -1,4 +1,5 @@
 import { Badge } from "@/components/ui/badge";
+import { formatStatusLabel } from "@/lib/string-utils";
 import type { VariantProps } from "class-variance-authority";
 import { badgeVariants } from "@/components/ui/badge";
 import type { LucideIcon } from "lucide-react";
@@ -128,12 +129,4 @@ export function StatusBadge({ status, type = "generic", className }: StatusBadge
       {label}
     </Badge>
   );
-}
-
-function formatStatusLabel(status: string): string {
-  return status
-    .replace(/[-_]/g, " ")
-    .split(" ")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
 }

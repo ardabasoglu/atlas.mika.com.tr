@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { type ColumnDef } from "@tanstack/react-table";
 import { createTextColumn, createLifecycleColumn } from "@/components/table-column-factory";
+import { toIdMap } from "@/lib/collection-utils";
 import { Badge } from "@/components/ui/badge";
 import { Lead, Lifecycle, LeadSource } from "../types";
 import { DataTableShell } from "./data-table-shell";
@@ -25,12 +26,8 @@ function buildColumns(
   lifecycles: Lifecycle[] | undefined,
   leadSources: LeadSource[] | undefined,
 ): ColumnDef<Lead>[] {
-  const lifecycleById = lifecycles
-    ? new Map(lifecycles.map((lifecycle) => [lifecycle.id, lifecycle]))
-    : null;
-  const sourceById = leadSources
-    ? new Map(leadSources.map((source) => [source.id, source]))
-    : null;
+  const lifecycleById = toIdMap(lifecycles);
+  const sourceById = toIdMap(leadSources);
 
   return [
     createTextColumn<Lead>("name", "Ad Soyad", {

@@ -32,6 +32,7 @@ import {
   getPaymentPlanByDealId,
   getLifecycles
 } from "./services";
+import { invalidateDealCascade, invalidatePersonCascade } from "./query-utils";
 import { createOptimisticMutation, type OptimisticContext } from "@/lib/mutation-factory";
 
 // --- Table Hooks ---
@@ -278,11 +279,7 @@ export function useSavePaymentPlan() {
       }
     },
     onSettled: (_data, _error, { dealId }) => {
-      queryClient.invalidateQueries({
-        queryKey: queryKeys.crm.paymentPlan(dealId),
-      });
-      queryClient.invalidateQueries({ queryKey: queryKeys.crm.deal(dealId) });
-      queryClient.invalidateQueries({ queryKey: queryKeys.crm.deals() });
+      invalidateDealCascade(queryClient, dealId);
     },
   });
 }
@@ -300,9 +297,7 @@ export function useConvertLead() {
     }) => convertLead(leadId, { createDeal }),
     onSettled: (data) => {
       if (data?.personId) {
-        queryClient.invalidateQueries({
-          queryKey: queryKeys.crm.person(data.personId),
-        });
+        invalidatePersonCascade(queryClient, data.personId);
       }
     },
   });

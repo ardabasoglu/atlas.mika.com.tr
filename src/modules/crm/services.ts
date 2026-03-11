@@ -26,131 +26,18 @@ import {
 } from "./types";
 import { getUnitById, getProjectById, updateUnit } from "@/modules/project/services";
 import {
-  Person as PrismaPerson,
-  Deal as PrismaDeal,
-  Lead as PrismaLead,
-  Lifecycle as PrismaLifecycle,
-  LeadSource as PrismaLeadSource,
-  PaymentPlan as PrismaPaymentPlan,
-  TimelineEvent as PrismaTimelineEvent,
   DealStage,
   LeadStatus,
 } from "@/generated/prisma/client";
-
-// --- Mappers ---
-
-function mapPrismaPerson(p: PrismaPerson): Person {
-  return {
-    id: p.id,
-    leadId: p.leadId ?? undefined,
-    name: p.name,
-    email: p.email,
-    phone: p.phone ?? undefined,
-    notes: p.notes ?? undefined,
-    createdAt: p.createdAt.toISOString(),
-    updatedAt: p.updatedAt.toISOString(),
-  };
-}
-
-function mapPrismaPaymentPlan(p: PrismaPaymentPlan): PaymentPlan {
-  return {
-    id: p.id,
-    dealId: p.dealId,
-    downPaymentAmount: Number(p.downPaymentAmount),
-    installmentCount: p.installmentCount,
-    installmentAmount: Number(p.installmentAmount),
-    balloonAmount: Number(p.balloonAmount),
-    balloonDueMonth: p.balloonDueMonth,
-    createdAt: p.createdAt.toISOString(),
-    updatedAt: p.updatedAt.toISOString(),
-  };
-}
-
-function mapPrismaDeal(d: PrismaDeal & { paymentPlan?: PrismaPaymentPlan | null }): Deal {
-  return {
-    id: d.id,
-    personId: d.personId,
-    unitId: d.unitId ?? undefined,
-    title: d.title,
-    value: Number(d.value),
-    currency: d.currency ?? undefined,
-    stage: d.stage as Deal["stage"],
-    lifecycleId: d.lifecycleId ?? undefined,
-    expectedCloseDate: d.expectedCloseDate?.toISOString(),
-    paymentPlan: d.paymentPlan ? mapPrismaPaymentPlan(d.paymentPlan) : undefined,
-    createdAt: d.createdAt.toISOString(),
-    updatedAt: d.updatedAt.toISOString(),
-  };
-}
-
-function mapPrismaLead(l: PrismaLead & { person?: { id: string } | null }): Lead {
-  return {
-    id: l.id,
-    name: l.name,
-    email: l.email,
-    phone: l.phone ?? undefined,
-    sourceId: l.sourceId ?? undefined,
-    status: l.status as Lead["status"],
-    lifecycleId: l.lifecycleId ?? undefined,
-    notes: l.notes ?? undefined,
-    createdAt: l.createdAt.toISOString(),
-    updatedAt: l.updatedAt.toISOString(),
-
-    archivedAt: l.archivedAt?.toISOString(),
-    personId: l.person?.id ?? undefined,
-    duplicateOfLeadId: l.duplicateOfLeadId ?? undefined,
-
-    sourceType: l.sourceType ?? undefined,
-    sourcePlatform: l.sourcePlatform ?? undefined,
-    utmSource: l.utmSource ?? undefined,
-    utmMedium: l.utmMedium ?? undefined,
-    utmCampaign: l.utmCampaign ?? undefined,
-
-    gclid: l.gclid ?? undefined,
-    fbclid: l.fbclid ?? undefined,
-
-    consentMarketing: l.consentMarketing ?? undefined,
-    consentMarketingSource: l.consentMarketingSource ?? undefined,
-  };
-}
-
-function mapPrismaLeadSource(s: PrismaLeadSource): LeadSource {
-  return {
-    id: s.id,
-    name: s.name,
-    description: s.description ?? undefined,
-    order: s.order,
-    color: s.color ?? undefined,
-    createdAt: s.createdAt.toISOString(),
-    updatedAt: s.updatedAt.toISOString(),
-  };
-}
-
-function mapPrismaLifecycle(l: PrismaLifecycle): Lifecycle {
-  return {
-    id: l.id,
-    name: l.name,
-    description: l.description ?? undefined,
-    order: l.order,
-    color: l.color ?? undefined,
-    createdAt: l.createdAt.toISOString(),
-    updatedAt: l.updatedAt.toISOString(),
-  };
-}
-
-function mapPrismaTimelineEvent(e: PrismaTimelineEvent): TimelineEvent {
-  return {
-    id: e.id,
-    entityType: e.entityType as TimelineEvent["entityType"],
-    entityId: e.entityId,
-    type: e.type as TimelineEvent["type"],
-    title: e.title ?? undefined,
-    description: e.description ?? undefined,
-    metadata: (e.metadata as Record<string, unknown> | null) ?? undefined,
-    createdBy: e.createdBy ?? undefined,
-    createdAt: e.createdAt.toISOString(),
-  };
-}
+import {
+  mapPrismaDeal,
+  mapPrismaLead,
+  mapPrismaLeadSource,
+  mapPrismaLifecycle,
+  mapPrismaPaymentPlan,
+  mapPrismaPerson,
+  mapPrismaTimelineEvent,
+} from "./mappers";
 
 // --- Services ---
 
