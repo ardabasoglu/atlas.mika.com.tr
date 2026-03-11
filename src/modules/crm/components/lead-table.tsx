@@ -54,25 +54,6 @@ function buildColumns(
         <StatusBadge status={row.original.status} type="lead" />
       ),
     },
-    {
-      accessorKey: "duplicateOfLeadId",
-      header: "Yinelenen",
-      cell: ({ row }) => {
-        const duplicateOfLeadId = row.original.duplicateOfLeadId;
-        if (!duplicateOfLeadId) return <span className="text-muted-foreground">-</span>;
-        return (
-          <Link
-            href={`/crm/leads/${duplicateOfLeadId}`}
-            className="inline-flex"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <Badge variant="secondary" className="font-normal">
-              Yinelenen
-            </Badge>
-          </Link>
-        );
-      },
-    },
     createLifecycleColumn<Lead>(lifecycleById),
     {
       id: "actions",
