@@ -214,6 +214,25 @@ export async function updateDeal(
     include: { paymentPlan: true },
   });
 
+  if (
+    validatedPayload.stage !== undefined &&
+    currentDeal.stage !== validatedPayload.stage
+  ) {
+    await prisma.timelineEvent.create({
+      data: {
+        entityType: "deal",
+        entityId: updatedDeal.id,
+        type: "deal_stage_changed",
+        title: "Fırsat aşaması değişti",
+        description: `Aşama ${currentDeal.stage} → ${validatedPayload.stage} olarak güncellendi.`,
+        metadata: {
+          previousStage: currentDeal.stage,
+          newStage: validatedPayload.stage,
+        },
+      },
+    });
+  }
+
   // Explicit service calls for state changes
   if (updatedDeal.stage === "won" && updatedDeal.unitId) {
     await updateUnit(updatedDeal.unitId, {
@@ -390,6 +409,16 @@ export async function createLead(
         description: `Mevcut adayla eşleşti (kayıt: ${canonicalLeadId}).`,
       },
     });
+  } else {
+    await prisma.timelineEvent.create({
+      data: {
+        entityType: "lead",
+        entityId: lead.id,
+        type: "note",
+        title: "Aday oluşturuldu",
+        description: `${validatedPayload.name} aday olarak eklendi.`,
+      },
+    });
   }
 
   return mapPrismaLead({ ...lead, person: { id: personId } });
@@ -456,6 +485,14 @@ export async function updateLeadDetails(
   }
   const validatedPayload = payloadResult.data;
 
+  const previousLead =
+    validatedPayload.status !== undefined
+      ? await prisma.lead.findUnique({
+          where: { id: leadIdResult.data },
+          select: { status: true },
+        })
+      : null;
+
   const lead = await prisma.lead.update({
     where: { id: leadIdResult.data },
     data: {
@@ -498,6 +535,26 @@ export async function updateLeadDetails(
       }),
     },
   });
+
+  if (
+    previousLead &&
+    validatedPayload.status !== undefined &&
+    previousLead.status !== validatedPayload.status
+  ) {
+    await prisma.timelineEvent.create({
+      data: {
+        entityType: "lead",
+        entityId: lead.id,
+        type: "status_change",
+        title: "Durum değişikliği",
+        description: `Aday durumu ${previousLead.status} → ${validatedPayload.status} olarak güncellendi.`,
+        metadata: {
+          previousStatus: previousLead.status,
+          newStatus: validatedPayload.status,
+        },
+      },
+    });
+  }
 
   return mapPrismaLead(lead);
 }
@@ -688,12 +745,48 @@ export async function convertLead(
           },
         });
         dealId = deal.id;
+        await tx.timelineEvent.create({
+          data: {
+            entityType: "deal",
+            entityId: deal.id,
+            type: "deal_created",
+            title: "Fırsat oluşturuldu",
+            description: deal.title,
+          },
+        });
+        await tx.timelineEvent.create({
+          data: {
+            entityType: "person",
+            entityId: personIdToUse,
+            type: "deal_created",
+            title: "Yeni fırsat",
+            description: deal.title,
+          },
+        });
       }
       await tx.lead.update({
         where: { id: lead.id },
         data: {
           status: "converted",
           convertedAt: lead.convertedAt ?? new Date(),
+        },
+      });
+      await tx.timelineEvent.create({
+        data: {
+          entityType: "lead",
+          entityId: lead.id,
+          type: "status_change",
+          title: "Aday dönüştürüldü",
+          description: "Aday kişiye dönüştürüldü.",
+        },
+      });
+      await tx.timelineEvent.create({
+        data: {
+          entityType: "person",
+          entityId: personIdToUse,
+          type: "status_change",
+          title: "Aday kişiye dönüştürüldü",
+          description: `${lead.name} adayı kişiye dönüştürüldü.`,
         },
       });
       return { personId: personIdToUse, dealId };
@@ -782,6 +875,24 @@ export async function convertLead(
         },
       });
       dealId = deal.id;
+      await tx.timelineEvent.create({
+        data: {
+          entityType: "deal",
+          entityId: deal.id,
+          type: "deal_created",
+          title: "Fırsat oluşturuldu",
+          description: deal.title,
+        },
+      });
+      await tx.timelineEvent.create({
+        data: {
+          entityType: "person",
+          entityId: personIdToUse,
+          type: "deal_created",
+          title: "Yeni fırsat",
+          description: deal.title,
+        },
+      });
     }
 
     await tx.lead.update({
@@ -790,6 +901,25 @@ export async function convertLead(
         status: "converted",
         personId: personIdToUse,
         convertedAt: lead.convertedAt ?? new Date(),
+      },
+    });
+
+    await tx.timelineEvent.create({
+      data: {
+        entityType: "lead",
+        entityId: lead.id,
+        type: "status_change",
+        title: "Aday dönüştürüldü",
+        description: "Aday kişiye dönüştürüldü.",
+      },
+    });
+    await tx.timelineEvent.create({
+      data: {
+        entityType: "person",
+        entityId: personIdToUse,
+        type: "status_change",
+        title: "Aday kişiye dönüştürüldü",
+        description: `${lead.name} adayı kişiye dönüştürüldü.`,
       },
     });
 
