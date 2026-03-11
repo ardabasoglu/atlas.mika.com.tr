@@ -1,30 +1,25 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Figtree } from "next/font/google";
+import { Geist_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { Toaster } from "@/components/ui/sonner";
 
-const figtree = Figtree({
+const outfit = Outfit({
   subsets: ["latin", "latin-ext"],
   weight: ["400", "500", "600", "700"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin", "latin-ext"],
-});
-
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
   subsets: ["latin", "latin-ext"],
+  variable: "--font-geist-mono",
 });
 
 export const metadata: Metadata = {
-  title: "ATLAS - Kurumsal Bilgi Platformu",
+  title: "Atlas - Kurumsal Bilgi Platformu",
   description: "Mika'nın gelişmiş bilgi platformu",
   icons: {
     icon: "/favicon-32x32.png",
@@ -37,9 +32,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="tr" className={figtree.variable} suppressHydrationWarning>
+    <html lang="tr" className={outfit.variable} suppressHydrationWarning>
       <body
-        className={`${figtree.variable} ${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
+        className={`${outfit.variable} ${geistMono.variable} font-sans antialiased`}
         suppressHydrationWarning
       >
         <QueryProvider>
