@@ -8,7 +8,9 @@ import { Toaster } from "@/components/ui/sonner";
 
 const figtree = Figtree({
   subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-sans",
+  display: "swap",
 });
 
 const geistSans = Geist({
