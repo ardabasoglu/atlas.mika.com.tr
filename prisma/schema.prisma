@@ -239,12 +239,14 @@ model Lead {
    convertedByUserId String?   @map("converted_by_user_id")
 
   duplicateOfLeadId String? @map("duplicate_of_lead_id")
+  personId         String?  @map("person_id")
 
   lifecycle    Lifecycle?   @relation(fields: [lifecycleId], references: [id])
   source       LeadSource?  @relation(fields: [sourceId], references: [id])
-  person       Person?
+  person       Person?      @relation("LeadPerson", fields: [personId], references: [id])
   duplicateOf  Lead?        @relation("LeadDuplicates", fields: [duplicateOfLeadId], references: [id])
   duplicates   Lead[]       @relation("LeadDuplicates")
+  personAsOrigin Person?    @relation("PersonOriginLead")
 
   @@index([email])
   @@index([phone])
@@ -262,7 +264,8 @@ model Person {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
-  lead   Lead?   @relation(fields: [leadId], references: [id])
+  lead   Lead?   @relation("PersonOriginLead", fields: [leadId], references: [id])
+  leads  Lead[]  @relation("LeadPerson")
   deals  Deal[]
   units  Unit[]
 

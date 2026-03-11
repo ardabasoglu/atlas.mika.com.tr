@@ -79,7 +79,10 @@ export function mapPrismaLead(
     updatedAt: lead.updatedAt.toISOString(),
 
     archivedAt: lead.archivedAt?.toISOString(),
-    personId: lead.person?.id ?? undefined,
+    personId:
+      (lead as PrismaLead & { personId?: string | null }).personId ??
+      lead.person?.id ??
+      undefined,
     duplicateOfLeadId: lead.duplicateOfLeadId ?? undefined,
 
     sourceType: lead.sourceType ?? undefined,

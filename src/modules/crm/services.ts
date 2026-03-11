@@ -281,6 +281,49 @@ async function findCanonicalDuplicateLeadId(
   return candidates[0]?.id ?? null;
 }
 
+/**
+ * Resolves the Person to attach to a new lead: reuse canonical lead's person,
+ * or find by email/phone, or create. Returns personId and whether we created the person.
+ */
+async function findOrCreatePersonForLead(
+  name: string,
+  email: string,
+  phone: string | null,
+  notes: string | null,
+  canonicalLeadId: string | null,
+): Promise<{ personId: string; personCreated: boolean }> {
+  if (canonicalLeadId) {
+    const canonicalLead = await prisma.lead.findUnique({
+      where: { id: canonicalLeadId },
+      select: { personId: true },
+    });
+    if (canonicalLead?.personId) {
+      return { personId: canonicalLead.personId, personCreated: false };
+    }
+  }
+
+  const normalizedEmail = normalizeEmail(email);
+  const existingPerson = await prisma.person.findFirst({
+    where: {
+      OR: [
+        { email: { equals: normalizedEmail, mode: "insensitive" } },
+        ...(phone ? [{ phone }] : []),
+      ],
+    },
+    orderBy: { createdAt: "asc" },
+    select: { id: true },
+  });
+  if (existingPerson) {
+    return { personId: existingPerson.id, personCreated: false };
+  }
+
+  const newPerson = await prisma.person.create({
+    data: { name, email, phone: phone ?? undefined, notes: notes ?? undefined },
+    select: { id: true },
+  });
+  return { personId: newPerson.id, personCreated: true };
+}
+
 export async function createLead(
   payload: Parameters<typeof createLeadPayloadSchema.parse>[0],
 ): Promise<Lead> {
@@ -295,11 +338,19 @@ export async function createLead(
     validatedPayload.phone,
   );
 
+  const { personId, personCreated } = await findOrCreatePersonForLead(
+    validatedPayload.name,
+    validatedPayload.email,
+    validatedPayload.phone ?? null,
+    validatedPayload.notes ?? null,
+    canonicalLeadId,
+  );
+
   const lead = await prisma.lead.create({
     data: {
       name: validatedPayload.name,
       email: validatedPayload.email,
-      phone: validatedPayload.phone,
+      phone: validatedPayload.phone ?? undefined,
       sourceId: validatedPayload.sourceId ?? undefined,
       status: validatedPayload.status,
       lifecycleId: validatedPayload.lifecycleId ?? undefined,
@@ -318,8 +369,16 @@ export async function createLead(
       consentMarketingSource: validatedPayload.consentMarketingSource,
 
       duplicateOfLeadId: canonicalLeadId ?? undefined,
+      personId,
     },
   });
+
+  if (personCreated) {
+    await prisma.person.update({
+      where: { id: personId },
+      data: { leadId: lead.id },
+    });
+  }
 
   if (canonicalLeadId) {
     await prisma.timelineEvent.create({
@@ -333,7 +392,7 @@ export async function createLead(
     });
   }
 
-  return mapPrismaLead(lead);
+  return mapPrismaLead({ ...lead, person: { id: personId } });
 }
 
 export async function getLeadById(id: string): Promise<Lead | undefined> {
@@ -610,7 +669,37 @@ export async function convertLead(
       return { personId: lead.person.id, dealId: undefined as string | undefined };
     }
 
-    // If already converted but personId was not set previously, try to repair the linkage.
+    // Lead already has a person (created with lead). Just mark converted and optionally create deal.
+    if (lead.person) {
+      const personIdToUse = lead.person.id;
+      let dealId: string | undefined;
+      if (validatedOptions?.createDeal) {
+        const defaultLifecycleId =
+          process.env.DEFAULT_DEAL_LIFECYCLE_ID ??
+          (await tx.lifecycle.findFirst({ orderBy: { order: "asc" } }))?.id ??
+          null;
+        const deal = await tx.deal.create({
+          data: {
+            title: lead.notes ? `Fırsat - ${lead.notes}` : "Yeni fırsat",
+            value: 0,
+            stage: "inquiry",
+            lifecycleId: defaultLifecycleId,
+            personId: personIdToUse,
+          },
+        });
+        dealId = deal.id;
+      }
+      await tx.lead.update({
+        where: { id: lead.id },
+        data: {
+          status: "converted",
+          convertedAt: lead.convertedAt ?? new Date(),
+        },
+      });
+      return { personId: personIdToUse, dealId };
+    }
+
+    // Legacy path: lead has no person yet. If already converted but personId was not set, try to repair.
     if (lead.status === "converted" && !lead.person) {
       const personFromLead = await tx.person.findFirst({
         where: { leadId: lead.id },
@@ -620,7 +709,7 @@ export async function convertLead(
         await tx.lead.update({
           where: { id: lead.id },
           data: {
-            person: { connect: { id: personFromLead.id } },
+            personId: personFromLead.id,
             convertedAt: lead.convertedAt ?? new Date(),
           },
         });
@@ -699,7 +788,7 @@ export async function convertLead(
       where: { id: leadIdResult.data },
       data: {
         status: "converted",
-        person: { connect: { id: personIdToUse } },
+        personId: personIdToUse,
         convertedAt: lead.convertedAt ?? new Date(),
       },
     });
