@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { IconDotsVertical } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -39,6 +39,7 @@ export function EntityActionMenu({
   onDelete,
   className,
 }: EntityActionMenuProps) {
+  const router = useRouter();
   const defaultActions: ActionMenuItem[] = [];
 
   if (onView) {
@@ -71,44 +72,44 @@ export function EntityActionMenu({
   const menuItems = actions.length > 0 ? actions : defaultActions;
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="text-muted-foreground data-[state=open]:bg-muted flex size-8"
-        >
-          <IconDotsVertical />
-          <span className="sr-only">Menüyü aç</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className={className}>
-        {menuItems.map((item, index) => {
-          if (item.href) {
+    <div onClick={(event) => event.stopPropagation()}>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-muted-foreground data-[state=open]:bg-muted flex size-8"
+          >
+            <IconDotsVertical />
+            <span className="sr-only">Menüyü aç</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className={className}>
+          {menuItems.map((item, index) => {
+            const handleSelect = item.href
+              ? () => router.push(item.href!)
+              : item.onClick;
+
             return (
-              <DropdownMenuItem key={index} asChild>
-                <Link href={item.href}>{item.label}</Link>
+              <DropdownMenuItem
+                key={index}
+                onSelect={() => {
+                  handleSelect?.();
+                }}
+                disabled={item.disabled}
+                className={
+                  item.variant === "destructive"
+                    ? "text-destructive focus:text-destructive"
+                    : undefined
+                }
+              >
+                {item.icon && <span className="mr-2">{item.icon}</span>}
+                {item.label}
               </DropdownMenuItem>
             );
-          }
-
-          return (
-            <DropdownMenuItem
-              key={index}
-              onClick={item.onClick}
-              disabled={item.disabled}
-              className={
-                item.variant === "destructive"
-                  ? "text-destructive focus:text-destructive"
-                  : undefined
-              }
-            >
-              {item.icon && <span className="mr-2">{item.icon}</span>}
-              {item.label}
-            </DropdownMenuItem>
-          );
-        })}
-      </DropdownMenuContent>
-    </DropdownMenu>
+          })}
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </div>
   );
 }
