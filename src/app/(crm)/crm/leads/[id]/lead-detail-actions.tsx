@@ -5,31 +5,33 @@ import { Button } from "@/components/ui/button";
 import { archiveLeadAction } from "@/modules/crm/server-actions";
 import { useState } from "react";
 import Link from "next/link";
+import { toast } from "sonner";
+import { toastConfirm } from "@/components/ui/toast-confirm";
 
 interface LeadDetailActionsProps {
   leadId: string;
-  status: "new" | "contacted" | "qualified" | "lost" | "converted";
+  isConvertedToPerson: boolean;
   archivedAt?: string;
 }
 
 export function LeadDetailActions({
   leadId,
-  status,
+  isConvertedToPerson,
   archivedAt,
 }: LeadDetailActionsProps) {
   const router = useRouter();
   const [isArchiving, setIsArchiving] = useState(false);
 
-  const isConverted = status === "converted";
   const isArchived = Boolean(archivedAt);
-  const canArchive = !isConverted && !isArchived;
+  const canArchive = !isConvertedToPerson && !isArchived;
 
   const handleArchive = async () => {
     if (!canArchive) return;
-    const confirmed = window.confirm(
+    const isConfirmed = await toastConfirm(
       "Bu adayı arşivlemek istediğinize emin misiniz? Arşivlenen aday listelerde gösterilmeyecektir.",
+      { confirmLabel: "Arşivle", confirmVariant: "destructive" },
     );
-    if (!confirmed) return;
+    if (!isConfirmed) return;
 
     setIsArchiving(true);
     try {
@@ -38,7 +40,7 @@ export function LeadDetailActions({
         router.push("/crm/leads");
         router.refresh();
       } else if (result.message) {
-        window.alert(result.message);
+        toast.error(result.message);
       }
     } finally {
       setIsArchiving(false);
