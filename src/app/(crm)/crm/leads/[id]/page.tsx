@@ -11,6 +11,7 @@ import {
   getDuplicatesOfLead,
 } from "@/modules/crm/services";
 import Link from "next/link";
+import { User, Info } from "lucide-react";
 import { LeadDetailActions } from "./lead-detail-actions";
 
 interface LeadDetailPageProps {
@@ -70,7 +71,10 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Kişi bilgileri</CardTitle>
+            <div className="flex items-center gap-2">
+              <User className="h-5 w-5 text-primary" />
+              <CardTitle className="text-lg">Kişi bilgileri</CardTitle>
+            </div>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
@@ -106,7 +110,10 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
 
         <Card>
           <CardHeader>
-            <CardTitle>Durum ve kaynak</CardTitle>
+            <div className="flex items-center gap-2">
+              <Info className="h-5 w-5 text-primary" />
+              <CardTitle className="text-lg">Durum ve kaynak</CardTitle>
+            </div>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
