@@ -57,6 +57,9 @@ export const leadSchema = z.object({
 
   consentMarketing: z.boolean().optional(),
   consentMarketingSource: z.string().optional(),
+
+  convertedAt: z.string().optional(),
+  convertedByUserId: z.string().optional(),
 });
 
 export const personSchema = z.object({

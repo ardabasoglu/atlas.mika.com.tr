@@ -592,22 +592,90 @@ export async function convertLead(
   }
   const validatedOptions = optionsResult.data;
 
-  const lead = await prisma.lead.findUnique({ where: { id: leadIdResult.data } });
-  if (!lead) throw new Error("Aday bulunamadı.");
-  if (lead.status === "converted" || lead.status === "lost") {
-    throw new Error(`Aday dönüştürülemez: durumu ${lead.status}`);
-  }
-
   const result = await prisma.$transaction(async (tx) => {
-    const person = await tx.person.create({
-      data: {
-        leadId: lead.id,
-        name: lead.name,
-        email: lead.email,
-        phone: lead.phone,
-        notes: lead.notes,
-      },
+    const lead = await tx.lead.findUnique({
+      where: { id: leadIdResult.data },
+      include: { person: { select: { id: true } } },
     });
+    if (!lead) {
+      throw new Error("Aday bulunamadı.");
+    }
+
+    if (lead.status === "lost") {
+      throw new Error(`Aday dönüştürülemez: durumu ${lead.status}`);
+    }
+
+    // If already converted and linked to a person, behave idempotently.
+    if (lead.status === "converted" && lead.person) {
+      return { personId: lead.person.id, dealId: undefined as string | undefined };
+    }
+
+    // If already converted but personId was not set previously, try to repair the linkage.
+    if (lead.status === "converted" && !lead.person) {
+      const personFromLead = await tx.person.findFirst({
+        where: { leadId: lead.id },
+        select: { id: true },
+      });
+      if (personFromLead) {
+        await tx.lead.update({
+          where: { id: lead.id },
+          data: {
+            person: { connect: { id: personFromLead.id } },
+            convertedAt: lead.convertedAt ?? new Date(),
+          },
+        });
+        return { personId: personFromLead.id, dealId: undefined as string | undefined };
+      }
+    }
+
+    // Handle duplicates: if this lead is marked as a duplicate and the canonical lead
+    // is already converted, reuse its person.
+    let personIdToUse: string | undefined;
+    if (lead.duplicateOfLeadId) {
+      const canonicalLead = await tx.lead.findUnique({
+        where: { id: lead.duplicateOfLeadId },
+        include: { person: { select: { id: true } } },
+      });
+      if (canonicalLead?.status === "converted" && canonicalLead.person) {
+        personIdToUse = canonicalLead.person.id;
+      } else if (canonicalLead) {
+        throw new Error("Bu aday yinelenen bir kayıttır. Lütfen önce asıl adayı dönüştürün.");
+      }
+    }
+
+    // If we do not yet have a person to use, try to find an existing one by email/phone.
+    if (!personIdToUse) {
+      const normalizedEmail = normalizeEmail(lead.email);
+      const existingPerson = await tx.person.findFirst({
+        where: {
+          OR: [
+            { email: { equals: normalizedEmail, mode: "insensitive" } },
+            ...(lead.phone ? [{ phone: lead.phone }] : []),
+          ],
+        },
+        orderBy: { createdAt: "asc" },
+        select: { id: true },
+      });
+
+      if (existingPerson) {
+        personIdToUse = existingPerson.id;
+      }
+    }
+
+    // If still no person is chosen, create a new one originating from this lead.
+    if (!personIdToUse) {
+      const createdPerson = await tx.person.create({
+        data: {
+          leadId: lead.id,
+          name: lead.name,
+          email: lead.email,
+          phone: lead.phone,
+          notes: lead.notes,
+        },
+        select: { id: true },
+      });
+      personIdToUse = createdPerson.id;
+    }
 
     let dealId: string | undefined;
     if (validatedOptions?.createDeal) {
@@ -621,7 +689,7 @@ export async function convertLead(
           value: 0,
           stage: "inquiry",
           lifecycleId: defaultLifecycleId,
-          personId: person.id,
+          personId: personIdToUse,
         },
       });
       dealId = deal.id;
@@ -629,10 +697,14 @@ export async function convertLead(
 
     await tx.lead.update({
       where: { id: leadIdResult.data },
-      data: { status: "converted" },
+      data: {
+        status: "converted",
+        person: { connect: { id: personIdToUse } },
+        convertedAt: lead.convertedAt ?? new Date(),
+      },
     });
 
-    return { personId: person.id, dealId };
+    return { personId: personIdToUse, dealId };
   });
 
   return result;

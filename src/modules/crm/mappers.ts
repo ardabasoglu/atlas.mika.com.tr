@@ -93,6 +93,9 @@ export function mapPrismaLead(
 
     consentMarketing: lead.consentMarketing ?? undefined,
     consentMarketingSource: lead.consentMarketingSource ?? undefined,
+
+    convertedAt: lead.convertedAt?.toISOString(),
+    convertedByUserId: lead.convertedByUserId ?? undefined,
   };
 }
 
