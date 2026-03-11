@@ -83,7 +83,7 @@ function mapPrismaDeal(d: PrismaDeal & { paymentPlan?: PrismaPaymentPlan | null 
   };
 }
 
-function mapPrismaLead(l: PrismaLead): Lead {
+function mapPrismaLead(l: PrismaLead & { person?: { id: string } | null }): Lead {
   return {
     id: l.id,
     name: l.name,
@@ -97,6 +97,7 @@ function mapPrismaLead(l: PrismaLead): Lead {
     updatedAt: l.updatedAt.toISOString(),
 
     archivedAt: l.archivedAt?.toISOString(),
+    personId: l.person?.id ?? undefined,
 
     sourceType: l.sourceType ?? undefined,
     sourcePlatform: l.sourcePlatform ?? undefined,
@@ -361,6 +362,7 @@ export async function getTimelineEvents(): Promise<TimelineEvent[]> {
 export async function getLeads(): Promise<Lead[]> {
   const leads = await prisma.lead.findMany({
     where: { archivedAt: null },
+    include: { person: { select: { id: true } } },
     orderBy: { createdAt: "desc" },
   });
   return leads.map(mapPrismaLead);
@@ -405,6 +407,7 @@ export async function createLead(
 export async function getLeadById(id: string): Promise<Lead | undefined> {
   const lead = await prisma.lead.findUnique({
     where: { id },
+    include: { person: { select: { id: true } } },
   });
   return lead ? mapPrismaLead(lead) : undefined;
 }
@@ -508,7 +511,7 @@ export async function archiveLead(leadId: string): Promise<void> {
     where: { id: leadIdResult.data },
   });
   if (!lead) {
-    throw new Error("Lead not found");
+    throw new Error("Aday bulunamadı.");
   }
   if (lead.status === "converted") {
     throw new Error("Dönüştürülmüş adaylar arşivlenemez.");
@@ -648,9 +651,9 @@ export async function convertLead(
   const validatedOptions = optionsResult.data;
 
   const lead = await prisma.lead.findUnique({ where: { id: leadIdResult.data } });
-  if (!lead) throw new Error("Lead not found");
+  if (!lead) throw new Error("Aday bulunamadı.");
   if (lead.status === "converted" || lead.status === "lost") {
-    throw new Error(`Lead cannot be converted: status is ${lead.status}`);
+    throw new Error(`Aday dönüştürülemez: durumu ${lead.status}`);
   }
 
   const result = await prisma.$transaction(async (tx) => {

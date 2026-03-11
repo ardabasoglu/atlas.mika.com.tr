@@ -43,6 +43,7 @@ export const leadSchema = z.object({
   updatedAt: z.string(),
 
   archivedAt: z.string().optional(),
+  personId: z.string().optional(),
 
   sourceType: leadSourceTypeEnum.optional(),
   sourcePlatform: leadSourcePlatformEnum.optional(),

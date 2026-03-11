@@ -46,7 +46,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
           <ConvertLeadButton lead={lead} />
           <LeadDetailActions
             leadId={lead.id}
-            status={lead.status}
+            isConvertedToPerson={lead.status === "converted" && Boolean(lead.personId)}
             archivedAt={lead.archivedAt}
           />
         </div>

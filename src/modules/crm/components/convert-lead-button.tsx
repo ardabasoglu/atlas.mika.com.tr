@@ -28,8 +28,8 @@ export function ConvertLeadButton({ lead }: ConvertLeadButtonProps) {
   const [open, setOpen] = useState(false);
   const [createDeal, setCreateDeal] = useState(false);
 
-  const canConvert =
-    lead.status !== "converted" && lead.status !== "lost";
+  const hasPersonForLead = Boolean(lead.personId);
+  const canConvert = lead.status !== "lost" && !(lead.status === "converted" && hasPersonForLead);
 
   function handleConvert() {
     convertLead.mutate(
