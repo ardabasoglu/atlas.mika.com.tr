@@ -94,7 +94,7 @@ export default async function UnitDetailPage({ params }: UnitDetailPageProps) {
                     Oluşturulma
                   </dt>
                   <dd>
-                    {new Date(unit.createdAt).toLocaleDateString()}
+                    {new Date(unit.createdAt).toLocaleDateString("tr-TR")}
                   </dd>
                 </div>
               </dl>

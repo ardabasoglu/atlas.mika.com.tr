@@ -48,11 +48,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
               <Calendar className="h-4 w-4 shrink-0" />
               <span>
                 {project.startDate
-                  ? new Date(project.startDate).toLocaleDateString()
+                  ? new Date(project.startDate).toLocaleDateString("tr-TR")
                   : "-"}{" "}
                 –{" "}
                 {project.endDate
-                  ? new Date(project.endDate).toLocaleDateString()
+                  ? new Date(project.endDate).toLocaleDateString("tr-TR")
                   : "-"}
               </span>
             </div>

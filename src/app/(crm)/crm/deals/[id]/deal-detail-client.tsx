@@ -121,7 +121,7 @@ export function DealDetailClient({ dealId }: DealDetailClientProps) {
                         <dd>
                           {new Date(
                             deal.expectedCloseDate
-                          ).toLocaleDateString()}
+                          ).toLocaleDateString("tr-TR")}
                         </dd>
                       </div>
                     )}

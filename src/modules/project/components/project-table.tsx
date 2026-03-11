@@ -42,8 +42,8 @@ const columns: ColumnDef<Project>[] = [
       projectStatusLabels[row.original.status] ?? row.original.status,
   },
   createTextColumn<Project>("address", "Adres", { placeholder: "-" }),
-  createDateColumn<Project>("startDate", "Başlangıç", { placeholder: "-" }),
-  createDateColumn<Project>("createdAt", "Oluşturulma"),
+  createDateColumn<Project>("startDate", "Başlangıç", { placeholder: "-", locale: "tr-TR" }),
+  createDateColumn<Project>("createdAt", "Oluşturulma", { locale: "tr-TR" }),
   createActionsColumn<Project>("/project/projects"),
 ];
 

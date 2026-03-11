@@ -61,7 +61,7 @@ export default async function PersonDetailPage({
                         Oluşturulma
                       </h4>
                       <p>
-                        {new Date(person.createdAt).toLocaleDateString()}
+                        {new Date(person.createdAt).toLocaleDateString("tr-TR")}
                       </p>
                     </div>
 
@@ -148,7 +148,7 @@ export default async function PersonDetailPage({
                                 <p className="text-xs text-muted-foreground">
                                   {new Date(
                                     deal.expectedCloseDate,
-                                  ).toLocaleDateString()}
+                                  ).toLocaleDateString("tr-TR")}
                                 </p>
                               )}
                             </div>
@@ -189,7 +189,7 @@ export default async function PersonDetailPage({
                               <Calendar className="h-3 w-3 mr-1" />
                               {new Date(
                                 event.createdAt,
-                              ).toLocaleDateString()}
+                              ).toLocaleDateString("tr-TR")}
                             </div>
                           </div>
                         </div>

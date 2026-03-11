@@ -623,8 +623,8 @@ function LeadForm({ mode, lifecycles, leadSources, initialLead, leadId }: LeadFo
               {isSubmitting
                 ? "Kaydediliyor…"
                 : mode === "create"
-                  ? "Adayı kaydet"
-                  : "Değişiklikleri kaydet"}
+                  ? "Oluştur"
+                  : "Güncelle"}
             </Button>
             <Button
               type="button"

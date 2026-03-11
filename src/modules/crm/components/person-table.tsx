@@ -19,7 +19,7 @@ const columns: ColumnDef<Person>[] = [
   createTextColumn<Person>("name", "Ad", { cellClassName: "font-medium" }),
   createTextColumn<Person>("email", "E-posta"),
   createTextColumn<Person>("phone", "Telefon", { placeholder: "-" }),
-  createDateColumn<Person>("createdAt", "Oluşturulma"),
+  createDateColumn<Person>("createdAt", "Oluşturulma", { locale: "tr-TR" }),
   createActionsColumn<Person>("/crm/persons"),
 ];
 

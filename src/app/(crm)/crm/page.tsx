@@ -155,7 +155,7 @@ export default async function CRMDashboardPage() {
                     {event.title ?? event.description ?? "-"}
                   </div>
                   <div className="text-xs text-muted-foreground mt-1">
-                    {new Date(event.createdAt).toLocaleDateString()}
+                    {new Date(event.createdAt).toLocaleDateString("tr-TR")}
                   </div>
                 </div>
               ))}

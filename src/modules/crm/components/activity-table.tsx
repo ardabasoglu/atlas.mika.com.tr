@@ -53,7 +53,7 @@ const columns: ColumnDef<TimelineEvent>[] = [
     accessorKey: "createdAt",
     header: "Tarih",
     cell: ({ row }) =>
-      new Date(row.original.createdAt).toLocaleDateString(),
+      new Date(row.original.createdAt).toLocaleDateString("tr-TR"),
   },
   {
     id: "related",

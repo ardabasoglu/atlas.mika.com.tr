@@ -54,7 +54,7 @@ function buildColumns(lifecycles: Lifecycle[] | undefined): ColumnDef<Deal>[] {
       row.original.expectedCloseDate
         ? new Date(
             row.original.expectedCloseDate,
-          ).toLocaleDateString()
+          ).toLocaleDateString("tr-TR")
         : "-",
   },
   {
