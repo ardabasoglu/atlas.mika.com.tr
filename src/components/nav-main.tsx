@@ -26,7 +26,7 @@ const chevronClassName =
 function NavMenuItems({
   items,
 }: {
-  items: { title: string; url: string; icon?: Icon }[];
+  items: { title: string; url: string; icon?: Icon; iconClassName?: string }[];
 }) {
   return (
     <SidebarMenu>
@@ -34,7 +34,9 @@ function NavMenuItems({
         <SidebarMenuItem key={item.title}>
           <SidebarMenuButton asChild tooltip={item.title}>
             <a href={item.url}>
-              {item.icon && <item.icon />}
+              {item.icon && (
+                <item.icon className={item.iconClassName ?? "text-sidebar-foreground"} />
+              )}
               <span>{item.title}</span>
             </a>
           </SidebarMenuButton>
@@ -53,6 +55,7 @@ export function NavMain({
     title: string;
     url: string;
     icon?: Icon;
+    iconClassName?: string;
   }[];
   groupLabel?: string;
   defaultOpen?: boolean;

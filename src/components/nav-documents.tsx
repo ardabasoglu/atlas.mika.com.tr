@@ -32,6 +32,7 @@ export function NavDocuments({
     name: string
     url: string
     icon: Icon
+    iconClassName?: string
   }[]
 }) {
   const { isMobile } = useSidebar()
@@ -44,7 +45,7 @@ export function NavDocuments({
           <SidebarMenuItem key={item.name}>
             <SidebarMenuButton asChild>
               <a href={item.url}>
-                <item.icon />
+                <item.icon className={item.iconClassName ?? "text-sidebar-foreground"} />
                 <span>{item.name}</span>
               </a>
             </SidebarMenuButton>
