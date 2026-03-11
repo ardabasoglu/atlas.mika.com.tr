@@ -199,6 +199,14 @@ export const updateLeadPayloadSchema = z
   })
   .strict();
 
+const phoneRequired = z
+  .string()
+  .min(1, "Telefon numarası zorunludur")
+  .regex(
+    /^\+[1-9]\d{1,14}$/,
+    "Geçerli bir uluslararası telefon numarası girin (örn. +905551112233)",
+  );
+
 export const createLeadPayloadSchema = z
   .object({
     name: z.string().min(1, "Ad Soyad zorunludur"),
@@ -206,13 +214,7 @@ export const createLeadPayloadSchema = z
       .string()
       .min(1, "E-posta zorunludur")
       .email("Geçerli bir e-posta adresi girin"),
-    phone: z
-      .string()
-      .regex(
-        /^\+[1-9]\d{1,14}$/,
-        "Geçerli bir uluslararası telefon numarası girin (örn. +905551112233)",
-      )
-      .optional(),
+    phone: phoneRequired,
     sourceId: z.string().nullable().optional(),
     status: leadStatusEnum.default("new"),
     lifecycleId: z.string().nullable().optional(),
@@ -234,19 +236,12 @@ export const createLeadPayloadSchema = z
 
 export const updateLeadDetailsPayloadSchema = z
   .object({
-    name: z.string().min(1, "Ad Soyad zorunludur").optional(),
+    name: z.string().min(1, "Ad Soyad zorunludur"),
     email: z
       .string()
       .min(1, "E-posta zorunludur")
-      .email("Geçerli bir e-posta adresi girin")
-      .optional(),
-    phone: z
-      .string()
-      .regex(
-        /^\+[1-9]\d{1,14}$/,
-        "Geçerli bir uluslararası telefon numarası girin (örn. +905551112233)",
-      )
-      .optional(),
+      .email("Geçerli bir e-posta adresi girin"),
+    phone: phoneRequired,
     sourceId: z.string().nullable().optional(),
     status: leadStatusEnum.optional(),
     lifecycleId: z.string().nullable().optional(),

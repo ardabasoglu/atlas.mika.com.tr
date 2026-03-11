@@ -178,7 +178,7 @@ function LeadForm({ mode, lifecycles, leadSources, initialLead, leadId }: LeadFo
       const payload: z.input<typeof createLeadPayloadSchema> = {
         name: formState.name,
         email: formState.email,
-        phone: formState.phone || undefined,
+        phone: formState.phone,
         sourceId: formState.sourceId || null,
         status: formState.status,
         lifecycleId: formState.lifecycleId || null,
@@ -289,6 +289,7 @@ function LeadForm({ mode, lifecycles, leadSources, initialLead, leadId }: LeadFo
                 value={formState.name}
                 onChange={handleChange("name")}
                 placeholder="Ad Soyad"
+                required
               />
               {errors.name && (
                 <p className="text-xs text-destructive">{errors.name}</p>
@@ -303,6 +304,7 @@ function LeadForm({ mode, lifecycles, leadSources, initialLead, leadId }: LeadFo
                 value={formState.email}
                 onChange={handleChange("email")}
                 placeholder="ornek@firma.com"
+                required
               />
               {errors.email && (
                 <p className="text-xs text-destructive">{errors.email}</p>
@@ -316,6 +318,7 @@ function LeadForm({ mode, lifecycles, leadSources, initialLead, leadId }: LeadFo
                 value={formState.phone}
                 onChange={handleChange("phone")}
                 placeholder="+90 ..."
+                required
               />
               {errors.phone && (
                 <p className="text-xs text-destructive">{errors.phone}</p>
