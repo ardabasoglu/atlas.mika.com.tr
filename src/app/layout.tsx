@@ -19,7 +19,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Atlas - Kurumsal Bilgi Platformu",
+  title: "Atlas",
   description: "Mika'nın gelişmiş bilgi platformu",
   icons: {
     icon: "/favicon-32x32.png",
