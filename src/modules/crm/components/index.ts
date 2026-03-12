@@ -24,3 +24,4 @@ export { ConvertLeadButton } from "./convert-lead-button";
 export { PersonCard } from "./person-card";
 export { OverviewChart } from "./overview-chart";
 export { LeadCreateForm } from "./lead-create-form";
+export { PersonCreateForm } from "./person-create-form";

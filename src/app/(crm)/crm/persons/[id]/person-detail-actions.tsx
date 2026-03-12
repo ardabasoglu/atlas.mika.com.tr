@@ -1,36 +1,37 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { archivePersonAction, unarchivePersonAction } from "@/modules/crm/server-actions";
+import { useState } from "react";
+import Link from "next/link";
 import { toast } from "sonner";
-import type { Person } from "../types";
-import { EntityActionMenu, type ActionMenuItem } from "./common/entity-action-menu";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
-import {
-  archivePersonAction,
-  unarchivePersonAction,
-} from "../server-actions";
 
-interface PersonRowActionsProps {
-  person: Person;
+interface PersonDetailActionsProps {
+  personId: string;
+  archivedAt?: string;
 }
 
 const ARCHIVE_MESSAGE =
   "Bu kişiyi arşivlemek istediğinize emin misiniz? Arşivlenen kişi aktif listede gösterilmeyecektir.";
 
-export function PersonRowActions({ person }: PersonRowActionsProps) {
+export function PersonDetailActions({
+  personId,
+  archivedAt,
+}: PersonDetailActionsProps) {
   const router = useRouter();
   const [archiveDialogOpen, setArchiveDialogOpen] = useState(false);
-  const [unarchiveDialogOpen, setUnarchiveDialogOpen] = useState(false);
   const [isArchiving, setIsArchiving] = useState(false);
+  const [unarchiveDialogOpen, setUnarchiveDialogOpen] = useState(false);
   const [isUnarchiving, setIsUnarchiving] = useState(false);
 
-  const isArchived = Boolean(person.archivedAt);
+  const isArchived = Boolean(archivedAt);
 
   const handleArchiveConfirm = async () => {
     setIsArchiving(true);
     try {
-      const result = await archivePersonAction(person.id);
+      const result = await archivePersonAction(personId);
       if (result.success) {
         setArchiveDialogOpen(false);
         router.push("/crm/persons/archived");
@@ -46,7 +47,7 @@ export function PersonRowActions({ person }: PersonRowActionsProps) {
   const handleUnarchiveConfirm = async () => {
     setIsUnarchiving(true);
     try {
-      const result = await unarchivePersonAction(person.id);
+      const result = await unarchivePersonAction(personId);
       if (result.success) {
         setUnarchiveDialogOpen(false);
         router.push("/crm/persons");
@@ -59,40 +60,30 @@ export function PersonRowActions({ person }: PersonRowActionsProps) {
     }
   };
 
-  const actions: ActionMenuItem[] = [
-    {
-      label: "Görüntüle",
-      href: `/crm/persons/${person.id}`,
-    },
-    {
-      label: "Düzenle",
-      href: `/crm/persons/${person.id}/edit`,
-    },
-  ];
-
-  actions.push({ type: "separator" });
-  if (isArchived) {
-    actions.push({
-      label: "Arşivden çıkar",
-      onClick: () => setUnarchiveDialogOpen(true),
-      disabled: isUnarchiving,
-    });
-  } else {
-    actions.push({
-      label: "Arşivle",
-      variant: "destructive",
-      onClick: () => setArchiveDialogOpen(true),
-      disabled: isArchiving,
-    });
-  }
-
   return (
     <>
-      <EntityActionMenu
-        entityId={person.id}
-        basePath="/crm/persons"
-        actions={actions}
-      />
+      <div className="flex gap-2">
+        <Button variant="outline" asChild>
+          <Link href={`/crm/persons/${personId}/edit`}>Düzenle</Link>
+        </Button>
+        {isArchived ? (
+          <Button
+            variant="outline"
+            onClick={() => setUnarchiveDialogOpen(true)}
+            disabled={isUnarchiving}
+          >
+            {isUnarchiving ? "Arşivden çıkarılıyor…" : "Arşivden çıkar"}
+          </Button>
+        ) : (
+          <Button
+            variant="outline"
+            onClick={() => setArchiveDialogOpen(true)}
+            disabled={isArchiving}
+          >
+            {isArchiving ? "Arşivleniyor…" : "Arşivle"}
+          </Button>
+        )}
+      </div>
       <ConfirmDialog
         open={archiveDialogOpen}
         onOpenChange={setArchiveDialogOpen}
@@ -118,4 +109,3 @@ export function PersonRowActions({ person }: PersonRowActionsProps) {
     </>
   );
 }
-

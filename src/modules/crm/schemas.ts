@@ -69,6 +69,7 @@ export const personSchema = z.object({
   phone: z.string().optional(),
   email: emailLike,
   notes: z.string().optional(),
+  archivedAt: z.string().optional(),
   createdAt: z.string(),
   updatedAt: z.string(),
 });
@@ -262,6 +263,30 @@ export const updateLeadDetailsPayloadSchema = z
 
     consentMarketing: z.boolean().optional(),
     consentMarketingSource: z.string().optional(),
+  })
+  .strict();
+
+export const createPersonPayloadSchema = z
+  .object({
+    name: z.string().min(1, "Ad Soyad zorunludur"),
+    email: z
+      .string()
+      .min(1, "E-posta zorunludur")
+      .email("Geçerli bir e-posta adresi girin"),
+    phone: phoneRequired,
+    notes: z.string().optional(),
+  })
+  .strict();
+
+export const updatePersonDetailsPayloadSchema = z
+  .object({
+    name: z.string().min(1, "Ad Soyad zorunludur"),
+    email: z
+      .string()
+      .min(1, "E-posta zorunludur")
+      .email("Geçerli bir e-posta adresi girin"),
+    phone: phoneRequired,
+    notes: z.string().optional(),
   })
   .strict();
 

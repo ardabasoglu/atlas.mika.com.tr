@@ -3,27 +3,41 @@
 import { revalidatePath } from "next/cache";
 import {
   archiveLead,
+  archivePerson,
+  createPerson,
   createLead,
   createLeadSource,
   updateLeadDetails,
+  updatePersonDetails,
   updateLeadSource,
   deleteLeadSource,
   unarchiveLead,
+  unarchivePerson,
 } from "./services";
 import {
+  createPersonPayloadSchema,
   createLeadPayloadSchema,
   createLeadSourcePayloadSchema,
   updateLeadSourcePayloadSchema,
   updateLeadDetailsPayloadSchema,
+  updatePersonDetailsPayloadSchema,
 } from "./schemas";
 import type { z } from "zod";
 
 type CreateLeadActionInput = z.input<typeof createLeadPayloadSchema>;
+type CreatePersonActionInput = z.input<typeof createPersonPayloadSchema>;
 type CreateLeadSourceActionInput = z.input<typeof createLeadSourcePayloadSchema>;
 type UpdateLeadSourceActionInput = z.input<typeof updateLeadSourcePayloadSchema>;
 type UpdateLeadDetailsActionInput = z.input<typeof updateLeadDetailsPayloadSchema>;
+type UpdatePersonDetailsActionInput = z.input<typeof updatePersonDetailsPayloadSchema>;
 
 interface CreateLeadActionErrorFields {
+  name?: string;
+  email?: string;
+  phone?: string;
+}
+
+interface CreatePersonActionErrorFields {
   name?: string;
   email?: string;
   phone?: string;
@@ -36,7 +50,20 @@ interface CreateLeadActionResult {
   fieldErrors?: CreateLeadActionErrorFields;
 }
 
+interface CreatePersonActionResult {
+  success: boolean;
+  personId?: string;
+  message?: string;
+  fieldErrors?: CreatePersonActionErrorFields;
+}
+
 interface UpdateLeadDetailsActionErrorFields {
+  name?: string;
+  email?: string;
+  phone?: string;
+}
+
+interface UpdatePersonDetailsActionErrorFields {
   name?: string;
   email?: string;
   phone?: string;
@@ -46,6 +73,12 @@ interface UpdateLeadDetailsActionResult {
   success: boolean;
   message?: string;
   fieldErrors?: UpdateLeadDetailsActionErrorFields;
+}
+
+interface UpdatePersonDetailsActionResult {
+  success: boolean;
+  message?: string;
+  fieldErrors?: UpdatePersonDetailsActionErrorFields;
 }
 
 export async function createLeadAction(
@@ -93,6 +126,51 @@ export async function createLeadAction(
   }
 }
 
+export async function createPersonAction(
+  input: CreatePersonActionInput,
+): Promise<CreatePersonActionResult> {
+  const parseResult = createPersonPayloadSchema.safeParse(input);
+
+  if (!parseResult.success) {
+    const fieldErrors: CreatePersonActionErrorFields = {};
+
+    for (const issue of parseResult.error.issues) {
+      if (issue.path[0] === "name" && !fieldErrors.name) {
+        fieldErrors.name = issue.message;
+      }
+      if (issue.path[0] === "email" && !fieldErrors.email) {
+        fieldErrors.email = issue.message;
+      }
+      if (issue.path[0] === "phone" && !fieldErrors.phone) {
+        fieldErrors.phone = issue.message;
+      }
+    }
+
+    return {
+      success: false,
+      message: "Lütfen formdaki hataları düzeltin",
+      fieldErrors,
+    };
+  }
+
+  try {
+    const person = await createPerson(parseResult.data);
+
+    return {
+      success: true,
+      personId: person.id,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error instanceof Error
+          ? error.message
+          : "Kişi kaydedilirken beklenmeyen bir hata oluştu.",
+    };
+  }
+}
+
 export async function updateLeadDetailsAction(
   id: string,
   input: UpdateLeadDetailsActionInput,
@@ -135,6 +213,52 @@ export async function updateLeadDetailsAction(
         error instanceof Error
           ? error.message
           : "Lead güncellenirken beklenmeyen bir hata oluştu.",
+    };
+  }
+}
+
+export async function updatePersonDetailsAction(
+  id: string,
+  input: UpdatePersonDetailsActionInput,
+): Promise<UpdatePersonDetailsActionResult> {
+  const parseResult = updatePersonDetailsPayloadSchema.safeParse(input);
+
+  if (!parseResult.success) {
+    const fieldErrors: UpdatePersonDetailsActionErrorFields = {};
+
+    for (const issue of parseResult.error.issues) {
+      if (issue.path[0] === "name" && !fieldErrors.name) {
+        fieldErrors.name = issue.message;
+      }
+      if (issue.path[0] === "email" && !fieldErrors.email) {
+        fieldErrors.email = issue.message;
+      }
+      if (issue.path[0] === "phone" && !fieldErrors.phone) {
+        fieldErrors.phone = issue.message;
+      }
+    }
+
+    return {
+      success: false,
+      message: "Lütfen formdaki hataları düzeltin",
+      fieldErrors,
+    };
+  }
+
+  try {
+    await updatePersonDetails(id, parseResult.data);
+    revalidatePath("/crm/persons");
+    revalidatePath(`/crm/persons/${id}`);
+    return {
+      success: true,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error instanceof Error
+          ? error.message
+          : "Kişi güncellenirken beklenmeyen bir hata oluştu.",
     };
   }
 }
@@ -250,6 +374,45 @@ export async function unarchiveLeadAction(
         error instanceof Error
           ? error.message
           : "Aday arşivden çıkarılırken beklenmeyen bir hata oluştu.",
+    };
+  }
+}
+
+export async function archivePersonAction(
+  id: string,
+): Promise<{ success: boolean; message?: string }> {
+  try {
+    await archivePerson(id);
+    revalidatePath("/crm/persons");
+    revalidatePath(`/crm/persons/${id}`);
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error instanceof Error
+          ? error.message
+          : "Kişi arşivlenirken beklenmeyen bir hata oluştu.",
+    };
+  }
+}
+
+export async function unarchivePersonAction(
+  id: string,
+): Promise<{ success: boolean; message?: string }> {
+  try {
+    await unarchivePerson(id);
+    revalidatePath("/crm/persons");
+    revalidatePath("/crm/persons/archived");
+    revalidatePath(`/crm/persons/${id}`);
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error instanceof Error
+          ? error.message
+          : "Kişi arşivden çıkarılırken beklenmeyen bir hata oluştu.",
     };
   }
 }

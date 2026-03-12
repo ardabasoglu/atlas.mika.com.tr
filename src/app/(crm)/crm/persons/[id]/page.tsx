@@ -8,6 +8,7 @@ import { getPersonById, getDealsByPersonId, getTimelineEvents } from "@/modules/
 import { formatMoney } from "@/lib/currency";
 import { StatusBadge } from "@/modules/crm/components/common/status-badge";
 import { EVENT_TYPE_LABELS } from "@/modules/crm/constants";
+import { PersonDetailActions } from "./person-detail-actions";
 
 interface PersonDetailPageProps {
   params: Promise<{
@@ -35,7 +36,14 @@ export default async function PersonDetailPage({
   );
 
   return (
-    <CRMPageLayout>
+    <CRMPageLayout
+      actions={
+        <PersonDetailActions
+          personId={person.id}
+          archivedAt={person.archivedAt}
+        />
+      }
+    >
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-1">
           <PersonCard person={person} />

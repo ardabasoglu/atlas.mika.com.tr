@@ -19,6 +19,7 @@ describe("crm mappers", () => {
       email: "ada@example.com",
       phone: "123",
       notes: "note",
+      archivedAt: null,
       createdAt: now,
       updatedAt: now,
     };
@@ -32,6 +33,7 @@ describe("crm mappers", () => {
       email: "ada@example.com",
       phone: "123",
       notes: "note",
+      archivedAt: undefined,
       createdAt: now.toISOString(),
       updatedAt: now.toISOString(),
     });

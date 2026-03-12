@@ -25,6 +25,7 @@ export function mapPrismaPerson(p: PrismaPerson): Person {
     email: p.email,
     phone: p.phone ?? undefined,
     notes: p.notes ?? undefined,
+    archivedAt: p.archivedAt?.toISOString(),
     createdAt: p.createdAt.toISOString(),
     updatedAt: p.updatedAt.toISOString(),
   };

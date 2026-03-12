@@ -12,6 +12,8 @@ import {
   createLeadSourcePayloadSchema,
   updateLeadSourcePayloadSchema,
   updateLeadDetailsPayloadSchema,
+  createPersonPayloadSchema,
+  updatePersonDetailsPayloadSchema,
 } from "./schemas";
 import {
   Deal,
@@ -43,6 +45,15 @@ import {
 
 export async function getPersons(): Promise<Person[]> {
   const persons = await prisma.person.findMany({
+    where: { archivedAt: null },
+    orderBy: { createdAt: "desc" },
+  });
+  return persons.map(mapPrismaPerson);
+}
+
+export async function getArchivedPersons(): Promise<Person[]> {
+  const persons = await prisma.person.findMany({
+    where: { archivedAt: { not: null } },
     orderBy: { createdAt: "desc" },
   });
   return persons.map(mapPrismaPerson);
@@ -53,6 +64,102 @@ export async function getPersonById(id: string): Promise<Person | undefined> {
     where: { id },
   });
   return person ? mapPrismaPerson(person) : undefined;
+}
+
+export async function createPerson(
+  payload: Parameters<typeof createPersonPayloadSchema.parse>[0],
+): Promise<Person> {
+  const payloadResult = createPersonPayloadSchema.safeParse(payload);
+  if (!payloadResult.success) {
+    throw new Error(formatZodError(payloadResult.error));
+  }
+
+  const validatedPayload = payloadResult.data;
+  const normalizedEmail = normalizeEmail(validatedPayload.email);
+
+  const person = await prisma.person.create({
+    data: {
+      name: validatedPayload.name,
+      email: normalizedEmail,
+      phone: validatedPayload.phone,
+      notes: validatedPayload.notes,
+    },
+  });
+
+  return mapPrismaPerson(person);
+}
+
+export async function updatePersonDetails(
+  personId: string,
+  payload: Parameters<typeof updatePersonDetailsPayloadSchema.parse>[0],
+): Promise<Person | undefined> {
+  const personIdResult = idParamSchema.safeParse(personId);
+  if (!personIdResult.success) {
+    throw new Error(formatZodError(personIdResult.error));
+  }
+
+  const payloadResult = updatePersonDetailsPayloadSchema.safeParse(payload);
+  if (!payloadResult.success) {
+    throw new Error(formatZodError(payloadResult.error));
+  }
+
+  const validatedPayload = payloadResult.data;
+  const normalizedEmail = normalizeEmail(validatedPayload.email);
+
+  const person = await prisma.person.update({
+    where: { id: personIdResult.data },
+    data: {
+      name: validatedPayload.name,
+      email: normalizedEmail,
+      phone: validatedPayload.phone,
+      notes: validatedPayload.notes,
+    },
+  });
+
+  return mapPrismaPerson(person);
+}
+
+export async function archivePerson(personId: string): Promise<void> {
+  const personIdResult = idParamSchema.safeParse(personId);
+  if (!personIdResult.success) {
+    throw new Error(formatZodError(personIdResult.error));
+  }
+
+  const person = await prisma.person.findUnique({
+    where: { id: personIdResult.data },
+    select: { id: true, archivedAt: true },
+  });
+  if (!person) {
+    throw new Error("Kişi bulunamadı.");
+  }
+  if (person.archivedAt) {
+    return;
+  }
+
+  await prisma.person.update({
+    where: { id: personIdResult.data },
+    data: { archivedAt: new Date() },
+  });
+}
+
+export async function unarchivePerson(personId: string): Promise<void> {
+  const personIdResult = idParamSchema.safeParse(personId);
+  if (!personIdResult.success) {
+    throw new Error(formatZodError(personIdResult.error));
+  }
+
+  const person = await prisma.person.findUnique({
+    where: { id: personIdResult.data },
+    select: { id: true },
+  });
+  if (!person) {
+    throw new Error("Kişi bulunamadı.");
+  }
+
+  await prisma.person.update({
+    where: { id: personIdResult.data },
+    data: { archivedAt: null },
+  });
 }
 
 export async function getDeals(): Promise<Deal[]> {
