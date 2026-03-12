@@ -61,6 +61,12 @@ function buildCrmBreadcrumbItems(pathname: string): CrmBreadcrumbItem[] {
         }
       } else if (
         pathSegmentIndex === 2 &&
+        pathSegments[1] === "leads" &&
+        pathSegment === "archived"
+      ) {
+        label = "Arşivlenmiş adaylar";
+      } else if (
+        pathSegmentIndex === 2 &&
         (pathSegments[1] === "persons" ||
           pathSegments[1] === "leads" ||
           pathSegments[1] === "lifecycle" ||

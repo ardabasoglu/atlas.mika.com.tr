@@ -275,6 +275,15 @@ export async function getLeads(): Promise<Lead[]> {
   return leads.map(mapPrismaLead);
 }
 
+export async function getArchivedLeads(): Promise<Lead[]> {
+  const leads = await prisma.lead.findMany({
+    where: { archivedAt: { not: null } },
+    include: { person: { select: { id: true } } },
+    orderBy: { createdAt: "desc" },
+  });
+  return leads.map(mapPrismaLead);
+}
+
 function normalizeEmail(email: string): string {
   return email.trim().toLowerCase();
 }
@@ -578,6 +587,25 @@ export async function archiveLead(leadId: string): Promise<void> {
   await prisma.lead.update({
     where: { id: leadIdResult.data },
     data: { archivedAt: new Date() },
+  });
+}
+
+export async function unarchiveLead(leadId: string): Promise<void> {
+  const leadIdResult = idParamSchema.safeParse(leadId);
+  if (!leadIdResult.success) {
+    throw new Error(formatZodError(leadIdResult.error));
+  }
+
+  const lead = await prisma.lead.findUnique({
+    where: { id: leadIdResult.data },
+  });
+  if (!lead) {
+    throw new Error("Aday bulunamadı.");
+  }
+
+  await prisma.lead.update({
+    where: { id: leadIdResult.data },
+    data: { archivedAt: null },
   });
 }
 

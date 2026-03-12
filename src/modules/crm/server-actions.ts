@@ -8,6 +8,7 @@ import {
   updateLeadDetails,
   updateLeadSource,
   deleteLeadSource,
+  unarchiveLead,
 } from "./services";
 import {
   createLeadPayloadSchema,
@@ -229,6 +230,26 @@ export async function archiveLeadAction(
         error instanceof Error
           ? error.message
           : "Aday arşivlenirken beklenmeyen bir hata oluştu.",
+    };
+  }
+}
+
+export async function unarchiveLeadAction(
+  id: string,
+): Promise<{ success: boolean; message?: string }> {
+  try {
+    await unarchiveLead(id);
+    revalidatePath("/crm/leads");
+    revalidatePath("/crm/leads/archived");
+    revalidatePath(`/crm/leads/${id}`);
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error instanceof Error
+          ? error.message
+          : "Aday arşivden çıkarılırken beklenmeyen bir hata oluştu.",
     };
   }
 }
