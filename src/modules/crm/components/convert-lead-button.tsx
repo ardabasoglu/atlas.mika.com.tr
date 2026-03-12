@@ -30,6 +30,9 @@ export function ConvertLeadButton({ lead }: ConvertLeadButtonProps) {
 
   const hasPersonForLead = Boolean(lead.personId);
   const canConvert = lead.status !== "lost" && !(lead.status === "converted" && hasPersonForLead);
+  const sheetDescription = hasPersonForLead
+    ? "Bu aday zaten bir kişi (Person) ile ilişkilendirilmiş. İsterseniz bir fırsat (Deal) ekleyebilirsiniz."
+    : "Bu aday için kişi (Person) oluşturulacak. İsterseniz bir fırsat (Deal) da ekleyebilirsiniz.";
 
   function handleConvert() {
     convertLead.mutate(
@@ -58,10 +61,7 @@ export function ConvertLeadButton({ lead }: ConvertLeadButtonProps) {
       <SheetContent side="right" className="sm:max-w-md">
         <SheetHeader>
           <SheetTitle>Adayı dönüştür</SheetTitle>
-          <SheetDescription>
-            Bu aday için kişi (Person) oluşturulacak. İsterseniz bir fırsat
-            (Deal) da ekleyebilirsiniz.
-          </SheetDescription>
+          <SheetDescription>{sheetDescription}</SheetDescription>
         </SheetHeader>
         <div className="py-4 space-y-4">
           <div className="flex items-center space-x-2">
