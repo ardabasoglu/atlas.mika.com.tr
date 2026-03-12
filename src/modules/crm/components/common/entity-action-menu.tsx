@@ -8,17 +8,21 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export interface ActionMenuItem {
-  label: string;
-  href?: string;
-  onClick?: () => void;
-  variant?: "default" | "destructive";
-  icon?: React.ReactNode;
-  disabled?: boolean;
-}
+export type ActionMenuItem =
+  | {
+      type?: "item";
+      label: string;
+      href?: string;
+      onClick?: () => void;
+      variant?: "default" | "destructive";
+      icon?: React.ReactNode;
+      disabled?: boolean;
+    }
+  | { type: "separator" };
 
 interface EntityActionMenuProps {
   entityId: string;
@@ -86,6 +90,10 @@ export function EntityActionMenu({
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className={className}>
           {menuItems.map((item, index) => {
+            if (item.type === "separator") {
+              return <DropdownMenuSeparator key={index} />;
+            }
+
             const handleSelect = item.href
               ? () => router.push(item.href!)
               : item.onClick;

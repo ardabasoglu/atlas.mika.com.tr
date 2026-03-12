@@ -1,13 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import type { Lead } from "../types";
 import { EntityActionMenu, type ActionMenuItem } from "./common/entity-action-menu";
 import { archiveLeadAction } from "../server-actions";
-import { toastConfirm } from "@/components/ui/toast-confirm";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
+
+const ARCHIVE_MESSAGE =
+  "Bu adayı arşivlemek istediğinize emin misiniz? Arşivlenen aday listelerde gösterilmeyecektir.";
 
 interface LeadRowActionsProps {
   lead: Lead;
@@ -15,6 +17,7 @@ interface LeadRowActionsProps {
 
 export function LeadRowActions({ lead }: LeadRowActionsProps) {
   const router = useRouter();
+  const [archiveDialogOpen, setArchiveDialogOpen] = useState(false);
   const [isArchiving, setIsArchiving] = useState(false);
 
   const isConvertedToPerson = lead.status === "converted" && Boolean(lead.personId);
@@ -22,19 +25,12 @@ export function LeadRowActions({ lead }: LeadRowActionsProps) {
 
   const canArchive = !isConvertedToPerson && !isArchived;
 
-  const handleArchive = async () => {
-    if (!canArchive || isArchiving) return;
-
-    const isConfirmed = await toastConfirm(
-      "Bu adayı arşivlemek istediğinize emin misiniz? Arşivlenen aday listelerde gösterilmeyecektir.",
-      { confirmLabel: "Arşivle", confirmVariant: "destructive" },
-    );
-    if (!isConfirmed) return;
-
+  const handleArchiveConfirm = async () => {
     setIsArchiving(true);
     try {
       const result = await archiveLeadAction(lead.id);
       if (result.success) {
+        setArchiveDialogOpen(false);
         router.refresh();
       } else if (result.message) {
         toast.error(result.message);
@@ -56,20 +52,34 @@ export function LeadRowActions({ lead }: LeadRowActionsProps) {
   ];
 
   if (canArchive || isArchived) {
+    actions.push({ type: "separator" });
     actions.push({
       label: isArchived ? "Arşivlendi" : "Arşivle",
       variant: isArchived ? "default" : "destructive",
-      onClick: canArchive ? handleArchive : undefined,
+      onClick: canArchive ? () => setArchiveDialogOpen(true) : undefined,
       disabled: !canArchive || isArchiving,
     });
   }
 
   return (
-    <EntityActionMenu
-      entityId={lead.id}
-      basePath="/crm/leads"
-      actions={actions}
-    />
+    <>
+      <EntityActionMenu
+        entityId={lead.id}
+        basePath="/crm/leads"
+        actions={actions}
+      />
+      <ConfirmDialog
+        open={archiveDialogOpen}
+        onOpenChange={setArchiveDialogOpen}
+        title="Adayı arşivle"
+        description={ARCHIVE_MESSAGE}
+        confirmLabel="Arşivle"
+        cancelLabel="İptal"
+        confirmVariant="destructive"
+        onConfirm={handleArchiveConfirm}
+        isLoading={isArchiving}
+      />
+    </>
   );
 }
 
