@@ -11,6 +11,9 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest",
+    "db:seed": "prisma db seed",
+    "db:seed:required": "tsx ./prisma/seed.ts",
+    "db:seed:dummy": "tsx ./prisma/seed-dummy.ts",
     "db:reset:hard": "prisma migrate reset --force && prisma db seed",
     "db:reset:soft": "tsx ./prisma/db-soft-reset-and-seed.ts"
   },
