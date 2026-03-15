@@ -2,10 +2,10 @@ import { CRMPageLayout } from "@/modules/crm/components/crm-page-layout";
 import { PersonCard } from "@/modules/crm/components/person-card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { DollarSign, Calendar } from "lucide-react";
+import { Banknote, Calendar } from "lucide-react";
 import { notFound } from "next/navigation";
 import { getPersonById, getDealsByPersonId, getTimelineEvents } from "@/modules/crm/services";
-import { formatMoney } from "@/lib/currency";
+import { formatMoney, DEFAULT_CURRENCY_CODE } from "@/lib/currency";
 import { StatusBadge } from "@/modules/crm/components/common/status-badge";
 import { EVENT_TYPE_LABELS } from "@/modules/crm/constants";
 import { PersonDetailActions } from "./person-detail-actions";
@@ -109,7 +109,7 @@ export default async function PersonDetailPage({
                   <div className="grid grid-cols-2 gap-4">
                     <div className="text-center p-4 bg-muted rounded-lg">
                       <div className="flex items-center justify-center mx-auto">
-                        <DollarSign className="h-6 w-6 text-muted-foreground" />
+                        <Banknote className="h-6 w-6 text-muted-foreground" />
                       </div>
                       <p className="text-2xl font-bold">{deals.length}</p>
                       <p className="text-xs text-muted-foreground">
@@ -150,7 +150,7 @@ export default async function PersonDetailPage({
                             </div>
                             <div className="text-right">
                               <p className="font-medium">
-                                {formatMoney(deal.value, deal.currency)}
+                                {formatMoney(deal.value, DEFAULT_CURRENCY_CODE)}
                               </p>
                               {deal.expectedCloseDate && (
                                 <p className="text-xs text-muted-foreground">

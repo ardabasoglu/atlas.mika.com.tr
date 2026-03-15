@@ -41,7 +41,7 @@ function DetailRow({
   return (
     <div>
       <h4 className="text-sm font-medium text-muted-foreground">{label}</h4>
-      <p className="break-all">{value}</p>
+      <p className="break-all font-semibold">{value}</p>
     </div>
   );
 }
@@ -76,7 +76,7 @@ export function LeadCampaignDetailsCard({ lead }: LeadCampaignDetailsCardProps) 
               variant="ghost"
               className="flex w-full items-center justify-between p-0 hover:bg-transparent"
             >
-              <CardTitle className="text-base">Kampanya detayları</CardTitle>
+              <CardTitle className="text-lg">Kampanya detayları</CardTitle>
               {open ? (
                 <ChevronUp className="h-4 w-4" />
               ) : (
@@ -114,7 +114,7 @@ export function LeadCampaignDetailsCard({ lead }: LeadCampaignDetailsCardProps) 
                 <h4 className="text-sm font-medium text-muted-foreground">
                   Pazarlama izni
                 </h4>
-                <p>{lead.consentMarketing ? "Evet" : "Hayır"}</p>
+                <p className="font-semibold">{lead.consentMarketing ? "Evet" : "Hayır"}</p>
               </div>
             )}
             <DetailRow

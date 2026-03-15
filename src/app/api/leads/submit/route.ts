@@ -149,7 +149,7 @@ function mapSubmissionToCreateLeadPayload(
     phone: body.phone_normalized,
     status: "new",
     consentMarketing: body.consent_contact,
-    consentMarketingSource: "lp_form",
+    consentMarketingSource: "LP formu",
     consentInformative: body.consent_informative,
     utmSource: utm.utmSource,
     utmMedium: utm.utmMedium,
