@@ -20,7 +20,7 @@ export default async function PersonsPage() {
                 Kişi Ekle
               </Link>
             </Button>
-            <Button variant="outline" asChild>
+            <Button variant="ghost" asChild>
               <Link href="/crm/persons/archived">Arşivlenmiş kişiler</Link>
             </Button>
           </div>

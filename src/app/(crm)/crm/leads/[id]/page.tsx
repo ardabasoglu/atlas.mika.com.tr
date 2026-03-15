@@ -11,7 +11,6 @@ import {
   getDuplicatesOfLead,
 } from "@/modules/crm/services";
 import Link from "next/link";
-import { User, Info } from "lucide-react";
 import { LeadDetailActions } from "./lead-detail-actions";
 
 interface LeadDetailPageProps {
@@ -58,7 +57,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
       }
     >
       {canonicalLead && (
-        <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900 dark:border-amber-800 dark:bg-amber-950/40 dark:text-amber-200">
+        <div className="mb-4 rounded-lg border border-amber-500/40 bg-background/60 px-4 py-3 text-sm text-amber-900 dark:border-amber-500/40 dark:bg-background/80 dark:text-amber-200">
           Bu aday yinelenen bir kayıttır. Asıl aday:{" "}
           <Link
             href={`/crm/leads/${canonicalLead.id}`}
@@ -71,10 +70,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <div className="flex items-center gap-2">
-              <User className="h-5 w-5 text-primary" />
-              <CardTitle className="text-lg">Kişi bilgileri</CardTitle>
-            </div>
+            <CardTitle className="text-lg">Kişi bilgileri</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
@@ -110,10 +106,7 @@ export default async function LeadDetailPage({ params }: LeadDetailPageProps) {
 
         <Card>
           <CardHeader>
-            <div className="flex items-center gap-2">
-              <Info className="h-5 w-5 text-primary" />
-              <CardTitle className="text-lg">Durum ve kaynak</CardTitle>
-            </div>
+            <CardTitle className="text-lg">Durum ve kaynak</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>

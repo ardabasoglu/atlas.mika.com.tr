@@ -32,8 +32,13 @@ function buildColumns(
     createTextColumn<Lead>("name", "Ad Soyad", {
       cellClassName: "font-medium",
     }),
-    createTextColumn<Lead>("email", "E-posta"),
-    createTextColumn<Lead>("phone", "Telefon", { placeholder: "-" }),
+    createTextColumn<Lead>("email", "E-posta", {
+      cellClassName: "text-muted-foreground",
+    }),
+    createTextColumn<Lead>("phone", "Telefon", {
+      placeholder: "-",
+      cellClassName: "text-muted-foreground",
+    }),
     {
       accessorKey: "sourceId",
       header: "Kaynak",

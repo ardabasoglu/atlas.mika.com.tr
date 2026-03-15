@@ -17,8 +17,13 @@ interface PersonTableProps {
 
 const columns: ColumnDef<Person>[] = [
   createTextColumn<Person>("name", "Ad", { cellClassName: "font-medium" }),
-  createTextColumn<Person>("email", "E-posta"),
-  createTextColumn<Person>("phone", "Telefon", { placeholder: "-" }),
+  createTextColumn<Person>("email", "E-posta", {
+    cellClassName: "text-muted-foreground",
+  }),
+  createTextColumn<Person>("phone", "Telefon", {
+    placeholder: "-",
+    cellClassName: "text-muted-foreground",
+  }),
   createDateColumn<Person>("createdAt", "Oluşturulma", { locale: "tr-TR" }),
   {
     id: "actions",

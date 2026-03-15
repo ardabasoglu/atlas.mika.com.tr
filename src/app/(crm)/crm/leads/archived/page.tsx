@@ -18,11 +18,9 @@ export default async function ArchivedLeadsPage() {
         lifecycles={lifecycles}
         leadSources={leadSources}
         toolbar={
-          <div className="flex gap-2">
-            <Button variant="outline" asChild>
-              <Link href="/crm/leads">Aktif adaylar</Link>
-            </Button>
-          </div>
+          <Button variant="ghost" asChild>
+            <Link href="/crm/leads">Aktif adaylar</Link>
+          </Button>
         }
       />
     </CRMPageLayout>

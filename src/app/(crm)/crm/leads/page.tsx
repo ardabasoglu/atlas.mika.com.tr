@@ -11,7 +11,6 @@ export default async function LeadsPage() {
     getLifecycles(),
     getLeadSources(),
   ]);
-
   return (
     <CRMPageLayout>
       <LeadTable
@@ -26,7 +25,7 @@ export default async function LeadsPage() {
                 Aday Ekle
               </Link>
             </Button>
-            <Button variant="outline" asChild>
+            <Button variant="ghost" asChild>
               <Link href="/crm/leads/archived">Arşivlenmiş adaylar</Link>
             </Button>
           </div>

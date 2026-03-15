@@ -12,11 +12,9 @@ export default async function ArchivedPersonsPage() {
       <PersonTable
         persons={persons}
         toolbar={
-          <div className="flex gap-2">
-            <Button variant="outline" asChild>
-              <Link href="/crm/persons">Aktif kişiler</Link>
-            </Button>
-          </div>
+          <Button variant="ghost" asChild>
+            <Link href="/crm/persons">Aktif kişiler</Link>
+          </Button>
         }
       />
     </CRMPageLayout>
