@@ -595,39 +595,67 @@ function LeadForm({ mode, lifecycles, leadSources, initialLead, leadId }: LeadFo
                     />
                   </div>
                 </div>
-                <div className="flex flex-wrap items-center gap-4">
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="consentInformative"
-                      checked={formState.consentInformative}
-                      onCheckedChange={(checked) =>
-                        setCampaignField("consentInformative", checked === true)
-                      }
-                    />
-                    <Label htmlFor="consentInformative" className="font-normal">
-                      Aydınlatma metni onayı
-                    </Label>
+                <div className="space-y-4 border-t pt-4">
+                  <h4 className="text-sm font-medium text-muted-foreground">
+                    İzinler
+                  </h4>
+                  <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div className="flex items-start space-x-3 rounded-md border p-3">
+                      <Checkbox
+                        id="consentInformative"
+                        checked={formState.consentInformative}
+                        onCheckedChange={(checked) =>
+                          setCampaignField("consentInformative", checked === true)
+                        }
+                        className="mt-0.5"
+                      />
+                      <div className="grid gap-1.5 leading-none">
+                        <Label
+                          htmlFor="consentInformative"
+                          className="cursor-pointer font-normal"
+                        >
+                          Aydınlatma metni onayı
+                        </Label>
+                        <p className="text-xs text-muted-foreground">
+                          Aday aydınlatma metnini okudu ve onayladı
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-3 rounded-md border p-3">
+                      <Checkbox
+                        id="consentMarketing"
+                        checked={formState.consentMarketing}
+                        onCheckedChange={(checked) =>
+                          setCampaignField("consentMarketing", checked === true)
+                        }
+                        className="mt-0.5"
+                      />
+                      <div className="grid gap-1.5 leading-none">
+                        <Label
+                          htmlFor="consentMarketing"
+                          className="cursor-pointer font-normal"
+                        >
+                          Pazarlama izni
+                        </Label>
+                        <p className="text-xs text-muted-foreground">
+                          Pazarlama iletişimi için açık rıza verildi
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-2">
-                    <Checkbox
-                      id="consentMarketing"
-                      checked={formState.consentMarketing}
-                      onCheckedChange={(checked) =>
-                        setCampaignField("consentMarketing", checked === true)
-                      }
-                    />
-                    <Label htmlFor="consentMarketing" className="font-normal">
-                      Pazarlama izni
+                  <div className="space-y-2">
+                    <Label htmlFor="consentMarketingSource">
+                      İzin kaynağı (kanıt)
                     </Label>
-                  </div>
-                  <div className="flex-1 space-y-2 min-w-[200px]">
-                    <Label htmlFor="consentMarketingSource">İzin kaynağı</Label>
                     <Input
                       id="consentMarketingSource"
                       value={formState.consentMarketingSource}
                       onChange={handleChange("consentMarketingSource")}
-                      placeholder="Örn. Google lead formu"
+                      placeholder="Örn. Google lead formu, e-posta kaydı"
                     />
+                    <p className="text-xs text-muted-foreground">
+                      Pazarlama izninin alındığı kanal veya kaynak
+                    </p>
                   </div>
                 </div>
               </div>
