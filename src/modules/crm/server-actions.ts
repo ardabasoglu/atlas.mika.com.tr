@@ -11,6 +11,9 @@ import {
   updatePersonDetails,
   updateLeadSource,
   deleteLeadSource,
+  createLifecycle,
+  updateLifecycle,
+  deleteLifecycle,
   unarchiveLead,
   unarchivePerson,
 } from "./services";
@@ -19,6 +22,8 @@ import {
   createLeadPayloadSchema,
   createLeadSourcePayloadSchema,
   updateLeadSourcePayloadSchema,
+  createLifecyclePayloadSchema,
+  updateLifecyclePayloadSchema,
   updateLeadDetailsPayloadSchema,
   updatePersonDetailsPayloadSchema,
 } from "./schemas";
@@ -28,6 +33,8 @@ type CreateLeadActionInput = z.input<typeof createLeadPayloadSchema>;
 type CreatePersonActionInput = z.input<typeof createPersonPayloadSchema>;
 type CreateLeadSourceActionInput = z.input<typeof createLeadSourcePayloadSchema>;
 type UpdateLeadSourceActionInput = z.input<typeof updateLeadSourcePayloadSchema>;
+type CreateLifecycleActionInput = z.input<typeof createLifecyclePayloadSchema>;
+type UpdateLifecycleActionInput = z.input<typeof updateLifecyclePayloadSchema>;
 type UpdateLeadDetailsActionInput = z.input<typeof updateLeadDetailsPayloadSchema>;
 type UpdatePersonDetailsActionInput = z.input<typeof updatePersonDetailsPayloadSchema>;
 
@@ -335,6 +342,85 @@ export async function deleteLeadSourceAction(
         error instanceof Error
           ? error.message
           : "Kaynak silinirken beklenmeyen bir hata oluştu.",
+    };
+  }
+}
+
+export async function createLifecycleAction(
+  input: CreateLifecycleActionInput,
+): Promise<{ success: boolean; id?: string; message?: string }> {
+  const parseResult = createLifecyclePayloadSchema.safeParse(input);
+  if (!parseResult.success) {
+    return {
+      success: false,
+      message: "Geçersiz veri. Ad ve sıra zorunludur.",
+    };
+  }
+  try {
+    const lifecycle = await createLifecycle(parseResult.data);
+    revalidatePath("/crm/lifecycle");
+    revalidatePath("/crm/leads");
+    revalidatePath("/crm/leads/new");
+    revalidatePath("/crm/deals");
+    return { success: true, id: lifecycle.id };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error instanceof Error
+          ? error.message
+          : "Yaşam döngüsü eklenirken beklenmeyen bir hata oluştu.",
+    };
+  }
+}
+
+export async function updateLifecycleAction(
+  id: string,
+  input: UpdateLifecycleActionInput,
+): Promise<{ success: boolean; message?: string }> {
+  const parseResult = updateLifecyclePayloadSchema.safeParse(input);
+  if (!parseResult.success) {
+    return {
+      success: false,
+      message: "Geçersiz veri.",
+    };
+  }
+  try {
+    await updateLifecycle(id, parseResult.data);
+    revalidatePath("/crm/lifecycle");
+    revalidatePath("/crm/lifecycle/" + id);
+    revalidatePath("/crm/leads");
+    revalidatePath("/crm/leads/new");
+    revalidatePath("/crm/deals");
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error instanceof Error
+          ? error.message
+          : "Yaşam döngüsü güncellenirken beklenmeyen bir hata oluştu.",
+    };
+  }
+}
+
+export async function deleteLifecycleAction(
+  id: string,
+): Promise<{ success: boolean; message?: string }> {
+  try {
+    await deleteLifecycle(id);
+    revalidatePath("/crm/lifecycle");
+    revalidatePath("/crm/leads");
+    revalidatePath("/crm/leads/new");
+    revalidatePath("/crm/deals");
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error instanceof Error
+          ? error.message
+          : "Yaşam döngüsü silinirken beklenmeyen bir hata oluştu.",
     };
   }
 }

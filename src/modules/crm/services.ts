@@ -11,6 +11,8 @@ import {
   createLeadPayloadSchema,
   createLeadSourcePayloadSchema,
   updateLeadSourcePayloadSchema,
+  createLifecyclePayloadSchema,
+  updateLifecyclePayloadSchema,
   updateLeadDetailsPayloadSchema,
   createPersonPayloadSchema,
   updatePersonDetailsPayloadSchema,
@@ -773,6 +775,80 @@ export async function getLifecycleById(id: string): Promise<Lifecycle | undefine
     where: { id },
   });
   return lifecycle ? mapPrismaLifecycle(lifecycle) : undefined;
+}
+
+export async function createLifecycle(
+  payload: Parameters<typeof createLifecyclePayloadSchema.parse>[0],
+): Promise<Lifecycle> {
+  const payloadResult = createLifecyclePayloadSchema.safeParse(payload);
+  if (!payloadResult.success) {
+    throw new Error(formatZodError(payloadResult.error));
+  }
+  const validatedPayload = payloadResult.data;
+  const lifecycle = await prisma.lifecycle.create({
+    data: {
+      name: validatedPayload.name,
+      description: validatedPayload.description,
+      order: validatedPayload.order,
+      color: validatedPayload.color,
+    },
+  });
+  return mapPrismaLifecycle(lifecycle);
+}
+
+export async function updateLifecycle(
+  id: string,
+  payload: Parameters<typeof updateLifecyclePayloadSchema.parse>[0],
+): Promise<Lifecycle | undefined> {
+  const idResult = idParamSchema.safeParse(id);
+  if (!idResult.success) {
+    throw new Error(formatZodError(idResult.error));
+  }
+  const payloadResult = updateLifecyclePayloadSchema.safeParse(payload);
+  if (!payloadResult.success) {
+    throw new Error(formatZodError(payloadResult.error));
+  }
+  const validatedPayload = payloadResult.data;
+  const lifecycle = await prisma.lifecycle.update({
+    where: { id: idResult.data },
+    data: {
+      ...(validatedPayload.name !== undefined && { name: validatedPayload.name }),
+      ...(validatedPayload.description !== undefined && { description: validatedPayload.description }),
+      ...(validatedPayload.order !== undefined && { order: validatedPayload.order }),
+      ...(validatedPayload.color !== undefined && { color: validatedPayload.color }),
+    },
+  });
+  return mapPrismaLifecycle(lifecycle);
+}
+
+export async function deleteLifecycle(id: string): Promise<void> {
+  const idResult = idParamSchema.safeParse(id);
+  if (!idResult.success) {
+    throw new Error(formatZodError(idResult.error));
+  }
+  const lifecycleId = idResult.data;
+
+  const [leadsUsingLifecycle, dealsUsingLifecycle] = await Promise.all([
+    prisma.lead.count({ where: { lifecycleId } }),
+    prisma.deal.count({ where: { lifecycleId } }),
+  ]);
+
+  if (leadsUsingLifecycle > 0 || dealsUsingLifecycle > 0) {
+    const parts: string[] = [];
+    if (leadsUsingLifecycle > 0) {
+      parts.push(`${leadsUsingLifecycle} aday`);
+    }
+    if (dealsUsingLifecycle > 0) {
+      parts.push(`${dealsUsingLifecycle} fırsat`);
+    }
+    throw new Error(
+      `Bu yaşam döngüsü kullanımda olduğu için silinemez (${parts.join(", ")}). Önce ilgili kayıtların yaşam döngüsünü değiştirin veya kaldırın.`,
+    );
+  }
+
+  await prisma.lifecycle.delete({
+    where: { id: lifecycleId },
+  });
 }
 
 export async function getLeadSources(): Promise<LeadSource[]> {

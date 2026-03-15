@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { type ColumnDef } from "@tanstack/react-table";
 import { createSelectColumn } from "@/components/table-select-column";
 import { Lifecycle } from "../types";
@@ -61,10 +61,16 @@ const columns: ColumnDef<Lifecycle>[] = [
 ];
 
 export function LifecycleTable({ lifecycles, toolbar }: LifecycleTableProps) {
+  const router = useRouter();
   const { table } = useEntityTable({
     data: lifecycles,
     columns,
     getRowId: (row) => row.id,
+    meta: {
+      onRowClick: (lifecycle: Lifecycle) => {
+        router.push(`/crm/lifecycle/${lifecycle.id}`);
+      },
+    },
   });
 
   return (

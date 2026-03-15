@@ -2,6 +2,9 @@ import { CRMPageLayout } from "@/modules/crm/components/crm-page-layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { notFound } from "next/navigation";
 import { getLifecycleById } from "@/modules/crm/services";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { LifecycleDetailActions } from "./lifecycle-detail-actions";
 
 interface LifecycleDetailPageProps {
   params: Promise<{ id: string }>;
@@ -18,7 +21,16 @@ export default async function LifecycleDetailPage({
   }
 
   return (
-    <CRMPageLayout>
+    <CRMPageLayout
+      actions={
+        <div className="flex gap-2">
+          <Button variant="outline" asChild>
+            <Link href={`/crm/lifecycle/${id}/edit`}>Düzenle</Link>
+          </Button>
+          <LifecycleDetailActions lifecycleId={id} />
+        </div>
+      }
+    >
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>

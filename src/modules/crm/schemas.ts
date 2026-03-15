@@ -314,6 +314,24 @@ export const updateLeadSourcePayloadSchema = z
   })
   .strict();
 
+export const createLifecyclePayloadSchema = z
+  .object({
+    name: z.string().min(1, "Ad zorunludur"),
+    description: z.string().optional(),
+    order: z.number(),
+    color: z.string().optional(),
+  })
+  .strict();
+
+export const updateLifecyclePayloadSchema = z
+  .object({
+    name: z.string().min(1, "Ad zorunludur").optional(),
+    description: z.string().nullable().optional(),
+    order: z.number().optional(),
+    color: z.string().nullable().optional(),
+  })
+  .strict();
+
 export const convertLeadOptionsSchema = z
   .object({
     createDeal: z.boolean().optional(),
