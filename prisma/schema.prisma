@@ -231,9 +231,11 @@ model Lead {
 
   gclid  String? @map("gclid")
   fbclid String? @map("fbclid")
+  referrer String? @map("referrer")
 
   consentMarketing       Boolean? @map("consent_marketing")
   consentMarketingSource String?  @map("consent_marketing_source")
+  consentInformative     Boolean? @map("consent_informative")
 
    convertedAt       DateTime? @map("converted_at")
    convertedByUserId String?   @map("converted_by_user_id")

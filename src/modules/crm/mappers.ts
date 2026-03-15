@@ -94,9 +94,11 @@ export function mapPrismaLead(
 
     gclid: lead.gclid ?? undefined,
     fbclid: lead.fbclid ?? undefined,
+    referrer: lead.referrer ?? undefined,
 
     consentMarketing: lead.consentMarketing ?? undefined,
     consentMarketingSource: lead.consentMarketingSource ?? undefined,
+    consentInformative: lead.consentInformative ?? undefined,
 
     convertedAt: lead.convertedAt?.toISOString(),
     convertedByUserId: lead.convertedByUserId ?? undefined,

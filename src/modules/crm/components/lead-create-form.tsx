@@ -79,6 +79,7 @@ interface LeadFormState {
   fbclid: string;
   consentMarketing: boolean;
   consentMarketingSource: string;
+  consentInformative: boolean;
 }
 
 interface LeadFormErrors {
@@ -107,13 +108,14 @@ const initialFormState: LeadFormState = {
   fbclid: "",
   consentMarketing: false,
   consentMarketingSource: "",
+  consentInformative: false,
 };
 
 function LeadForm({ mode, lifecycles, leadSources, initialLead, leadId }: LeadFormProps) {
   const router = useRouter();
   const [formState, setFormState] = useState<LeadFormState>(() => {
     if (!initialLead) {
-      return initialFormState;
+      return { ...initialFormState, consentMarketingSource: "CRM" };
     }
     return {
       name: initialLead.name,
@@ -132,6 +134,7 @@ function LeadForm({ mode, lifecycles, leadSources, initialLead, leadId }: LeadFo
       fbclid: initialLead.fbclid ?? "",
       consentMarketing: initialLead.consentMarketing ?? false,
       consentMarketingSource: initialLead.consentMarketingSource ?? "",
+      consentInformative: initialLead.consentInformative ?? false,
     };
   });
   const [errors, setErrors] = useState<LeadFormErrors>({});
@@ -225,6 +228,7 @@ function LeadForm({ mode, lifecycles, leadSources, initialLead, leadId }: LeadFo
         consentMarketing: formState.consentMarketing || undefined,
         consentMarketingSource:
           formState.consentMarketingSource || undefined,
+        consentInformative: formState.consentInformative || undefined,
       };
       let generalError: string | undefined;
       if (mode === "create") {
@@ -592,6 +596,18 @@ function LeadForm({ mode, lifecycles, leadSources, initialLead, leadId }: LeadFo
                   </div>
                 </div>
                 <div className="flex flex-wrap items-center gap-4">
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="consentInformative"
+                      checked={formState.consentInformative}
+                      onCheckedChange={(checked) =>
+                        setCampaignField("consentInformative", checked === true)
+                      }
+                    />
+                    <Label htmlFor="consentInformative" className="font-normal">
+                      Aydınlatma metni onayı
+                    </Label>
+                  </div>
                   <div className="flex items-center space-x-2">
                     <Checkbox
                       id="consentMarketing"

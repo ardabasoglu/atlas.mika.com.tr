@@ -486,9 +486,13 @@ export async function createLead(
       name: validatedPayload.name,
       email: validatedPayload.email,
       phone: validatedPayload.phone ?? undefined,
-      sourceId: validatedPayload.sourceId ?? undefined,
+      ...(validatedPayload.sourceId != null && {
+        source: { connect: { id: validatedPayload.sourceId } },
+      }),
       status: validatedPayload.status,
-      lifecycleId: validatedPayload.lifecycleId ?? undefined,
+      ...(validatedPayload.lifecycleId != null && {
+        lifecycle: { connect: { id: validatedPayload.lifecycleId } },
+      }),
       notes: validatedPayload.notes,
 
       sourceType: validatedPayload.sourceType,
@@ -499,12 +503,16 @@ export async function createLead(
 
       gclid: validatedPayload.gclid,
       fbclid: validatedPayload.fbclid,
+      referrer: validatedPayload.referrer,
 
       consentMarketing: validatedPayload.consentMarketing,
       consentMarketingSource: validatedPayload.consentMarketingSource,
+      consentInformative: validatedPayload.consentInformative,
 
-      duplicateOfLeadId: canonicalLeadId ?? undefined,
-      personId,
+      ...(canonicalLeadId != null && {
+        duplicateOf: { connect: { id: canonicalLeadId } },
+      }),
+      person: { connect: { id: personId } },
     },
   });
 
@@ -538,6 +546,39 @@ export async function createLead(
   }
 
   return mapPrismaLead({ ...lead, person: { id: personId } });
+}
+
+/** Payload identity used to detect duplicate submissions (same person, same context). */
+type LeadPayloadIdentity = {
+  email: string;
+  phone: string | null | undefined;
+  name: string;
+  referrer: string | null | undefined;
+  consentMarketing: boolean | null | undefined;
+  consentInformative: boolean | null | undefined;
+};
+
+/**
+ * Returns the id of an existing lead that matches the given payload identity, if any.
+ * Used to avoid inserting identical submission payloads multiple times.
+ */
+export async function findExistingLeadMatchingPayload(
+  identity: LeadPayloadIdentity,
+): Promise<string | null> {
+  const lead = await prisma.lead.findFirst({
+    where: {
+      email: { equals: identity.email, mode: "insensitive" },
+      phone: identity.phone ?? null,
+      name: identity.name.trim(),
+      referrer: identity.referrer ?? null,
+      consentMarketing: identity.consentMarketing ?? null,
+      consentInformative: identity.consentInformative ?? null,
+      archivedAt: null,
+    },
+    orderBy: { createdAt: "desc" },
+    select: { id: true },
+  });
+  return lead?.id ?? null;
 }
 
 export async function getLeadById(id: string): Promise<Lead | undefined> {
@@ -642,12 +683,16 @@ export async function updateLeadDetails(
 
       ...(validatedPayload.gclid !== undefined && { gclid: validatedPayload.gclid }),
       ...(validatedPayload.fbclid !== undefined && { fbclid: validatedPayload.fbclid }),
+      ...(validatedPayload.referrer !== undefined && { referrer: validatedPayload.referrer }),
 
       ...(validatedPayload.consentMarketing !== undefined && {
         consentMarketing: validatedPayload.consentMarketing,
       }),
       ...(validatedPayload.consentMarketingSource !== undefined && {
         consentMarketingSource: validatedPayload.consentMarketingSource,
+      }),
+      ...(validatedPayload.consentInformative !== undefined && {
+        consentInformative: validatedPayload.consentInformative,
       }),
     },
   });
@@ -742,6 +787,19 @@ export async function getLeadSourceById(id: string): Promise<LeadSource | undefi
     where: { id },
   });
   return source ? mapPrismaLeadSource(source) : undefined;
+}
+
+/** Resolve lead source id for inferred platform (matches seed IDs: lead_source_google_ads_search, lead_source_meta_ads). Returns null if not found. */
+export async function getLeadSourceIdForPlatform(
+  platform: "google_ads" | "meta_ads",
+): Promise<string | null> {
+  const seedId =
+    platform === "google_ads" ? "lead_source_google_ads_search" : "lead_source_meta_ads";
+  const source = await prisma.leadSource.findUnique({
+    where: { id: seedId },
+    select: { id: true },
+  });
+  return source?.id ?? null;
 }
 
 export async function createLeadSource(

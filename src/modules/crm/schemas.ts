@@ -54,9 +54,11 @@ export const leadSchema = z.object({
 
   gclid: z.string().optional(),
   fbclid: z.string().optional(),
+  referrer: z.string().optional(),
 
   consentMarketing: z.boolean().optional(),
   consentMarketingSource: z.string().optional(),
+  consentInformative: z.boolean().optional(),
 
   convertedAt: z.string().optional(),
   convertedByUserId: z.string().optional(),
@@ -233,9 +235,11 @@ export const createLeadPayloadSchema = z
 
     gclid: z.string().optional(),
     fbclid: z.string().optional(),
+    referrer: z.string().optional(),
 
     consentMarketing: z.boolean().optional(),
     consentMarketingSource: z.string().optional(),
+    consentInformative: z.boolean().optional(),
   })
   .strict();
 
@@ -260,9 +264,11 @@ export const updateLeadDetailsPayloadSchema = z
 
     gclid: z.string().optional(),
     fbclid: z.string().optional(),
+    referrer: z.string().optional(),
 
     consentMarketing: z.boolean().optional(),
     consentMarketingSource: z.string().optional(),
+    consentInformative: z.boolean().optional(),
   })
   .strict();
 
@@ -314,6 +320,32 @@ export const convertLeadOptionsSchema = z
   })
   .strict()
   .optional();
+
+/** Incoming lead form submission payload (e.g. from LP webhook or API). */
+export const leadSubmissionPayloadSchema = z
+  .object({
+    first_name: z.string().min(1),
+    last_name: z.string().min(1),
+    email: z.string().min(1).email(),
+    phone: z.string().min(1),
+    phone_raw: z.string().min(1),
+    phone_normalized: z
+      .string()
+      .min(1)
+      .regex(
+        /^\+[1-9]\d{1,14}$/,
+        "phone_normalized must be E.164 (e.g. +905551112233)",
+      ),
+    consent_informative: z.boolean(),
+    consent_contact: z.boolean(),
+    submitted_at: z.string().datetime({ offset: true }),
+    ip: z.string(),
+    user_agent: z.string(),
+    referrer: z.string(),
+  })
+  .strict();
+
+export type LeadSubmissionPayload = z.infer<typeof leadSubmissionPayloadSchema>;
 
 export type Lead = z.infer<typeof leadSchema>;
 export type Person = z.infer<typeof personSchema>;

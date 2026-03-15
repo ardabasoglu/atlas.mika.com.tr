@@ -126,8 +126,10 @@ describe("crm mappers", () => {
       utmCampaign: null,
       gclid: null,
       fbclid: null,
+      referrer: null,
       consentMarketing: null,
       consentMarketingSource: null,
+      consentInformative: null,
     };
 
     const result = mapPrismaLead(prismaLead);
@@ -153,8 +155,10 @@ describe("crm mappers", () => {
       utmCampaign: undefined,
       gclid: undefined,
       fbclid: undefined,
+      referrer: undefined,
       consentMarketing: undefined,
       consentMarketingSource: undefined,
+      consentInformative: undefined,
     });
   });
 
